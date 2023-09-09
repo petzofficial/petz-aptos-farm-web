@@ -1,9 +1,15 @@
-import { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Logo from '../../../assets/logo.png';
 import headerRight from '../../../assets/header_right.png';
 import styled from 'styled-components/macro';
 import Link from 'next/link';
+import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
 import Image from 'next/image'
+import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { Network, Provider } from "aptos";
+
+export const provider = new Provider(Network.TESTNET);
 
 const HeaderDiv = styled.div`
   width: 100%;
@@ -92,6 +98,35 @@ const HeaderDiv = styled.div`
 
 
 const Header: FC = () => {
+
+  const { account, signAndSubmitTransaction } = useWallet();
+  const moduleAddress = "0x1";
+
+  useEffect(() => {
+    fetchList();
+  }, [account?.address]);
+
+  const fetchList = async () => {
+    if (!account) return [];
+    try {
+      const transactionResource = await provider.getAccountTransactions(
+        account?.address
+      );
+
+      const coinResource = await provider.getAccountResource(
+        account?.address,
+        `${moduleAddress}::coin::CoinStore<${moduleAddress}::aptos_coin::AptosCoin>`,
+      );
+
+      console.log(transactionResource)
+      console.log(coinResource)
+      
+    } catch (e: any) {
+     
+    }
+  };
+
+  
   return (
     <div>
       <HeaderDiv>
@@ -107,13 +142,14 @@ const Header: FC = () => {
             <div className="headerRight1">
               <ul>
                 <li>
-                  <Link href="/transactions">Transactions</Link>
+                  <Link href="/transactions">{account?.address} Transaction</Link>
                 </li>
               </ul>
             </div>
             <div className="headerRight">
-              <Image src={headerRight} alt="textRight" />
-              <p>0XC0AC...FAB5</p>
+              {/* <Image src={headerRight} alt="textRight" />
+              <p>0XC0AC...FAB5</p> */}
+              <WalletSelector />
             </div>
           </div>
         </div>
