@@ -69,43 +69,45 @@ function Design2BodySec2({ }: Props): ReactElement {
     <BodySec2>
       <div>
         <table>
-          <tr>
-            <th>Block:</th>
-            <td>639521878</td>
-          </tr>
-          <tr>
-            <th>Sequence Number:</th>
-            <td>30</td>
-          </tr>
-          <tr>
-            <th>Expiration Timestamp:</th>
-            <td>08/17/2023 16:52:16</td>
-          </tr>
-          <tr>
-            <th>Timestamp:</th>
-            <td>08/17/2023 16:52:16</td>
-          </tr>
-          <tr>
-            <th>Gas Fee:</th>
-            <td>
-              0.000124 APT <span>124 Gas Unit</span>
-            </td>
-          </tr>
-          <tr>
-            <th>Gas Unit Price:</th>
-            <td>.000001 APT</td>
-          </tr>
-          <tr>
-            <th>Max Gas Limit:</th>
-            <td>200.000 Gas Units</td>
-          </tr>
-          <tr>
-            <th>VN Status:</th>
-            <td>
-              Transistion Exceuted and Committed with Error
-              MODULE_ADDRESS_DOES_NOT_SENDER
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <th>Block:</th>
+              <td>639521878</td>
+            </tr>
+            <tr>
+              <th>Sequence Number:</th>
+              <td>30</td>
+            </tr>
+            <tr>
+              <th>Expiration Timestamp:</th>
+              <td>08/17/2023 16:52:16</td>
+            </tr>
+            <tr>
+              <th>Timestamp:</th>
+              <td>08/17/2023 16:52:16</td>
+            </tr>
+            <tr>
+              <th>Gas Fee:</th>
+              <td>
+                0.000124 APT <span>124 Gas Unit</span>
+              </td>
+            </tr>
+            <tr>
+              <th>Gas Unit Price:</th>
+              <td>.000001 APT</td>
+            </tr>
+            <tr>
+              <th>Max Gas Limit:</th>
+              <td>200.000 Gas Units</td>
+            </tr>
+            <tr>
+              <th>VN Status:</th>
+              <td>
+                Transistion Exceuted and Committed with Error
+                MODULE_ADDRESS_DOES_NOT_SENDER
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </BodySec2>

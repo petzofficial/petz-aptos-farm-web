@@ -1,13 +1,13 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 export default class MyDocument extends Document {
-  
+
   static async getInitialProps(ctx: any) {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
-    
+
     try {
       ctx.renderPage = () =>
         originalRenderPage({
@@ -32,13 +32,14 @@ export default class MyDocument extends Document {
 
   render() {
     let description = "description";
-   // let ogimage = "https://www.petz.money/og-image.png";
+    // let ogimage = "https://www.petz.money/og-image.png";
     let sitename = "PetZ Money";
     let title = "title";
+
     return (
       <Html>
         <Head>
-        <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" href="/favicon.ico" />
           <meta name="description" content={description} />
           <meta property="og:site_name" content={sitename} />
           <meta property="og:description" content={description} />
@@ -46,10 +47,11 @@ export default class MyDocument extends Document {
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={title} />
           <meta name="twitter:description" content={description} />
-        {/*   <meta property="og:image" content={ogimage} />
+          {/*   <meta property="og:image" content={ogimage} />
           <meta name="twitter:image" content={ogimage} /> */}
-          </Head>
+        </Head>
         <body>
+
           <Main />
           <NextScript />
         </body>

@@ -97,7 +97,7 @@ const Footer: React.FC<Props> = () => {
         <div className="wrapwidth">
           <div className="footer_left">
             <Link href="/">
-              <Image src={FooterLogo} alt="" style={{ width: 60, height: 60 }}/>
+              <Image src={FooterLogo} alt="" style={{ width: 60, height: 60 }} />
             </Link>
             <p>Copyright &copy; 2023 PetZ Money</p>
             {/* <div className="">
@@ -127,28 +127,28 @@ const Footer: React.FC<Props> = () => {
                 <Link href="/">
                   <Image src={Twitter} alt="asd" />
                 </Link>
-                <li>
-                  <Link href="/">
-                    <Image src={Telegram} alt="asd" />
-                  </Link>
-                </li>
+              </li>
+              <li>
+                <Link href="/">
+                  <Image src={Telegram} alt="asd" />
+                </Link>
+              </li>
 
-                <li>
-                  <Link href="/">
-                    <Image src={Github} alt="asd" />
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/">
-                    <Image src={Doc} alt="asd" />
-                  </Link>
-                </li>
+              <li>
+                <Link href="/">
+                  <Image src={Github} alt="asd" />
+                </Link>
+              </li>
+              <li>
+                <Link href="/">
+                  <Image src={Doc} alt="asd" />
+                </Link>
               </li>
             </ul>
           </div>
         </div>
-      </FooterDiv>
-    </div>
+      </FooterDiv >
+    </div >
   );
 };
 

@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components/macro'; // Import styled-components/macro once
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { useSelector, useDispatch } from 'react-redux'
+import type { RootState } from '../../../app/store';
 
 const BellowHeader1 = styled.div`
   width: 100%;
@@ -58,6 +60,8 @@ const BellowHeader1 = styled.div`
 interface Props { }
 
 const Design1BellowHeader: React.FC<Props> = () => {
+  // const count = useSelector((state: RootState) => state.counter.value)
+  // const dispatch = useDispatch()
   return (
     <div>
       <BellowHeader1>
@@ -65,8 +69,8 @@ const Design1BellowHeader: React.FC<Props> = () => {
           <div className="leftSec">
             <h1>Account</h1>
             <p>
-              0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5{' '}
-              <ContentCopyIcon /> {/* Render the icon as a component */}
+              0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5
+              <ContentCopyIcon />
             </p>
           </div>
           <div className="rightSec">

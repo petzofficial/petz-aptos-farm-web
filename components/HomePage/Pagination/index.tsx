@@ -12,7 +12,7 @@ const PaginationButtons: FC = () => {
   };
 
   return (
-    <Stack spacing={2} sx={{ alignItems: 'center', margin: '35px 0' }}>
+    <Stack spacing={2} sx={{ alignItems: 'center', margin: '50px 0 20px' }}>
       <Pagination {...paginationProps} />
     </Stack>
   );
