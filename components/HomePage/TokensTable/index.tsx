@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import MuiTable from "@mui/material/Table"; // Rename the imported Table
 import TableBody from "@mui/material/TableBody";
@@ -14,11 +14,9 @@ import SendToImg from "../../../assets/sendto.png";
 import TypeArrow from "../../../assets/arrowtype.png";
 import Link from "next/link";
 import Image from "next/image";
-import { useAppSelector } from "app/hooks";
-import { selectTransactions } from "app/reducers/AccountSlice";
+import { useAppDispatch, useAppSelector } from "app/hooks";
+import { fetchBalanceDetailsAction, fetchTokensAction, selectAccount, selectTokens } from "app/reducers/AccountSlice";
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { shortenString, formatTimestamp } from "reUseAbleFunctions/reuseAbleFunctions";
-
 
 // Define a styled component with a capitalized name
 // const TableDiv = styled.div`
@@ -26,10 +24,7 @@ const TableDiv = styled("div")`
   width: 100%;
   margin: 30px 0;
   padding: 0px 20px;
-  box-shadow: none;
-  
   table {
-    box-shadow: none;
     th {
       border-bottom: none;
       svg {
@@ -44,7 +39,7 @@ const TableDiv = styled("div")`
       }
       img {
         display: inline-block;
-        margin-right: 10px;
+        margin-right:petz-aptos-dapp-main/components/HomePage/CustomTable/index.tsx 10px;
         width: 40px;
         height: 40px;
         vertical-align: middle;
@@ -68,69 +63,68 @@ const TableDiv = styled("div")`
 `;
 
 
-const CustomTable: FC = () => {
-  const transactions = useAppSelector(selectTransactions)
+const TokensTable: FC = () => {
+
+
+  const dispatch = useAppDispatch();
+  const tokens = useAppSelector(selectTokens)
+  const account = useAppSelector(selectAccount)
+
+  useEffect(() => {
+    dispatch(fetchTokensAction(account?.address))
+  }, [dispatch, account])
+
 
   return (
     <div>
+      {/* Use the styled component as a React component */}
       <TableDiv>
         <TableContainer component={Paper} elevation={0}>
           <MuiTable sx={{ minWidth: 1200 }} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>
-                  <b>VERSION</b>
+                  <b>NAME</b>
                 </TableCell>
                 <TableCell>
-                  <b>TYPE</b>
+                  <b>COLLECTION</b>
                   <InfoOutlinedIcon />
                 </TableCell>
                 <TableCell>
-                  <b>TIMESTAMP</b>
+                  <b>STORE</b>
                 </TableCell>
                 <TableCell>
-                  <b>SENDER</b>
+                  <b>VERSION</b>
                 </TableCell>
                 <TableCell>
-                  <b>SENT TO</b>
-                </TableCell>
-                <TableCell>
-                  <b>FUNCTION</b>
+                  <b>AMOUNT</b>
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {transactions.map((transaction, index) => (
+              {/* {tableRows} */}
+
+              {tokens?.map((token, index) => (
                 <TableRow key={index}>
                   <TableCell style={{ color: "#6b28a9" }}>
-                    <Link href="/transactions">{transaction?.version}</Link>
+                    {token?.current_token_data?.token_name}
                   </TableCell>
+                  <TableCell>{token?.current_token_data?.current_collection?.collection_name
+                  }</TableCell>
                   <TableCell>
-                    <Image
-                      src={TypeArrow}
-                      alt="asd"
-                      style={{ width: "23px", objectFit: "contain" }}
-                    />
-                  </TableCell>
-                  <TableCell>{formatTimestamp(transaction?.timestamp)}</TableCell>
-                  <TableCell>
-                    <Image src={SenderImg} alt="" />
                     <span>
-                      {shortenString(transaction?.hash)} <ContentCopyIcon style={{ color: "#000", cursor: "pointer" }} onClick={() => {
-                        navigator.clipboard.writeText(transaction?.hash);
-                      }} />
+                      {token?.table_type_v1}
                     </span>
                   </TableCell>
                   <TableCell>
-                    <Image src={SendToImg} alt="" />
 
-                    <span>{shortenString(transaction?.payload?.function.split('::')[0])}  <ContentCopyIcon style={{ cursor: "pointer" }} onClick={() => {
-                      navigator.clipboard.writeText(transaction?.payload?.function);
-                    }} /></span>
+                    <span>{token?.property_version_v1}</span>
 
                   </TableCell>
                   <TableCell>
-                    <span style={{ color: "#000", cursor: "pointer" }}>{transaction?.payload?.function.split('::code::')[1]}</span>
+
+                    <span>{token?.amount}</span>
+
                   </TableCell>
                 </TableRow>
               ))}
@@ -142,5 +136,4 @@ const CustomTable: FC = () => {
     </div>
   );
 }
-
-export default CustomTable;
+export default TokensTable;

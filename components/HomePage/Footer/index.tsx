@@ -97,7 +97,7 @@ const Footer: React.FC<Props> = () => {
         <div className="wrapwidth">
           <div className="footer_left">
             <Link href="/">
-              <Image src={FooterLogo} alt="" style={{ width: 60, height: 60 }}/>
+              <Image src={FooterLogo} alt="" style={{ width: 60, height: 60 }} />
             </Link>
             <p>Copyright &copy; 2023 PetZ Money</p>
             {/* <div className="">
@@ -114,41 +114,35 @@ const Footer: React.FC<Props> = () => {
           <div className="footer_right">
             <ul>
               <li>
-                <Link href="/">
+                <Link href="https://twitter.com/PetzOfficial">
+                  <Image src={Twitter} alt="asd" />
+                </Link>
+              </li>
+              <li>
+                <Link href="https://www.linkedin.com/company/petz-money">
                   <Image src={Linkedin} alt="asd" />
                 </Link>
               </li>
               <li>
-                <Link href="/">
-                  <Image src={Reddit} alt="asd" />
+                <Link href="https://t.me/petz_money">
+                  <Image src={Telegram} alt="asd" />
                 </Link>
               </li>
               <li>
-                <Link href="/">
-                  <Image src={Twitter} alt="asd" />
+                <Link href="https://github.com/petzofficial">
+                  <Image src={Github} alt="asd" />
                 </Link>
-                <li>
-                  <Link href="/">
-                    <Image src={Telegram} alt="asd" />
-                  </Link>
-                </li>
-
-                <li>
-                  <Link href="/">
-                    <Image src={Github} alt="asd" />
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/">
-                    <Image src={Doc} alt="asd" />
-                  </Link>
-                </li>
+              </li>
+              <li>
+                <Link href="https://docs.petz.money/">
+                  <Image src={Doc} alt="asd" />
+                </Link>
               </li>
             </ul>
           </div>
         </div>
-      </FooterDiv>
-    </div>
+      </FooterDiv >
+    </div >
   );
 };
 

@@ -59,8 +59,8 @@ const Design2BellowHeader: React.FC<Props> = () => {
           <div className="leftSec">
             <h1>Transaction</h1>
             <p>
-              0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5{' '}
-              <ContentCopyIcon /> {/* Render the icon as a component */}
+              0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5
+              <ContentCopyIcon />
             </p>
           </div>
         </div>
