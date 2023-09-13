@@ -98,6 +98,7 @@ const Footer: React.FC<Props> = () => {
           <div className="footer_left">
             <Link href="/">
               <Image src={FooterLogo} alt="" style={{ width: 60, height: 60 }} />
+              <Image src={FooterLogo} alt="" style={{ width: 60, height: 60 }} />
             </Link>
             <p>Copyright &copy; 2023 PetZ Money</p>
             {/* <div className="">
@@ -141,6 +142,8 @@ const Footer: React.FC<Props> = () => {
             </ul>
           </div>
         </div>
+      </FooterDiv >
+    </div >
       </FooterDiv >
     </div >
   );
