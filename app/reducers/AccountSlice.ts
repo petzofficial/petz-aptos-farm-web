@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "app/store";
-import { HexString, Network, Provider } from "aptos";
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from 'app/store';
+import { HexString, Network, Provider } from 'aptos';
 import {
   CoinsTypes,
   // CurrentFungibleAssetBalance,
   // Data,
-} from "utils/types/coinsTypes";
+} from 'utils/types/coinsTypes';
 const provider = new Provider(Network.TESTNET);
 
 export interface AccountState {
@@ -26,7 +26,7 @@ const initialState: AccountState = {
 };
 
 export const accountSlice = createSlice({
-  name: "account",
+  name: 'account',
   initialState,
   reducers: {
     setTransactions: (state, action: PayloadAction<Array<any>>) => {
@@ -130,7 +130,7 @@ export const fetchBalanceDetailsAction =
     if (!address) {
       return;
     }
-    const moduleAddress = "0x1";
+    const moduleAddress = '0x1';
 
     const coinResource: any = await provider.getAccountResource(
       address,
