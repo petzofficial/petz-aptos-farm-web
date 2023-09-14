@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { styled } from "@mui/material/styles";
-import MuiTable from "@mui/material/Table"; // Rename the imported Table
+import MuiTable from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
@@ -14,21 +14,27 @@ import SendToImg from "../../../assets/sendto.png";
 import TypeArrow from "../../../assets/arrowtype.png";
 import Link from "next/link";
 import Image from "next/image";
+import { useAppSelector } from "app/hooks";
+import { selectTransactions } from "app/reducers/AccountSlice";
+import { shortenString, formatTimestamp } from "utils/reUseAbleFunctions/reuseAbleFunctions";
 
-// Define a styled component with a capitalized name
-// const TableDiv = styled.div`
 const TableDiv = styled("div")`
   width: 100%;
   margin: 30px 0;
   padding: 0px 20px;
+  box-shadow: none;
+  
   table {
+    box-shadow: none;
     th {
+      border-bottom: none;
       svg {
         font-size: 14px;
         margin-left: 10px;
       }
     }
     td {
+      border-bottom: none;
       a {
         text-decoration: none;
       }
@@ -57,48 +63,13 @@ const TableDiv = styled("div")`
   }
 `;
 
-
 const CustomTable: FC = () => {
-  const tableRows: any = [];
-
-  for (let i = 1; i <= 3; i++) {
-    tableRows.push(
-      <TableRow key={i}>
-        <TableCell style={{ color: "#6b28a9" }}>
-          <Link href="/transactions">539251878</Link>
-        </TableCell>
-        <TableCell>
-          <Image
-            src={TypeArrow}
-            alt="asd"
-            style={{ width: "23px", objectFit: "contain" }}
-          />
-        </TableCell>
-        <TableCell>08/17/2023 16:52:02</TableCell>
-        <TableCell>
-          <Image src={SenderImg} alt="" />
-          <span>
-            0xc0ac...fab5 <ContentCopyIcon />
-          </span>
-        </TableCell>
-        <TableCell>
-          <Image src={SendToImg} alt="" />
-          <span>
-            0x1 <ContentCopyIcon />
-          </span>
-        </TableCell>
-        <TableCell>
-          <span>code::publish package txn</span>
-        </TableCell>
-      </TableRow>
-    );
-  }
-
+  const transactions = useAppSelector(selectTransactions)
+  const sortedTransactions = [...transactions].sort((a, b) => b.timestamp - a.timestamp);
   return (
     <div>
-      {/* Use the styled component as a React component */}
       <TableDiv>
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} elevation={0}>
           <MuiTable sx={{ minWidth: 1200 }} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -124,31 +95,42 @@ const CustomTable: FC = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {/* <TableRow
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell>539251878</TableCell>
-                <TableCell>
-                  <Image src={TypeArrow} alt="asd" />
-                </TableCell>
-                <TableCell>08/17/2023 16:52:02</TableCell>
-                <TableCell>
-                  <Image src={SenderImg} alt="" />
-                  <span>
-                    0xc0ac...fab5 <ContentCopyIcon />
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <Image src={SendToImg} alt="" />
-                  <span>
-                    0x1 <ContentCopyIcon />
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <span>code::publish package txn</span>
-                </TableCell>
-              </TableRow> */}
-              {tableRows}
+              {sortedTransactions?.map((transaction, index) => (
+                <TableRow key={index}>
+                  <TableCell style={{ color: "#6b28a9" }}>
+                    <Link href="/transactions">{transaction?.version}</Link>
+                  </TableCell>
+                  <TableCell>
+                    <Image
+                      src={TypeArrow}
+                      alt="asd"
+                      style={{ width: "23px", objectFit: "contain" }}
+                    />
+                  </TableCell>
+                  <TableCell>{formatTimestamp(transaction?.timestamp)}</TableCell>
+                  <TableCell>
+                    <Image src={SenderImg} alt="" />
+                    <span>
+                      {shortenString(transaction?.hash)} <ContentCopyIcon style={{ color: "#000", cursor: "pointer" }} onClick={() => {
+                        navigator.clipboard.writeText(transaction?.hash);
+                      }} />
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <Image src={SendToImg} alt="" />
+
+                    <span>{shortenString(transaction?.payload?.function.split('::')[0])}  <ContentCopyIcon style={{ cursor: "pointer" }} onClick={() => {
+                      navigator.clipboard.writeText(transaction?.payload?.function);
+                    }} /></span>
+
+                  </TableCell>
+                  <TableCell>
+                    {transaction?.payload?.function.split('::code::')[1] ? (<span style={{ color: "#000", cursor: "pointer" }}>{transaction?.payload?.function.split('::code::')[1]}</span>) : (<span style={{ color: "#000", cursor: "pointer" }}>Script</span>)}
+
+                  </TableCell>
+                </TableRow>
+              ))}
+
             </TableBody>
           </MuiTable>
         </TableContainer>

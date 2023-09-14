@@ -73,56 +73,57 @@ const Design2BodySec1: FC = () => {
     <BodySec1>
       <div>
         <table>
-          <tr>
-            <th>Version:</th>
-            <td>639521878</td>
-          </tr>
-          <tr>
-            <th>Status:</th>
-            <td>
-              <p>
-                <InfoOutlinedIcon />
-                <span style={{ backgroundColor: "transparent" }}>Fail</span>
-              </p>
-            </td>
-          </tr>
-          <tr>
-            <th>Sender:</th>
-            <td>
-              <Image
-                src={SenderImg}
-                alt=""
-                style={{ width: "35px", objectFit: "contain" }}
-              />
-              <span>
-                0xc0ac...fab5 <ContentCopyIcon />
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <th>Smart Contract:</th>
-            <td>
-              {" "}
-              <Image
-                src={SendToImg}
-                alt=""
-                style={{ width: "35px", objectFit: "contain" }}
-              />
-              <span>
-                0x1 <ContentCopyIcon />
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <th>Function:</th>
-            <td>
-              <span>code::publish package txn</span>
-            </td>
-          </tr>
-          <tr>
-            <th>Amount:</th>
-            <td>0 APT</td>
-          </tr>
+          <tbody>
+            <tr>
+              <th>Version:</th>
+              <td>639521878</td>
+            </tr>
+            <tr>
+              <th>Status:</th>
+              <td>
+                <p>
+                  <InfoOutlinedIcon />
+                  <span style={{ backgroundColor: "transparent" }}>Fail</span>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <th>Sender:</th>
+              <td>
+                <Image
+                  src={SenderImg}
+                  alt=""
+                  style={{ width: "35px", objectFit: "contain" }}
+                />
+                <span>
+                  0xc0ac...fab5 <ContentCopyIcon />
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <th>Smart Contract:</th>
+              <td>
+                <Image
+                  src={SendToImg}
+                  alt=""
+                  style={{ width: "35px", objectFit: "contain" }}
+                />
+                <span>
+                  0x1 <ContentCopyIcon />
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <th>Function:</th>
+              <td>
+                <span>code::publish package txn</span>
+              </td>
+            </tr>
+            <tr>
+              <th>Amount:</th>
+              <td>0 APT</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </BodySec1>

@@ -1,8 +1,10 @@
-import React from 'react';
-import styled from 'styled-components/macro'; // Import styled-components/macro once
+import React, { useEffect } from 'react';
+import styled from 'styled-components/macro';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { fetchBalanceDetailsAction, selectAccount, selectBalanceDetails } from 'app/reducers/AccountSlice';
+import { convertToDecimal } from 'utils/reUseAbleFunctions/reuseAbleFunctions';
 const BellowHeader1 = styled.div`
   width: 100%;
   margin-top: 30px;
@@ -58,6 +60,15 @@ const BellowHeader1 = styled.div`
 interface Props { }
 
 const Design1BellowHeader: React.FC<Props> = () => {
+  const balance = useAppSelector(selectBalanceDetails) as any
+  const userAccount = useAppSelector(selectAccount) as any
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchBalanceDetailsAction(userAccount?.address))
+  }, [dispatch, userAccount])
+
+
+
   return (
     <div>
       <BellowHeader1>
@@ -65,12 +76,14 @@ const Design1BellowHeader: React.FC<Props> = () => {
           <div className="leftSec">
             <h1>Account</h1>
             <p>
-              0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5{' '}
-              <ContentCopyIcon /> {/* Render the icon as a component */}
+              {userAccount?.address}
+              <ContentCopyIcon style={{ cursor: "pointer" }} onClick={() => {
+                navigator.clipboard.writeText(userAccount?.address);
+              }} />
             </p>
           </div>
           <div className="rightSec">
-            <h3>2.900239 APT </h3>
+            {balance?.data ? (<h3>{convertToDecimal(balance?.data?.coin?.value)} APT</h3>) : ("")}
             <p>
               Balance <InfoOutlinedIcon />
             </p>

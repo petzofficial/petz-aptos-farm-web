@@ -66,7 +66,7 @@ const Design2BodySec3: FC = () => {
       <div>
         <table>
           <tbody>
-            {' '}
+
             <tr>
               <th>Signature: </th>
               <td>
@@ -90,7 +90,7 @@ const Design2BodySec3: FC = () => {
                   <AccordionDetails>
                     {Object.entries(data).map(([key, value], index) => (
                       <div key={index} style={{ lineHeight: '25px' }}>
-                        <b>{`${key}:`}</b> {`${value}`}{' '}
+                        <b>{`${key}:`}</b> {`${value}`}
                         {/* Render key-value pairs */}
                       </div>
                     ))}
@@ -111,8 +111,7 @@ const Design2BodySec3: FC = () => {
               </td>
             </tr>
             <tr>
-              <th>Accumulator Root Hash:</th>{' '}
-              {/* Typo corrected: "Accmulator" to "Accumulator" */}
+              <th>Accumulator Root Hash:</th>
               <td>
                 0xbb6d853d16d359ed75700a0cd208d6ebeb96935d05da4fdb97d36c55b15871d6
               </td>
