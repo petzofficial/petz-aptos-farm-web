@@ -1,9 +1,14 @@
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Typography from '@mui/material/Typography';
 import { useAppSelector } from 'app/hooks';
-import { selectSpecificTransaction } from 'app/reducers/AccountSlice';
+import { selectSpecificToken } from 'app/reducers/AccountSlice';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components/macro';
-import { convertToDecimal, formatTimestamp } from 'utils/reUseAbleFunctions/reuseAbleFunctions';
-
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { JsonViewer } from '@textea/json-viewer'
 
 const BodySec2 = styled.div`
 padding: 0px 20px;
@@ -24,8 +29,9 @@ padding: 0px 20px;
       padding-bottom: 15px;
       color: rgba(215,113,88,1);
       @media (max-width: 768px) {
-        width: 40%;
-        padding-right: 10px;
+        width: auto;
+        display: block;
+        padding-right: 0px;
       }
     }
     td {
@@ -34,8 +40,9 @@ padding: 0px 20px;
       padding-bottom: 15px;
       font-size: 14px;
       @media (max-width: 768px) {
-        width: 60%;
-        padding-left: 10px;
+        width: auto;
+        display: block;
+        padding-left: 0px;
       }
       p {
         background-color: rgba(58,52,51,0.12);
@@ -45,7 +52,6 @@ padding: 0px 20px;
         font-size: 14px;
         vertical-align: middle;
       }
-
       img {
         display: inline-block;
         margin-right: 10px;
@@ -62,51 +68,51 @@ padding: 0px 20px;
         font-size: 14px;
         vertical-align: middle;
       }
+      .data-key-pair{
+        background-color: #D3D3D3;
+        padding: 15px;
+        border-radius: 10px;
+        > .data-key {
+          svg + span.css-0{
+            display: none;
+          }
+        }
+        span{
+          background-color: transparent;
+        }
+      }
     }
   }
 `;
+interface Props { }
 
-function Design2BodySec2(): ReactElement {
-  const specificTransaction = useAppSelector(selectSpecificTransaction) as any
+function Design2BodySec2({ }: Props): ReactElement {
+  const specificToken = useAppSelector(selectSpecificToken) as any
+  const data = {
+    'given_to:Hash':
+      specificToken?.token_properties_mutated_v1?.given_to
+  };
   return (
     <BodySec2>
       <div>
         <table>
           <tbody>
             <tr>
-              <th>Block:</th>
-              <td style={{ backgroundColor: "red" }}>{specificTransaction?.version}</td>
+              <th>Property Version:</th>
+              <td>{specificToken?.property_version_v1}</td>
             </tr>
             <tr>
-              <th>Sequence Number:</th>
-              <td>{specificTransaction?.sequence_number}</td>
+              <th>Supply:</th>
+              <td>{specificToken?.current_token_data?.supply}</td>
             </tr>
             <tr>
-              <th>Expiration Timestamp:</th>
-              <td>{specificTransaction?.expiration_timestamp_secs ? formatTimestamp(specificTransaction.expiration_timestamp_secs) : ""}</td>
+              <th>Maximum:</th>
+              <td>{specificToken?.current_token_data?.maximum}</td>
             </tr>
             <tr>
-              <th>Timestamp:</th>
-              <td>{specificTransaction?.timestamp ? formatTimestamp(specificTransaction.timestamp) : ""}</td>
-            </tr>
-            <tr>
-              <th>Gas Fee:</th>
+              <th>Token Properties:</th>
               <td>
-                <span style={{ backgroundColor: "red" }}>{convertToDecimal(specificTransaction?.gas_used)}</span> APT <span>{specificTransaction?.gas_used} Gas Unit</span>
-              </td>
-            </tr>
-            <tr>
-              <th>Gas Unit Price:</th>
-              <td>{specificTransaction?.gas_unit_price} APT</td>
-            </tr>
-            <tr>
-              <th>Max Gas Limit:</th>
-              <td>{specificTransaction?.max_gas_amount} Gas Units</td>
-            </tr>
-            <tr>
-              <th>VM Status:</th>
-              <td>
-                {specificTransaction?.vm_status}
+                <JsonViewer value={data} />
               </td>
             </tr>
           </tbody>

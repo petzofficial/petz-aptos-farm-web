@@ -1,14 +1,13 @@
-import React, { FC, Fragment, useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import styled from "styled-components/macro";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import SenderImg from "../../../assets/sender.png";
 import SendToImg from "../../../assets/sendto.png";
 import Image from "next/image";
-import { useAppSelector } from "app/hooks";
-import { selectSpecificTransaction } from "app/reducers/AccountSlice";
+import { selectSpecificToken, fetchNftImgAction, selectSpecificTokenNftImg } from "app/reducers/AccountSlice";
+import { useAppSelector, useAppDispatch } from 'app/hooks';
 import { shortenString } from "utils/reUseAbleFunctions/reuseAbleFunctions";
-
 const BodySec1 = styled.div`
   padding: 0px 20px;
   div {
@@ -28,8 +27,8 @@ const BodySec1 = styled.div`
         padding-bottom: 15px;
         color: rgba(215,113,88,1);
         @media (max-width: 768px) {
-          width: 40%;
-          padding-right: 10px;
+          display: block;
+          width: auto;
         }
       }
       td {
@@ -38,8 +37,8 @@ const BodySec1 = styled.div`
         padding-bottom: 15px;
         font-size: 14px;
         @media (max-width: 768px) {
-          width: 60%;
-          padding-left: 10px;
+          display: block;
+          width: auto;
         }
         p {
           background-color: rgba(58,52,51,0.12);
@@ -72,63 +71,78 @@ const BodySec1 = styled.div`
 `;
 
 const Design2BodySec1: FC = () => {
-  const specificTransaction = useAppSelector(selectSpecificTransaction) as any
-  const specificTransactionFunction = specificTransaction?.payload?.function.match(/::.+$/)[0].substring(2);
+  const specificToken = useAppSelector(selectSpecificToken) as any
+  const dispatch = useAppDispatch()
+  // useEffect(() => {
+  // dispatch(fetchNftImgAction(specificToken?.current_token_data?.token_uri as string))
+  // dispatch(fetchNftImgAction("https://jsonplaceholder.typicode.com/users"))
+  // }, [])
+
   return (
     <BodySec1>
       <div>
         <table>
           <tbody>
             <tr>
-              <th>Version:</th>
-              <td>{specificTransaction?.version}</td>
+              <th>Token name:</th>
+              <td>{specificToken?.current_token_data?.token_name}</td>
             </tr>
             <tr>
-              <th>Status:</th>
-              <td>
-                <p>
-
-                  {specificTransaction?.success ? <Fragment><InfoOutlinedIcon /> <span style={{ backgroundColor: "transparent" }}>{specificTransaction?.success ? specificTransaction?.success === true && ("Success") : ("Un-successful")}</span> </Fragment> : "N/A"}
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <th>Sender:</th>
-              <td>
-                <Image
-                  src={SenderImg}
-                  alt=""
-                  style={{ width: "35px", objectFit: "contain" }}
-                />
-                <span>
-                  {shortenString(specificTransaction?.sender)} <ContentCopyIcon style={{ color: "#000", cursor: "pointer" }} onClick={() => {
-                    navigator.clipboard.writeText(specificTransaction?.sender);
-                  }} />
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <th>Smart Contract:</th>
+              <th>Owner:</th>
               <td>
                 <Image
                   src={SendToImg}
                   alt=""
                   style={{ width: "35px", objectFit: "contain" }}
                 />
-                <span>{shortenString(specificTransaction?.payload?.function.split('::')[0])}  <ContentCopyIcon style={{ cursor: "pointer" }} onClick={() => {
-                  navigator.clipboard.writeText(specificTransaction?.payload?.function.split('::')[0]);
-                }} /></span>
+                <p>
+                  <span style={{ backgroundColor: "transparent" }}>{shortenString(specificToken?.owner_address)}<ContentCopyIcon style={{ cursor: "pointer" }} onClick={() => {
+                    navigator.clipboard.writeText(specificToken?.owner_address);
+                  }} /></span>
+                </p>
               </td>
             </tr>
             <tr>
-              <th>Function:</th>
+              <th>Description:</th>
               <td>
-                {specificTransactionFunction ? (<span style={{ color: "#000", cursor: "pointer" }}>{specificTransactionFunction}</span>) : (<span style={{ color: "#000", cursor: "pointer" }}>Script</span>)}
+                <p>
+                  <span style={{ backgroundColor: "transparent" }}>{specificToken?.current_token_data?.description ? specificToken?.current_token_data?.description : "N/A"}</span>
+                </p>
               </td>
             </tr>
             <tr>
-              <th>Amount:</th>
-              <td>{specificTransaction?.max_gas_amount} APT</td>
+              <th>Collection Name:</th>
+              <td>
+                {/* <Image
+                  src={SenderImg}
+                  alt=""
+                  style={{ width: "35px", objectFit: "contain" }}
+                /> */}
+                <span>
+                  {specificToken?.current_token_data?.current_collection?.collection_name}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <th>Creator:</th>
+              <td>
+                <Image
+                  src={SendToImg}
+                  alt=""
+                  style={{ width: "35px", objectFit: "contain" }}
+                />
+                <span>
+                  {shortenString(specificToken?.current_token_data?.current_collection?.creator_address)} <ContentCopyIcon style={{ cursor: "pointer" }} onClick={() => {
+                    navigator.clipboard.writeText(specificToken?.current_token_data?.current_collection?.creator_address);
+                  }} />
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <th>Metadata:</th>
+              <td>
+                <span>{specificToken?.current_token_data?.current_collection?.uri}</span>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -138,3 +152,4 @@ const Design2BodySec1: FC = () => {
 }
 
 export default Design2BodySec1;
+

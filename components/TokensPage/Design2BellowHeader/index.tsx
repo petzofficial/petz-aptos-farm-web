@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { useAppSelector } from 'app/hooks';
-import { selectAccount, selectSpecificTransaction } from 'app/reducers/AccountSlice';
+import Image from 'next/image';
+import ImageNFT from "../../../assets/0.png"
 // Remove the duplicate import of styled from 'styled-components/macro';
 
 const HeaderDiv = styled.div`
@@ -13,7 +13,11 @@ const HeaderDiv = styled.div`
   .wrapwidth {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 10px 20px;
+    @media (max-width: 768px) {
+      display: block;
+    }
     .leftSec {
       position: relative;
       h1 {
@@ -32,6 +36,22 @@ const HeaderDiv = styled.div`
       background-color: #fff;
       padding: 10px 20px 10px 20px;
       width: 300px;
+      text-align: right;
+      @media (max-width: 768px) {
+        width: auto;
+        text-align: center;
+      }
+      .tokenImage{
+        max-width: 100%;
+        width: 150px;
+        height: auto;
+        text-align: right;
+        @media (max-width: 768px) {
+          display: inline-block;
+          align-items: center !important; 
+          margin: auto;
+        }
+      }
       h4 {
         position: relative;
       }
@@ -47,6 +67,7 @@ const HeaderDiv = styled.div`
           font-size: 16px;
         }
       }
+      
     }
   }
 `;
@@ -54,19 +75,19 @@ const HeaderDiv = styled.div`
 interface Props { }
 
 const Design2BellowHeader: React.FC<Props> = () => {
-  const userAccount = useAppSelector(selectAccount) as any
   return (
     <div>
       <HeaderDiv>
         <div className="wrapwidth">
           <div className="leftSec">
-            <h1>Transaction</h1>
+            <h1>Token</h1>
             <p>
-              {userAccount?.address}
-              <ContentCopyIcon style={{ cursor: "pointer" }} onClick={() => {
-                navigator.clipboard.writeText(userAccount?.address);
-              }} />
+              0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5
+              <ContentCopyIcon />
             </p>
+          </div>
+          <div className="rightSec">
+            <Image src={"https://nft.petz.money/v1/0.png"} width="100" height="100" className='tokenImage' alt="" />
           </div>
         </div>
       </HeaderDiv>
