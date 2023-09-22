@@ -1,7 +1,9 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { styled } from "@mui/material/styles";
 import MuiTable from "@mui/material/Table";
+import MuiTable from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
@@ -25,9 +27,13 @@ const TableDiv = styled("div")`
   padding: 0px 20px;
   box-shadow: none;
   
+  box-shadow: none;
+  
   table {
     box-shadow: none;
+    box-shadow: none;
     th {
+      border-bottom: none;
       border-bottom: none;
       svg {
         font-size: 14px;
@@ -35,6 +41,7 @@ const TableDiv = styled("div")`
       }
     }
     td {
+      border-bottom: none;
       border-bottom: none;
       a {
         text-decoration: none;
@@ -72,70 +79,71 @@ const CustomTable: FC = () => {
     <div>
       <TableDiv>
         <TableContainer component={Paper} elevation={0}>
-          <MuiTable sx={{ minWidth: 1200 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <b>VERSION</b>
-                </TableCell>
-                <TableCell>
-                  <b>TYPE</b>
-                  <InfoOutlinedIcon />
-                </TableCell>
-                <TableCell>
-                  <b>TIMESTAMP</b>
-                </TableCell>
-                <TableCell>
-                  <b>SENDER</b>
-                </TableCell>
-                <TableCell>
-                  <b>SENT TO</b>
-                </TableCell>
-                <TableCell>
-                  <b>FUNCTION</b>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {sortedTransactions?.map((transaction, index) => (
-                <TableRow key={index} onClick={() => { router.push(`/transactions/${transaction?.version}`) }} style={{ cursor: "pointer" }}>
-                  <TableCell style={{ color: "#6b28a9" }}>
-                    {transaction?.version}
+          <TableContainer component={Paper} elevation={0}>
+            <MuiTable sx={{ minWidth: 1200 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    <b>VERSION</b>
                   </TableCell>
                   <TableCell>
-                    <Image
-                      src={TypeArrow}
-                      alt="asd"
-                      style={{ width: "23px", objectFit: "contain" }}
-                    />
-                  </TableCell>
-                  <TableCell>{formatTimestamp(transaction?.timestamp)}</TableCell>
-                  <TableCell>
-                    <Image src={SenderImg} alt="" />
-                    <span>
-                      {shortenString(transaction?.sender)} <ContentCopyIcon style={{ color: "#000", cursor: "pointer" }} onClick={() => {
-                        navigator.clipboard.writeText(transaction?.sender);
-                      }} />
-                    </span>
+                    <b>TYPE</b>
+                    <InfoOutlinedIcon />
                   </TableCell>
                   <TableCell>
-                    <Image src={SendToImg} alt="" />
-
-                    <span>{shortenString(transaction?.payload?.function.split('::')[0])}  <ContentCopyIcon style={{ cursor: "pointer" }} onClick={() => {
-                      navigator.clipboard.writeText(shortenString(transaction?.payload?.function.split('::')[0]));
-                    }} /></span>
-
+                    <b>TIMESTAMP</b>
                   </TableCell>
                   <TableCell>
-                    {transaction?.payload?.function.split('::code::')[1] ? (<span style={{ color: "#000", cursor: "pointer" }}>{transaction?.payload?.function.split('::code::')[1]}</span>) : (<span style={{ color: "#000", cursor: "pointer" }}>Script</span>)}
-
+                    <b>SENDER</b>
+                  </TableCell>
+                  <TableCell>
+                    <b>SENT TO</b>
+                  </TableCell>
+                  <TableCell>
+                    <b>FUNCTION</b>
                   </TableCell>
                 </TableRow>
-              ))}
+              </TableHead>
+              <TableBody>
+                {sortedTransactions?.map((transaction, index) => (
+                  <TableRow key={index} onClick={() => { router.push(`/transactions/${transaction?.version}`) }} style={{ cursor: "pointer" }}>
+                    <TableCell style={{ color: "#6b28a9" }}>
+                      {transaction?.version}
+                    </TableCell>
+                    <TableCell>
+                      <Image
+                        src={TypeArrow}
+                        alt="asd"
+                        style={{ width: "23px", objectFit: "contain" }}
+                      />
+                    </TableCell>
+                    <TableCell>{formatTimestamp(transaction?.timestamp)}</TableCell>
+                    <TableCell>
+                      <Image src={SenderImg} alt="" />
+                      <span>
+                        {shortenString(transaction?.sender)} <ContentCopyIcon style={{ color: "#000", cursor: "pointer" }} onClick={() => {
+                          navigator.clipboard.writeText(transaction?.sender);
+                        }} />
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <Image src={SendToImg} alt="" />
 
-            </TableBody>
-          </MuiTable>
-        </TableContainer>
+                      <span>{shortenString(transaction?.payload?.function.split('::')[0])}  <ContentCopyIcon style={{ cursor: "pointer" }} onClick={() => {
+                        navigator.clipboard.writeText(shortenString(transaction?.payload?.function.split('::')[0]));
+                      }} /></span>
+
+                    </TableCell>
+                    <TableCell>
+                      {transaction?.payload?.function.split('::code::')[1] ? (<span style={{ color: "#000", cursor: "pointer" }}>{transaction?.payload?.function.split('::code::')[1]}</span>) : (<span style={{ color: "#000", cursor: "pointer" }}>Script</span>)}
+
+                    </TableCell>
+                  </TableRow>
+                ))}
+
+              </TableBody>
+            </MuiTable>
+          </TableContainer>
       </TableDiv>
     </div>
   );

@@ -7,6 +7,8 @@ import Image from 'next/image'
 import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
 import { selectAccount } from "app/reducers/AccountSlice";
 import { useAppDispatch } from "app/hooks";
+import { selectAccount } from "app/reducers/AccountSlice";
+import { useAppDispatch } from "app/hooks";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { setAccount } from 'app/reducers/AccountSlice';
 import { Box, ListItemText, Typography } from "@mui/material";
@@ -129,6 +131,7 @@ const Header: FC = () => {
   // const nftModuleAddress = "0x3";
 
   useEffect(() => {
+    dispatch(setAccount(account || null!))
     dispatch(setAccount(account || null!))
   }, [account?.address]);
 
@@ -343,7 +346,8 @@ const Header: FC = () => {
           </div>
         </div>
       </HeaderDiv>
-    </div>
+    </HeaderDiv>
+    </div >
   );
 };
 
