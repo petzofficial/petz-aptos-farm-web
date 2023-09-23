@@ -7,8 +7,6 @@ import Image from 'next/image'
 import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
 import { selectAccount } from "app/reducers/AccountSlice";
 import { useAppDispatch } from "app/hooks";
-import { selectAccount } from "app/reducers/AccountSlice";
-import { useAppDispatch } from "app/hooks";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { setAccount } from 'app/reducers/AccountSlice';
 import { Box, ListItemText, Typography } from "@mui/material";
@@ -227,7 +225,7 @@ const Header: FC = () => {
                 }}
               >
 
-                <span>{account?.address} <Link href={"/"}>Transaction</Link></span>
+              {/*   <span>{account?.address} <Link href={"/"}>Transaction</Link></span> */}
 
 
                 {network && (
@@ -346,7 +344,7 @@ const Header: FC = () => {
           </div>
         </div>
       </HeaderDiv>
-    </HeaderDiv>
+   
     </div >
   );
 };

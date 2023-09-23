@@ -18,8 +18,7 @@ const HomePage = () => {
     <>
       <Design1BellowHeader />
       <NavTabs />
-      <Design1BellowHeader />
-      <NavTabs />
+     
     </>
   );
 };

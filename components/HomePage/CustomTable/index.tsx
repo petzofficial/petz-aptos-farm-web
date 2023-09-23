@@ -1,9 +1,7 @@
 import { FC, useState } from "react";
 import { styled } from "@mui/material/styles";
 import MuiTable from "@mui/material/Table";
-import MuiTable from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
@@ -78,7 +76,7 @@ const CustomTable: FC = () => {
   return (
     <div>
       <TableDiv>
-        <TableContainer component={Paper} elevation={0}>
+      
           <TableContainer component={Paper} elevation={0}>
             <MuiTable sx={{ minWidth: 1200 }} aria-label="simple table">
               <TableHead>
@@ -145,6 +143,7 @@ const CustomTable: FC = () => {
             </MuiTable>
           </TableContainer>
       </TableDiv>
+      
     </div>
   );
 }
