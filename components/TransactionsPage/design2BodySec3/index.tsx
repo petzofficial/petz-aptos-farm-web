@@ -5,7 +5,9 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { AccordionDetails } from '@mui/material';
-
+import { selectSpecificTransaction } from 'app/reducers/AccountSlice';
+import { useAppSelector } from 'app/hooks';
+import { JsonViewer } from '@textea/json-viewer'
 const BodySec3 = styled.div`
 padding: 0px 20px;
  > div {
@@ -34,6 +36,18 @@ padding: 0px 20px;
       text-align: left;
       padding-bottom: 15px;
       font-size: 14px;
+      .data-key-pair{
+        background-color: #D3D3D3;
+        padding: 15px;
+        border-radius: 10px;
+        > .data-key {
+          svg + span.css-0{
+            display: none;
+          }
+        }
+        span{
+          background-color: transparent;
+        }
       @media (max-width: 768px) {
         width: 100%;
         display: block;
@@ -50,71 +64,45 @@ padding: 0px 20px;
   }
 `;
 
-const data = {
-  'State Change Hash':
-    '0xbb6d853d16d359ed75700a0cd208d6ebeb96935d05da4fdb97d36c55b15871d6',
-  'Event Root Hash':
-    '0xbb6d853d16d359ed75700a0cd208d6ebeb96935d05da4fdb97d36c55b15871d6',
-  'Accumulator Root Hash':
-    '0xbb6d853d16d359ed75700a0cd208d6ebeb96935d05da4fdb97d36c55b15871d6',
-};
 
 const Design2BodySec3: FC = () => {
-
+  const specificTransaction = useAppSelector(selectSpecificTransaction) as any
+  const data = {
+    'public_key':
+      specificTransaction?.signature?.public_key,
+    'signature':
+      specificTransaction?.signature?.signature,
+    'type':
+      specificTransaction?.signature?.type,
+  };
   return (
     <BodySec3>
       <div>
         <table>
           <tbody>
-            {' '}
+
             <tr>
               <th>Signature: </th>
               <td>
-                <Accordion
-                  sx={{
-                    width: '100%',
-                    boxShadow: 'none !important',
-                    backgroundColor: 'transparent !important',
-                  }}>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                    sx={{
-                      boxShadow: 'none',
-                      backgroundColor: 'transparent',
-                    }}
-                  >
-                    <Typography>{'{...}'}</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    {Object.entries(data).map(([key, value], index) => (
-                      <div key={index} style={{ lineHeight: '25px' }}>
-                        <b>{`${key}:`}</b> {`${value}`}{' '}
-                        {/* Render key-value pairs */}
-                      </div>
-                    ))}
-                  </AccordionDetails>
-                </Accordion>
+                <JsonViewer value={data} />
               </td>
             </tr>
             <tr>
               <th>State Change Hash:</th>
               <td>
-                0xbb6d853d16d359ed75700a0cd208d6ebeb96935d05da4fdb97d36c55b15871d6
+                {specificTransaction?.state_change_hash}
               </td>
             </tr>
             <tr>
               <th>Event Root Hash:</th>
               <td>
-                0xbb6d853d16d359ed75700a0cd208d6ebeb96935d05da4fdb97d36c55b15871d6
+                {specificTransaction?.event_root_hash}
               </td>
             </tr>
             <tr>
-              <th>Accumulator Root Hash:</th>{' '}
-              {/* Typo corrected: "Accmulator" to "Accumulator" */}
+              <th>Accumulator Root Hash:</th>
               <td>
-                0xbb6d853d16d359ed75700a0cd208d6ebeb96935d05da4fdb97d36c55b15871d6
+                {specificTransaction?.accumulator_root_hash}
               </td>
             </tr>
           </tbody>

@@ -1,17 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components/macro';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { fetchBalanceDetailsAction, selectAccount, selectBalanceDetails } from 'app/reducers/AccountSlice';
-import { convertToDecimal } from 'utils/reUseAbleFunctions/reuseAbleFunctions';
-const BellowHeader1 = styled.div`
+import Image from 'next/image';
+import ImageNFT from "../../../assets/0.png"
+import { useAppSelector } from 'app/hooks';
+import { selectAccount } from 'app/reducers/AccountSlice';
+// Remove the duplicate import of styled from 'styled-components/macro';
+
+const HeaderDiv = styled.div`
   width: 100%;
   margin-top: 30px;
   word-break: break-all;
   .wrapwidth {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 10px 20px;
     @media (max-width: 768px) {
       display: block;
@@ -22,7 +26,7 @@ const BellowHeader1 = styled.div`
         position: relative;
       }
       p {
-        background-color: rgba(241,233,231,1);
+        background-color: #f1e9e7;
         padding: 8px 20px;
         border-radius: 15px;
         svg {
@@ -31,12 +35,24 @@ const BellowHeader1 = styled.div`
       }
     }
     .rightSec {
-      background-color: rgba(58,52,51,0.05);
-      padding: 10px 20px 20px 20px;
+      background-color: #fff;
+      padding: 10px 20px 10px 20px;
       width: 300px;
-      border-radius: 15px;
+      text-align: right;
       @media (max-width: 768px) {
-        width: 100%;
+        width: auto;
+        text-align: center;
+      }
+      .tokenImage{
+        max-width: 100%;
+        width: 150px;
+        height: auto;
+        text-align: right;
+        @media (max-width: 768px) {
+          display: inline-block;
+          align-items: center !important; 
+          margin: auto;
+        }
       }
       h4 {
         position: relative;
@@ -53,28 +69,23 @@ const BellowHeader1 = styled.div`
           font-size: 16px;
         }
       }
+      
     }
   }
 `;
 
-interface Props { }
-
-const Design1BellowHeader: React.FC<Props> = () => {
-  const balance = useAppSelector(selectBalanceDetails) as any
+interface Props {
+  specificToken: any
+}
+const Design2BellowHeader: FC<Props> = (props) => {
   const userAccount = useAppSelector(selectAccount) as any
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(fetchBalanceDetailsAction(userAccount?.address))
-  }, [dispatch, userAccount])
-
-
-
+  const { specificToken } = props
   return (
     <div>
-      <BellowHeader1>
+      <HeaderDiv>
         <div className="wrapwidth">
           <div className="leftSec">
-            <h1>Account</h1>
+            <h1>Token</h1>
             <p>
               {userAccount?.address}
               <ContentCopyIcon style={{ cursor: "pointer" }} onClick={() => {
@@ -83,15 +94,12 @@ const Design1BellowHeader: React.FC<Props> = () => {
             </p>
           </div>
           <div className="rightSec">
-            {balance?.data ? (<h3>{convertToDecimal(balance?.data?.coin?.value)} APT</h3>) : ("")}
-            <p>
-              Balance <InfoOutlinedIcon />
-            </p>
+            <Image src={specificToken?.image} width="100" height="100" className='tokenImage' alt="" />
           </div>
         </div>
-      </BellowHeader1>
+      </HeaderDiv>
     </div>
   );
 };
 
-export default Design1BellowHeader;
+export default Design2BellowHeader;

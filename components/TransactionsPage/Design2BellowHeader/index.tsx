@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { useAppSelector } from 'app/hooks';
+import { selectAccount, selectSpecificTransaction } from 'app/reducers/AccountSlice';
 // Remove the duplicate import of styled from 'styled-components/macro';
 
 const HeaderDiv = styled.div`
@@ -52,6 +54,7 @@ const HeaderDiv = styled.div`
 interface Props { }
 
 const Design2BellowHeader: React.FC<Props> = () => {
+  const userAccount = useAppSelector(selectAccount) as any
   return (
     <div>
       <HeaderDiv>
@@ -59,8 +62,10 @@ const Design2BellowHeader: React.FC<Props> = () => {
           <div className="leftSec">
             <h1>Transaction</h1>
             <p>
-              0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5{' '}
-              <ContentCopyIcon /> {/* Render the icon as a component */}
+              {userAccount?.address}
+              <ContentCopyIcon style={{ cursor: "pointer" }} onClick={() => {
+                navigator.clipboard.writeText(userAccount?.address);
+              }} />
             </p>
           </div>
         </div>

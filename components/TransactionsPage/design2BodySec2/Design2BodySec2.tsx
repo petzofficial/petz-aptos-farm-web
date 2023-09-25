@@ -1,5 +1,8 @@
+import { useAppSelector } from 'app/hooks';
+import { selectSpecificTransaction } from 'app/reducers/AccountSlice';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components/macro';
+import { convertToDecimal, formatTimestamp } from 'utils/reUseAbleFunctions/reuseAbleFunctions';
 
 
 const BodySec2 = styled.div`
@@ -62,50 +65,51 @@ padding: 0px 20px;
     }
   }
 `;
-interface Props { }
 
-function Design2BodySec2({ }: Props): ReactElement {
+function Design2BodySec2(): ReactElement {
+  const specificTransaction = useAppSelector(selectSpecificTransaction) as any
   return (
     <BodySec2>
       <div>
         <table>
-          <tr>
-            <th>Block:</th>
-            <td>639521878</td>
-          </tr>
-          <tr>
-            <th>Sequence Number:</th>
-            <td>30</td>
-          </tr>
-          <tr>
-            <th>Expiration Timestamp:</th>
-            <td>08/17/2023 16:52:16</td>
-          </tr>
-          <tr>
-            <th>Timestamp:</th>
-            <td>08/17/2023 16:52:16</td>
-          </tr>
-          <tr>
-            <th>Gas Fee:</th>
-            <td>
-              0.000124 APT <span>124 Gas Unit</span>
-            </td>
-          </tr>
-          <tr>
-            <th>Gas Unit Price:</th>
-            <td>.000001 APT</td>
-          </tr>
-          <tr>
-            <th>Max Gas Limit:</th>
-            <td>200.000 Gas Units</td>
-          </tr>
-          <tr>
-            <th>VN Status:</th>
-            <td>
-              Transistion Exceuted and Committed with Error
-              MODULE_ADDRESS_DOES_NOT_SENDER
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <th>Block:</th>
+              <td style={{ backgroundColor: "red" }}>{specificTransaction?.version}</td>
+            </tr>
+            <tr>
+              <th>Sequence Number:</th>
+              <td>{specificTransaction?.sequence_number}</td>
+            </tr>
+            <tr>
+              <th>Expiration Timestamp:</th>
+              <td>{specificTransaction?.expiration_timestamp_secs ? formatTimestamp(specificTransaction.expiration_timestamp_secs) : ""}</td>
+            </tr>
+            <tr>
+              <th>Timestamp:</th>
+              <td>{specificTransaction?.timestamp ? formatTimestamp(specificTransaction.timestamp) : ""}</td>
+            </tr>
+            <tr>
+              <th>Gas Fee:</th>
+              <td>
+                <span style={{ backgroundColor: "red" }}>{convertToDecimal(specificTransaction?.gas_used)}</span> APT <span>{specificTransaction?.gas_used} Gas Unit</span>
+              </td>
+            </tr>
+            <tr>
+              <th>Gas Unit Price:</th>
+              <td>{specificTransaction?.gas_unit_price} APT</td>
+            </tr>
+            <tr>
+              <th>Max Gas Limit:</th>
+              <td>{specificTransaction?.max_gas_amount} Gas Units</td>
+            </tr>
+            <tr>
+              <th>VM Status:</th>
+              <td>
+                {specificTransaction?.vm_status}
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </BodySec2>
