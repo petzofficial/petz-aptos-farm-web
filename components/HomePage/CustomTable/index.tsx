@@ -1,7 +1,9 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { styled } from "@mui/material/styles";
 import MuiTable from "@mui/material/Table";
+import MuiTable from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
@@ -14,6 +16,10 @@ import SendToImg from "../../../assets/sendto.png";
 import TypeArrow from "../../../assets/arrowtype.png";
 import Link from "next/link";
 import Image from "next/image";
+import { useAppSelector } from "app/hooks";
+import { selectTransactions } from "app/reducers/AccountSlice";
+import { shortenString, formatTimestamp } from "utils/reUseAbleFunctions/reuseAbleFunctions";
+import { useRouter } from "next/router";
 import { useAppSelector } from "app/hooks";
 import { selectTransactions } from "app/reducers/AccountSlice";
 import { shortenString, formatTimestamp } from "utils/reUseAbleFunctions/reuseAbleFunctions";
@@ -65,6 +71,9 @@ const TableDiv = styled("div")`
 `;
 
 const CustomTable: FC = () => {
+  const router = useRouter()
+  const transactions = useAppSelector(selectTransactions)
+  const sortedTransactions = [...transactions].sort((a, b) => b.timestamp - a.timestamp);
   const router = useRouter()
   const transactions = useAppSelector(selectTransactions)
   const sortedTransactions = [...transactions].sort((a, b) => b.timestamp - a.timestamp);
@@ -137,6 +146,7 @@ const CustomTable: FC = () => {
           </MuiTable>
         </TableContainer>
       </TableDiv>
+
     </div>
   );
 }

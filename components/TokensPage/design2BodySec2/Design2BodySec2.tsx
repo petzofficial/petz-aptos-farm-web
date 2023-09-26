@@ -87,7 +87,6 @@ function Design2BodySec2(props: Props): ReactElement {
     'given_to:Hash':
       specificToken?.token_properties_mutated_v1?.given_to
   };
-
   return (
     <BodySec2>
       <div>

@@ -1,13 +1,13 @@
-import { createSlice, createSelector } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "app/store";
-import { Network, Provider } from "aptos";
-import axios from "axios";
+import { createSlice, createSelector } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from 'app/store';
+import { Network, Provider } from 'aptos';
+import axios from 'axios';
 import {
   CoinsTypes,
   // CurrentFungibleAssetBalance,
   // Data,
-} from "utils/types/coinsTypes";
+} from 'utils/types/coinsTypes';
 const provider = new Provider(Network.TESTNET);
 
 export interface AccountState {
@@ -37,7 +37,7 @@ const initialState: AccountState = {
 };
 
 export const accountSlice = createSlice({
-  name: "account",
+  name: 'account',
   initialState,
   reducers: {
     setTransactions: (state, action: PayloadAction<Array<any>>) => {
@@ -68,13 +68,13 @@ export const accountSlice = createSlice({
     //   state.petraNetWorks, action.payload;
     // },
     setSpecificTokenNftImg: (state, action: PayloadAction<any>) => {
-      const { tokenId, image } = action.payload
-      state.tokens = state.tokens.map(token => {
+      const { tokenId, image } = action.payload;
+      state.tokens = state.tokens.map((token) => {
         if (token.last_transaction_version === +tokenId) {
-          return { ...token, image }
+          return { ...token, image };
         }
-        return { ...token }
-      })
+        return { ...token };
+      });
     },
   },
 });
@@ -115,20 +115,18 @@ export const selectSpecificTransaction = (state: RootState) =>
 export const selectSpecificTokenNftImg = (state: RootState) =>
   state.account.specificTokenNftImg;
 
-export const selectSpecificToken = (tokenId: string) => createSelector([selectTokens], (tokens) => {
+export const selectSpecificToken = (tokenId: string) =>
+  createSelector([selectTokens], (tokens) => {
+    const specificTokenResponse = tokens.find(
+      (token: any) => token?.last_transaction_version === +tokenId
+    );
 
-
-  const specificTokenResponse = tokens.find(
-    (token: any) => token?.last_transaction_version === +tokenId
-  );
-
-  return specificTokenResponse
-})
+    return specificTokenResponse;
+  });
 
 // export const fetchSpecificTokenAction =
 //   (tokenVersion: any) => (dispatch: any, getState: () => RootState) => {
 //     const tokens = getState().account.tokens;
-
 
 //     const imgUrl = specificTokenResponse?.current_token_data?.token_uri;
 //     console.log("specificTokenResponseFromSlice", imgUrl);
@@ -178,27 +176,26 @@ export const fetchCoinsAction = (address: string) => async (dispatch: any) => {
   dispatch(setCoins(faResource));
 };
 
+export const fetchTokensAction =
+  () => async (dispatch: any, getState: () => RootState) => {
+    const { account } = getState().account;
 
-export const fetchTokensAction = () => async (dispatch: any, getState: () => RootState) => {
-  const { account } = getState().account;
+    if (!account || !account.address) {
+      console.log('Address Not Found.');
+      return;
+    }
 
+    const nftResource: any = await provider.getOwnedTokens(account.address);
 
-  if (!account || !account.address) {
-    console.log("Address Not Found.")
-    return;
-  }
-
-  const nftResource: any = await provider.getOwnedTokens(account.address);
-
-  dispatch(setTokens(nftResource));
-};
+    dispatch(setTokens(nftResource));
+  };
 
 export const fetchBalanceDetailsAction =
   (address: string) => async (dispatch: any) => {
     if (!address) {
       return;
     }
-    const moduleAddress = "0x1";
+    const moduleAddress = '0x1';
 
     const coinResource: any = await provider.getAccountResource(
       address,
@@ -208,24 +205,21 @@ export const fetchBalanceDetailsAction =
   };
 export const fetchSpecificTransactionAction =
   (transactionVersion: string) =>
-    (dispatch: any, getState: () => RootState) => {
-      const transactions = getState().account.transactions;
-      const specificTransactionResponse = transactions.find(
-        (transaction: any) => transaction?.version === transactionVersion
-      );
-      dispatch(setSpecificTransaction(specificTransactionResponse));
-    };
+  (dispatch: any, getState: () => RootState) => {
+    const transactions = getState().account.transactions;
+    const specificTransactionResponse = transactions.find(
+      (transaction: any) => transaction?.version === transactionVersion
+    );
+    dispatch(setSpecificTransaction(specificTransactionResponse));
+  };
 
+export const fetchNftImgAction =
+  (tokenUri: string, tokenId: string) => async (dispatch: any) => {
+    try {
+      const { data } = await axios.get(`/api/image?tokenUrl=${tokenUri}`);
 
-
-
-export const fetchNftImgAction = (tokenUri: string, tokenId: string) => async (dispatch: any) => {
-  try {
-
-    const { data } = await axios.get(`/api/image?tokenUrl=${tokenUri}`);
-
-    dispatch(setSpecificTokenNftImg({ tokenId, image: data }));
-  } catch (error) {
-    console.error(">> Error fetching nft imgs :", error);
-  }
-};
+      dispatch(setSpecificTokenNftImg({ tokenId, image: data }));
+    } catch (error) {
+      console.error('>> Error fetching nft imgs :', error);
+    }
+  };
