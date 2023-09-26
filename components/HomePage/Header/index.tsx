@@ -124,6 +124,8 @@ const Header: FC = () => {
 
   // const moduleAddress = "0x1";
   // const nftModuleAddress = "0x3";
+  // const moduleAddress = "0x1";
+  // const nftModuleAddress = "0x3";
 
   useEffect(() => {
     dispatch(setAccount(account || null!))
@@ -140,7 +142,21 @@ const Header: FC = () => {
   //       account?.address,
   //       `${moduleAddress}::coin::CoinStore<${moduleAddress}::aptos_coin::AptosCoin>`,
   //     );
+  // const fetchList = async () => {
+  //   if (!account) return [];
+  //   try {
+  //     const transactionResource = await provider.getAccountTransactions(
+  //       account?.address
+  //     );
 
+  //     const coinResource = await provider.getAccountResource(
+  //       account?.address,
+  //       `${moduleAddress}::coin::CoinStore<${moduleAddress}::aptos_coin::AptosCoin>`,
+  //     );
+
+  //     const nftResource = await provider.getOwnedTokens(
+  //       account?.address
+  //     );
   //     const nftResource = await provider.getOwnedTokens(
   //       account?.address
   //     );
@@ -148,11 +164,22 @@ const Header: FC = () => {
   //     const faResource = await provider.getAccountCoinsData(
   //       account?.address
   //     );
+  //     const faResource = await provider.getAccountCoinsData(
+  //       account?.address
+  //     );
 
   //     const resource = await provider.getAccountResources(
   //       account?.address
   //     );
+  //     const resource = await provider.getAccountResources(
+  //       account?.address
+  //     );
 
+  //     console.log(transactionResource)
+  //     //  console.log(coinResource)
+  //     console.log(faResource)
+  //     console.log(nftResource)
+  //     // console.log(resource)
   //     console.log(transactionResource)
   //     //  console.log(coinResource)
   //     console.log(faResource)
