@@ -12,10 +12,10 @@ import { useAppSelector } from "app/hooks";
 import { selectAccount, selectCoins, fetchCoinsAction } from "app/reducers/AccountSlice";
 import { convertToDecimal } from "utils/reUseAbleFunctions/reuseAbleFunctions";
 import Image from 'next/image';
-import aptos from "../../../assets/aptos-apt-logo.svg";
-import petzGoldToken from "../../../assets/petzGoldToken.png";
+import Aptos from "../../../assets/aptos-apt-logo.svg";
+import PetzGoldToken from "../../../assets/petzGoldToken.png";
+
 // Define a styled component with a capitalized name
-// const TableDiv = styled.div`
 const TableDiv = styled("div")`
   width: 100%;
   margin: 30px 0;
@@ -97,8 +97,7 @@ const CoinsTable: FC = () => {
               {coins?.map((coins, index) => (
                 <TableRow key={index}>
                   <TableCell>
-                    {coins?.metadata?.symbol === "APT" ? <Image src={aptos} width="100" height="100" alt="" /> :
-                      <Image src={petzGoldToken} width="150" height="150" alt="" className="abc" />}
+                    <Image src={coins?.metadata?.symbol === "APT" ? Aptos : PetzGoldToken} width="150" height="150" alt="" className="abc" />
                   </TableCell>
                   <TableCell style={{ color: "#6b28a9" }}>
                     {coins?.metadata?.name}

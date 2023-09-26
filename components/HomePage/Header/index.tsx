@@ -131,17 +131,7 @@ const Header: FC = () => {
     dispatch(setAccount(account || null!))
   }, [account?.address]);
 
-  // const fetchList = async () => {
-  //   if (!account) return [];
-  //   try {
-  //     const transactionResource = await provider.getAccountTransactions(
-  //       account?.address
-  //     );
 
-  //     const coinResource = await provider.getAccountResource(
-  //       account?.address,
-  //       `${moduleAddress}::coin::CoinStore<${moduleAddress}::aptos_coin::AptosCoin>`,
-  //     );
   // const fetchList = async () => {
   //   if (!account) return [];
   //   try {
@@ -190,7 +180,6 @@ const Header: FC = () => {
 
   //   }
   // };
-
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);

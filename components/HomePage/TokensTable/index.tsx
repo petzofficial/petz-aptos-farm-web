@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useAppDispatch, useAppSelector } from "app/hooks";
-import { fetchNftImgAction, fetchTokensAction, selectAccount, selectTokens } from "app/reducers/AccountSlice";
+import { fetchNftImgAction, fetchTokensAction, selectTokens } from "app/reducers/AccountSlice";
 import { useRouter } from "next/router";
 import Image from 'next/image';
 
@@ -58,95 +58,95 @@ const TableDiv = styled("div")`
 
 
 const TokensTable: FC = () => {
-    const dispatch = useAppDispatch();
-    const tokens = useAppSelector(selectTokens) as any
+  const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        dispatch(fetchTokensAction())
-    }, [dispatch])
+  const router = useRouter()
+  const tokens = useAppSelector(selectTokens) as any
 
-    const router = useRouter()
+  useEffect(() => {
+    dispatch(fetchTokensAction())
+  }, [dispatch])
 
 
 
-    useEffect(() => {
-        if (tokens) {
-            tokens?.forEach((token: any) => {
-                if (!token?.image) {
-                    const tokenURI: string = token?.current_token_data?.token_uri
-                    dispatch(fetchNftImgAction(tokenURI, token?.last_transaction_version as string))
-                }
-            })
+  useEffect(() => {
+    if (tokens) {
+      tokens?.forEach((token: any) => {
+        if (!token?.image) {
+          const tokenURI: string = token?.current_token_data?.token_uri
+          dispatch(fetchNftImgAction(tokenURI, token?.last_transaction_version as string))
         }
-    }, [dispatch, tokens])
+      })
+    }
+  }, [dispatch, tokens])
 
-    return (
-        <div>
-            <TableDiv>
-                <TableContainer component={Paper} elevation={0}>
-                    <MuiTable sx={{ minWidth: 1200 }} aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>
-                                    <b>Image</b>
-                                </TableCell>
-                                <TableCell>
-                                    <b>NAME</b>
-                                </TableCell>
-                                <TableCell>
-                                    <b>COLLECTION</b>
-                                    <InfoOutlinedIcon />
-                                </TableCell>
-                                <TableCell>
-                                    <b>STORE</b>
-                                </TableCell>
-                                <TableCell>
-                                    <b>VERSION</b>
-                                </TableCell>
-                                <TableCell>
-                                    <b>AMOUNT</b>
-                                </TableCell>
+  return (
+    <div>
+      <TableDiv>
+        <TableContainer component={Paper} elevation={0}>
+          <MuiTable sx={{ minWidth: 1200 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  <b>Image</b>
+                </TableCell>
+                <TableCell>
+                  <b>NAME</b>
+                </TableCell>
+                <TableCell>
+                  <b>COLLECTION</b>
+                  <InfoOutlinedIcon />
+                </TableCell>
+                <TableCell>
+                  <b>STORE</b>
+                </TableCell>
+                <TableCell>
+                  <b>VERSION</b>
+                </TableCell>
+                <TableCell>
+                  <b>AMOUNT</b>
+                </TableCell>
 
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
+              </TableRow>
+            </TableHead>
+            <TableBody>
 
-                            {tokens?.map((token: any, index: any) => (
-                                <TableRow key={index} onClick={() => { router.push(`/tokens/${token?.last_transaction_version}`) }} style={{ cursor: "pointer" }}>
-                                    <TableCell>
+              {tokens?.map((token: any, index: any) => (
+                <TableRow key={index} onClick={() => { router.push(`/tokens/${token?.last_transaction_version}`) }} style={{ cursor: "pointer" }}>
+                  <TableCell>
 
-                                        <Image src={token?.image} width="100" height="100" className='tokenImage' alt="" />
+                    <Image src={token?.image} width="100" height="100" className='tokenImage' alt="" />
 
-                                    </TableCell>
-                                    <TableCell style={{ color: "#6b28a9" }}>
-                                        {token?.current_token_data?.token_name}
-                                    </TableCell>
-                                    <TableCell>{token?.current_token_data?.current_collection?.collection_name
-                                    }</TableCell>
-                                    <TableCell>
-                                        <span>
-                                            {token?.table_type_v1}
-                                        </span>
-                                    </TableCell>
-                                    <TableCell>
+                  </TableCell>
+                  <TableCell style={{ color: "#6b28a9" }}>
+                    {token?.current_token_data?.token_name}
+                  </TableCell>
+                  <TableCell>{token?.current_token_data?.current_collection?.collection_name
+                  }</TableCell>
+                  <TableCell>
+                    <span>
+                      {token?.table_type_v1}
+                    </span>
+                  </TableCell>
+                  <TableCell>
 
-                                        <span>{token?.property_version_v1}</span>
+                    <span>{token?.property_version_v1}</span>
 
-                                    </TableCell>
-                                    <TableCell>
+                  </TableCell>
+                  <TableCell>
 
-                                        <span>{token?.amount}</span>
+                    <span>{token?.amount}</span>
 
-                                    </TableCell>
+                  </TableCell>
 
-                                </TableRow>
-                            ))}
+                </TableRow>
+              ))}
 
-                        </TableBody>
-                    </MuiTable>
-                </TableContainer>
-            </TableDiv>
-        </div>
-    );
+            </TableBody>
+          </MuiTable>
+        </TableContainer>
+      </TableDiv>
+    </div>
+  );
 }
 export default TokensTable;

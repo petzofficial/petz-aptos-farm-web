@@ -4,6 +4,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import SendToImg from "../../../assets/sendto.png";
 import Image from "next/image";
 import { shortenString } from "utils/reUseAbleFunctions/reuseAbleFunctions";
+
 const BodySec1 = styled.div`
   padding: 0px 20px;
   div {

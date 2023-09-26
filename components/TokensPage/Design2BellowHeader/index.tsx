@@ -1,12 +1,9 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components/macro';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import Image from 'next/image';
-import ImageNFT from "../../../assets/0.png"
 import { useAppSelector } from 'app/hooks';
 import { selectAccount } from 'app/reducers/AccountSlice';
-// Remove the duplicate import of styled from 'styled-components/macro';
 
 const HeaderDiv = styled.div`
   width: 100%;
@@ -77,6 +74,7 @@ const HeaderDiv = styled.div`
 interface Props {
   specificToken: any
 }
+
 const Design2BellowHeader: FC<Props> = (props) => {
   const userAccount = useAppSelector(selectAccount) as any
   const { specificToken } = props

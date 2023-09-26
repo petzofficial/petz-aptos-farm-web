@@ -19,8 +19,6 @@ export interface AccountState {
   specificTransaction: {};
   specificToken: {};
   specificTokenNftImg: {};
-  // petraNetWorks: Array<any>;
-  // imgUrl: string;
 }
 
 const initialState: AccountState = {
@@ -32,8 +30,6 @@ const initialState: AccountState = {
   specificTransaction: {},
   specificToken: {},
   specificTokenNftImg: {},
-  // petraNetWorks: [],
-  // imgUrl: "",
 };
 
 export const accountSlice = createSlice({
@@ -61,12 +57,6 @@ export const accountSlice = createSlice({
     setSpecificToken: (state, action: PayloadAction<any>) => {
       state.specificToken = action.payload;
     },
-    // setImgUrl: (state, action: PayloadAction<any>) => {
-    //   state.imgUrl = action.payload;
-    // },
-    // setPetraNetWorks: (state, action: PayloadAction<any>) => {
-    //   state.petraNetWorks, action.payload;
-    // },
     setSpecificTokenNftImg: (state, action: PayloadAction<any>) => {
       const { tokenId, image } = action.payload;
       state.tokens = state.tokens.map((token) => {
@@ -88,9 +78,7 @@ export const {
   setTokens,
   setSpecificTransaction,
   setSpecificToken,
-  // setPetraNetWorks,
   setSpecificTokenNftImg,
-  // setImgUrl,
 } = accountSlice.actions;
 
 export const selectTransactions = (state: RootState) =>
@@ -106,11 +94,6 @@ export default accountSlice.reducer;
 
 export const selectSpecificTransaction = (state: RootState) =>
   state.account.specificTransaction;
-
-// export const selectImgUrl = (state: RootState) => state.account.imgUrl;
-
-// export const selectPetraNetWorks = (state: RootState) =>
-//   state.account.petraNetWorks;
 
 export const selectSpecificTokenNftImg = (state: RootState) =>
   state.account.specificTokenNftImg;
@@ -203,6 +186,7 @@ export const fetchBalanceDetailsAction =
     );
     dispatch(setBalanceDetails(coinResource));
   };
+
 export const fetchSpecificTransactionAction =
   (transactionVersion: string) =>
   (dispatch: any, getState: () => RootState) => {

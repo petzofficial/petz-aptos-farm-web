@@ -1,13 +1,10 @@
 import { FC } from 'react';
 import styled from 'styled-components/macro';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { AccordionDetails } from '@mui/material';
+
 import { selectSpecificTransaction } from 'app/reducers/AccountSlice';
 import { useAppSelector } from 'app/hooks';
 import { JsonViewer } from '@textea/json-viewer'
+
 const BodySec3 = styled.div`
 padding: 0px 20px;
  > div {
