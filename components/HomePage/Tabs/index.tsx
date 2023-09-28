@@ -16,7 +16,7 @@ export default function NavTabs() {
 
         <Tabs>
             <TabList>
-                <Tab><EventNoteIcon />  Transactions</Tab>
+                <Tab><EventNoteIcon />Transactions</Tab>
                 <Tab><MonetizationOnOutlinedIcon />Coins</Tab>
                 <Tab><AccountBalanceWalletOutlinedIcon />Tokens</Tab>
             </TabList>

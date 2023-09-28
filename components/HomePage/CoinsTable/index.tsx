@@ -80,7 +80,7 @@ const CoinsTable: FC = () => {
             <TableHead>
               <TableRow>
                 <TableCell>
-                  <b>Image</b>
+                  <b>IMAGE</b>
                 </TableCell>
                 <TableCell>
                   <b>NAME</b>
