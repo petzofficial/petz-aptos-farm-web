@@ -238,7 +238,7 @@ const Header: FC = () => {
                 }}
               >
 
-                <span>{account?.address} <Link href={"/"}>Transaction</Link></span>
+             {/*    <span>{account?.address} <Link href={"/"}>Transaction</Link></span> */}
 
 
                 {network && (
@@ -326,7 +326,7 @@ const Header: FC = () => {
                           color: '#121615',
                         }}
                       >
-                        <ListItemText>Tesnet</ListItemText>
+                        <ListItemText>Testnet</ListItemText>
                         <Typography variant="body2" color="text.secondary">
                           2
                         </Typography>
