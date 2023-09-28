@@ -1,5 +1,5 @@
 import { useAppSelector } from 'app/hooks';
-import { selectSpecificTransaction } from 'app/reducers/AccountSlice';
+import { selectSpecificTransaction, selectTransactionBlock } from 'app/reducers/AccountSlice';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components/macro';
 import { convertToDecimal, formatTimestamp } from 'utils/reUseAbleFunctions/reuseAbleFunctions';
@@ -67,6 +67,7 @@ padding: 0px 20px;
 `;
 
 function Design2BodySec2(): ReactElement {
+  const blockDetails: any = useAppSelector(selectTransactionBlock)
   const specificTransaction = useAppSelector(selectSpecificTransaction) as any
   return (
     <BodySec2>
@@ -75,7 +76,7 @@ function Design2BodySec2(): ReactElement {
           <tbody>
             <tr>
               <th>Block:</th>
-              <td style={{ backgroundColor: "red" }}>{specificTransaction?.version}</td>
+              <td>{blockDetails?.block_height}</td>
             </tr>
             <tr>
               <th>Sequence Number:</th>
@@ -92,7 +93,7 @@ function Design2BodySec2(): ReactElement {
             <tr>
               <th>Gas Fee:</th>
               <td>
-                <span style={{ backgroundColor: "red" }}>{convertToDecimal(specificTransaction?.gas_used)}</span> APT <span>{specificTransaction?.gas_used} Gas Unit</span>
+                <span>{convertToDecimal(specificTransaction?.gas_used)}</span> APT <span>{specificTransaction?.gas_used} Gas Unit</span>
               </td>
             </tr>
             <tr>

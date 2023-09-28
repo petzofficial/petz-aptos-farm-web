@@ -115,7 +115,7 @@ const TokensTable: FC = () => {
                 <TableRow key={index} onClick={() => { router.push(`/tokens/${token?.last_transaction_version}`) }} style={{ cursor: "pointer" }}>
                   <TableCell>
 
-                    <Image src={token?.image} width="100" height="100" className='tokenImage' alt="" />
+                    {token?.image ? <Image className='tokenImage' src={token?.image} width="100" height="100" alt="TokenImage" /> : ""}
 
                   </TableCell>
                   <TableCell style={{ color: "#6b28a9" }}>
