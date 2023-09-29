@@ -41,9 +41,7 @@ const HeaderDiv = styled.div`
         text-align: center;
       }
       .tokenImage{
-        max-width: 100%;
-        width: 150px;
-        height: auto;
+     
         text-align: right;
         @media (max-width: 768px) {
           display: inline-block;
