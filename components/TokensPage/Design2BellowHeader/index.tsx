@@ -90,7 +90,7 @@ const Design2BellowHeader: FC<Props> = (props) => {
             </p>
           </div>
           <div className="rightSec">
-            <Image src={specificToken?.image} width="100" height="100" className='tokenImage' alt="" />
+            <Image src={specificToken?.image} width="250" height="250" className='tokenImage' alt="" />
           </div>
         </div>
       </HeaderDiv>
