@@ -5,7 +5,7 @@ import Link from 'next/link';
 import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
 import Image from 'next/image'
 import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
-import { selectAccount } from "app/reducers/AccountSlice";
+import { setNewNetwork } from "app/reducers/AccountSlice";
 import { useAppDispatch } from "app/hooks";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { setAccount } from 'app/reducers/AccountSlice';
@@ -113,6 +113,10 @@ const Header: FC = () => {
   } = useWallet();
   const netWorkChangeSet = wallets[0]?.provider?.eventCallbacks?.networkChange
 
+
+  useEffect(() => {
+    network && dispatch(setNewNetwork(network.name))
+  }, [network])
 
 
   // if (netWorkChangeSet && netWorkChangeSet.size > 0) {
@@ -238,7 +242,7 @@ const Header: FC = () => {
                 }}
               >
 
-             {/*    <span>{account?.address} <Link href={"/"}>Transaction</Link></span> */}
+                {/*    <span>{account?.address} <Link href={"/"}>Transaction</Link></span> */}
 
 
                 {network && (

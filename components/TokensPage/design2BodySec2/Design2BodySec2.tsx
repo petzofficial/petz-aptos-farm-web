@@ -87,6 +87,7 @@ function Design2BodySec2(props: Props): ReactElement {
     'given_to:Hash':
       specificToken?.token_properties_mutated_v1?.given_to
   };
+  const attributes = specificToken?.attributes;
   return (
     <BodySec2>
       <div>
@@ -108,6 +109,12 @@ function Design2BodySec2(props: Props): ReactElement {
               <th>Token Properties:</th>
               <td>
                 <JsonViewer value={data} />
+              </td>
+            </tr>
+            <tr>
+              <th>Attributes:</th>
+              <td>
+                <JsonViewer value={attributes} />
               </td>
             </tr>
           </tbody>

@@ -3,6 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
 import { Network, Provider } from 'aptos';
 import axios from 'axios';
+import { getWalletNetwork } from 'utils/aptosNetWorks/AptosNetworks';
 import {
   CoinsTypes,
   // CurrentFungibleAssetBalance,
@@ -16,10 +17,11 @@ export interface AccountState {
   coins: Array<CoinsTypes>;
   tokens: Array<any>;
   balanceDetails: Array<any>;
-  specificTransaction: {};
-  specificToken: {};
-  specificTokenNftImg: {};
-  transactionBlock: {};
+  specificTransaction: object;
+  specificToken: object;
+  specificTokenNftImg: object;
+  transactionBlock: object;
+  network: string;
 }
 
 const initialState: AccountState = {
@@ -32,6 +34,7 @@ const initialState: AccountState = {
   specificToken: {},
   specificTokenNftImg: {},
   transactionBlock: {},
+  network: ""
 };
 
 export const accountSlice = createSlice({
@@ -62,11 +65,14 @@ export const accountSlice = createSlice({
     setTransactionBlock: (state, action: PayloadAction<any>) => {
       state.transactionBlock = action.payload;
     },
+    setNewNetwork: (state, action: PayloadAction<string>) => {
+      state.network = action.payload;
+    },
     setSpecificTokenNftImg: (state, action: PayloadAction<any>) => {
-      const { tokenId, image } = action.payload;
+      const { tokenId, image, attributes } = action.payload;
       state.tokens = state.tokens.map((token) => {
         if (token.last_transaction_version === +tokenId) {
-          return { ...token, image };
+          return { ...token, image, attributes };
         }
         return { ...token };
       });
@@ -85,6 +91,7 @@ export const {
   setSpecificToken,
   setSpecificTokenNftImg,
   setTransactionBlock,
+  setNewNetwork,
 } = accountSlice.actions;
 
 export const selectTransactions = (state: RootState) =>
@@ -105,6 +112,8 @@ export const selectSpecificTokenNftImg = (state: RootState) =>
   state.account.specificTokenNftImg;
 export const selectTransactionBlock = (state: RootState) =>
   state.account.transactionBlock;
+export const selectNewNetwork = (state: RootState) =>
+  state.account.network;
 export const selectSpecificToken = (tokenId: string) =>
   createSelector([selectTokens], (tokens) => {
     const specificTokenResponse = tokens.find(
@@ -146,23 +155,33 @@ export const selectSpecificToken = (tokenId: string) =>
 //     );
 
 export const fetchTransactionsAction =
-  (address: string) => async (dispatch: any) => {
+  (address: string) => async (dispatch: any, getState: () => RootState) => {
     if (!address) {
       return;
     }
-
-    const transactionResource = await provider.getAccountTransactions(address);
-    dispatch(setTransactions(transactionResource));
+    const provider = getWalletNetwork(getState().account.network)
+    try {
+      const transactionResource = await provider.getAccountTransactions(address);
+      dispatch(setTransactions(transactionResource));
+    } catch (e) {
+      console.log(e)
+    }
   };
 
-export const fetchCoinsAction = (address: string) => async (dispatch: any) => {
+export const fetchCoinsAction = (address: string) => async (dispatch: any, getState: () => RootState) => {
   if (!address) {
     return;
   }
 
-  const faResource: any = await provider.getAccountCoinsData(address);
+  const provider = getWalletNetwork(getState().account.network)
 
-  dispatch(setCoins(faResource));
+  try {
+    const faResource: any = await provider.getAccountCoinsData(address);
+
+    dispatch(setCoins(faResource));
+  } catch (e) {
+    console.log(e)
+  }
 };
 
 export const fetchTokensAction =
@@ -174,33 +193,49 @@ export const fetchTokensAction =
       return;
     }
 
-    const nftResource: any = await provider.getOwnedTokens(account.address);
-
-    dispatch(setTokens(nftResource));
+    const provider = getWalletNetwork(getState().account.network)
+    try {
+      const nftResource: any = await provider.getOwnedTokens(account.address);
+      dispatch(setTokens(nftResource));
+    } catch (e) {
+      console.log(e)
+    }
   };
 
 export const fetchBalanceDetailsAction =
-  (address: string) => async (dispatch: any) => {
+  (address: string) => async (dispatch: any, getState: () => RootState) => {
     if (!address) {
       return;
     }
     const moduleAddress = '0x1';
 
-    const coinResource: any = await provider.getAccountResource(
-      address,
-      `${moduleAddress}::coin::CoinStore<${moduleAddress}::aptos_coin::AptosCoin>`
-    );
-    dispatch(setBalanceDetails(coinResource));
+    const provider = getWalletNetwork(getState().account.network)
+
+    try {
+      const coinResource: any = await provider.getAccountResource(
+        address,
+        `${moduleAddress}::coin::CoinStore<${moduleAddress}::aptos_coin::AptosCoin>`
+      );
+
+      dispatch(setBalanceDetails(coinResource));
+    } catch (e) {
+      console.log(e)
+    }
   };
 
 export const fetchSpecificTransactionAction =
   (transactionVersion: string) =>
     (dispatch: any, getState: () => RootState) => {
+
       const transactions = getState().account.transactions;
-      const specificTransactionResponse = transactions.find(
-        (transaction: any) => transaction?.version === transactionVersion
-      );
-      dispatch(setSpecificTransaction(specificTransactionResponse));
+      try {
+        const specificTransactionResponse = transactions.find(
+          (transaction: any) => transaction?.version === transactionVersion
+        );
+        dispatch(setSpecificTransaction(specificTransactionResponse));
+      } catch (e) {
+        console.log(e)
+      }
     };
 
 export const fetchNftImgAction =
@@ -208,17 +243,23 @@ export const fetchNftImgAction =
     try {
       const { data } = await axios.get(`/api/image?tokenUrl=${tokenUri}`);
 
-      dispatch(setSpecificTokenNftImg({ tokenId, image: data }));
+      dispatch(setSpecificTokenNftImg({ tokenId, image: data.image, attributes: data.attributes }));
     } catch (error) {
       console.error('>> Error fetching nft imgs :', error);
     }
   };
 
 export const fetchTransactionsBlockAction =
-  (version: number) => async (dispatch: any) => {
+  (version: number) => async (dispatch: any, getState: () => RootState) => {
     if (!version) {
       return;
     }
-    const transactionBlockResponse: any = await provider.getBlockByVersion(version)
-    dispatch(setTransactionBlock(transactionBlockResponse));
+
+    const provider = getWalletNetwork(getState().account.network)
+    try {
+      const transactionBlockResponse: any = await provider.getBlockByVersion(version)
+      dispatch(setTransactionBlock(transactionBlockResponse));
+    } catch (e) {
+      console.log(e)
+    }
   };
