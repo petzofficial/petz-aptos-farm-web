@@ -13,7 +13,6 @@ import { selectAccount, selectCoins, fetchCoinsAction } from "app/reducers/Accou
 import { convertToDecimal } from "utils/reUseAbleFunctions/reuseAbleFunctions";
 import Image from 'next/image';
 import Aptos from "../../../assets/aptos-apt-logo.svg";
-import PetzGoldToken from "../../../assets/petzGoldToken.png";
 import Logo from "../../../assets/logo.png";
 
 // Define a styled component with a capitalized name
