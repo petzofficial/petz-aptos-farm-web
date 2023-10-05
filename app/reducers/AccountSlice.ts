@@ -4,6 +4,8 @@ import { RootState } from 'app/store';
 import { Network, Provider } from 'aptos';
 import axios from 'axios';
 import { getWalletNetwork } from 'utils/aptosNetWorks/AptosNetworks';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   CoinsTypes,
   // CurrentFungibleAssetBalance,
@@ -34,7 +36,7 @@ const initialState: AccountState = {
   specificToken: {},
   specificTokenNftImg: {},
   transactionBlock: {},
-  network: ""
+  network: "",
 };
 
 export const accountSlice = createSlice({
@@ -65,7 +67,7 @@ export const accountSlice = createSlice({
     setTransactionBlock: (state, action: PayloadAction<any>) => {
       state.transactionBlock = action.payload;
     },
-    setNewNetwork: (state, action: PayloadAction<string>) => {
+    setNewNetwork: (state, action: PayloadAction<any>) => {
       state.network = action.payload;
     },
     setSpecificTokenNftImg: (state, action: PayloadAction<any>) => {
@@ -163,11 +165,13 @@ export const fetchTransactionsAction =
     try {
       const transactionResource = await provider.getAccountTransactions(address);
       dispatch(setTransactions(transactionResource));
-    } catch (e) {
-      console.log(e)
+    } catch (e: any) {
+      toast.error(e?.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      dispatch(setTransactions([]));
     }
-  };
-
+  }
 export const fetchCoinsAction = (address: string) => async (dispatch: any, getState: () => RootState) => {
   if (!address) {
     return;
@@ -179,28 +183,31 @@ export const fetchCoinsAction = (address: string) => async (dispatch: any, getSt
     const faResource: any = await provider.getAccountCoinsData(address);
 
     dispatch(setCoins(faResource));
-  } catch (e) {
-    console.log(e)
+  } catch (e: any) {
+    toast.error(e?.message, {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+    dispatch(setCoins([]));
   }
 };
 
-export const fetchTokensAction =
-  () => async (dispatch: any, getState: () => RootState) => {
-    const { account } = getState().account;
+export const fetchTokensAction = () => async (dispatch: any, getState: () => RootState) => {
+  const { account } = getState().account;
 
-    if (!account || !account.address) {
-      console.log('Address Not Found.');
-      return;
-    }
+  if (!account || !account.address) {
+    console.log('Address Not Found.');
+    return;
+  }
 
-    const provider = getWalletNetwork(getState().account.network)
-    try {
-      const nftResource: any = await provider.getOwnedTokens(account.address);
-      dispatch(setTokens(nftResource));
-    } catch (e) {
-      console.log(e)
-    }
-  };
+  const provider = getWalletNetwork(getState().account.network)
+  try {
+    const nftResource: any = await provider.getOwnedTokens(account.address);
+    dispatch(setTokens(nftResource));
+  } catch (e: any) {
+    dispatch(setTokens([]));
+    toast.error(e?.message)
+  }
+};
 
 export const fetchBalanceDetailsAction =
   (address: string) => async (dispatch: any, getState: () => RootState) => {

@@ -18,7 +18,10 @@ import { useRouter } from "next/router";
 import { useAppSelector } from "app/hooks";
 import { selectTransactions } from "app/reducers/AccountSlice";
 import { shortenString, formatTimestamp } from "utils/reUseAbleFunctions/reuseAbleFunctions";
-
+import { useAppDispatch } from 'app/hooks';
+import { fetchTransactionsAction, selectAccount } from 'app/reducers/AccountSlice';
+import React, { useEffect } from 'react';
+import ReactPaginate from "react-paginate";
 const TableDiv = styled("div")`
   width: 100%;
   margin: 30px 0;
@@ -67,7 +70,21 @@ const TableDiv = styled("div")`
 const CustomTable: FC = () => {
   const router = useRouter()
   const transactions = useAppSelector(selectTransactions)
+  const transaction = useAppSelector(selectTransactions)
   const sortedTransactions = [...transactions].sort((a, b) => b.timestamp - a.timestamp);
+  const [itemOffset, setItemOffset] = useState(0)
+  const itemsPerPage = 10
+  const pageCount = Math.ceil(sortedTransactions.length / itemsPerPage);
+  const endOffset = itemOffset + itemsPerPage;
+  const currentItems = sortedTransactions.slice(itemOffset, endOffset);
+
+
+
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * itemsPerPage) % transaction.length;
+    setItemOffset(newOffset);
+  };
+
   return (
     <div>
       <TableDiv>
@@ -97,7 +114,7 @@ const CustomTable: FC = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {sortedTransactions?.map((transaction, index) => (
+              {currentItems?.map((transaction: any, index: any) => (
                 <TableRow key={index} onClick={() => { router.push(`/transactions/${transaction?.version}`) }} style={{ cursor: "pointer" }}>
                   <TableCell style={{ color: "#6b28a9" }}>
                     {transaction?.version}
@@ -137,7 +154,19 @@ const CustomTable: FC = () => {
           </MuiTable>
         </TableContainer>
       </TableDiv>
-
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="&#8250;"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel="&#8249;"
+        renderOnZeroPageCount={null}
+        containerClassName="pagination"
+        previousLinkClassName="page-num"
+        nextLinkClassName="page-num"
+        activeLinkClassName="active"
+      />
     </div>
   );
 }

@@ -22,7 +22,7 @@ export default function NavTabs() {
             </TabList>
             <TabPanel>
                 <CustomTable />
-                <Pagination />
+                {/* <Pagination /> */}
             </TabPanel>
             <TabPanel>
                 <CoinsTable />

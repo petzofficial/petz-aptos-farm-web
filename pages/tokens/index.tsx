@@ -10,16 +10,15 @@ import NavTabs from "components/HomePage/Tabs";
 const HomePage = () => {
   const account = useAppSelector(selectAccount)
   const dispatch = useAppDispatch()
-  useEffect(() => {
+  // useEffect(() => {
 
-    dispatch(fetchTokensAction(account?.address))
-  }, [dispatch, account])
+  //   dispatch(fetchTokensAction(account?.address))
+  // }, [dispatch, account])
 
   return (
     <>
       <Design1BellowHeader />
       <NavTabs />
-      {/* <Pagination /> */}
     </>
   );
 };

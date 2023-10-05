@@ -1,0 +1,37 @@
+.pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5rem;
+    font-size: 0.95rem;
+    gap: 10px;
+    margin-top: 70px;
+}
+
+.pagination .page-num,
+.pagination li {
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.pagination .page-num:hover {
+    background-color: #ebebeb;
+}
+
+.pagination li a {
+    text-align: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: inline-block;
+    padding: 7px 10px;
+
+}
+
+.pagination .selected a {
+    /* border: 1px solid; */
+    background-color: #ebebeb;
+}
+
+.pagination li a {}

@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useAppDispatch, useAppSelector } from "app/hooks";
-import { fetchNftImgAction, fetchTokensAction, selectTokens } from "app/reducers/AccountSlice";
+import { fetchNftImgAction, fetchTokensAction, selectNewNetwork, selectTokens } from "app/reducers/AccountSlice";
 import { useRouter } from "next/router";
 import Image from 'next/image';
 
@@ -59,13 +59,13 @@ const TableDiv = styled("div")`
 
 const TokensTable: FC = () => {
   const dispatch = useAppDispatch();
-
+  const newNetwork = useAppSelector(selectNewNetwork)
   const router = useRouter()
   const tokens = useAppSelector(selectTokens) as any
 
   useEffect(() => {
     dispatch(fetchTokensAction())
-  }, [dispatch])
+  }, [dispatch, newNetwork])
 
 
 
@@ -115,7 +115,7 @@ const TokensTable: FC = () => {
                 <TableRow key={index} onClick={() => { router.push(`/tokens/${token?.last_transaction_version}`) }} style={{ cursor: "pointer" }}>
                   <TableCell>
 
-                    {token?.image ? <Image  src={token?.image} width="50" height="50" alt="TokenImage" /> : ""}
+                    {token?.image ? <Image src={token?.image} width="50" height="50" alt="TokenImage" /> : ""}
 
                   </TableCell>
                   <TableCell style={{ color: "#6b28a9" }}>

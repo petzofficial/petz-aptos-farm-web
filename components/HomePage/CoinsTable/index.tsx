@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useAppDispatch } from "app/hooks";
 import { useAppSelector } from "app/hooks";
-import { selectAccount, selectCoins, fetchCoinsAction } from "app/reducers/AccountSlice";
+import { selectAccount, selectCoins, fetchCoinsAction, selectNewNetwork } from "app/reducers/AccountSlice";
 import { convertToDecimal } from "utils/reUseAbleFunctions/reuseAbleFunctions";
 import Image from 'next/image';
 import Aptos from "../../../assets/aptos-apt-logo.svg";
@@ -65,11 +65,11 @@ const CoinsTable: FC = () => {
   const dispatch = useAppDispatch();
   const coins = useAppSelector(selectCoins)
   const account = useAppSelector(selectAccount)
-
+  const newNetwork = useAppSelector(selectNewNetwork)
   useEffect(() => {
 
     dispatch(fetchCoinsAction(account?.address))
-  }, [dispatch, account])
+  }, [dispatch, account, newNetwork])
 
   return (
     <div>
