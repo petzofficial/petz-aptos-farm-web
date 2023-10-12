@@ -13,13 +13,13 @@ import Slider from '@mui/material/Slider';
 
 const MySlider = styled(Slider)(() => ({
     '& .MuiSlider-thumb': {
-        backgroundColor: '#1fc7d4',
+        backgroundColor: '#f49c63',
     },
     '& .MuiSlider-rail': {
-        backgroundColor: '#1fc7d4',
+        backgroundColor: '#f49c63',
     },
     '& .MuiSlider-track': {
-        backgroundColor: '#1fc7d4',
+        backgroundColor: '#f49c63',
     },
 }));
 
@@ -49,7 +49,7 @@ const marks = [
 function valuetext(value: number) {
     return `${value}°C`;
 }
-export function SimpleDialog(props: SimpleDialogProps) {
+export function StackedPopup(props: SimpleDialogProps) {
     const { open } = props;
 
     const TableDiv = styled("div")`
@@ -114,7 +114,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
                                 </Box>
                                 <DialogTitle style={{ textAlign: 'right', color: '#a79bc9', padding: '5px 3px 24px 0px', fontWeight: 'bolder' }}>Balance: 2</DialogTitle>
                             </Box>
-                            <Box sx={{ width: 324 }}>
+                            <Box sx={{ width: "100%" }}>
                                 <MySlider
                                     aria-label="Always visible"
                                     defaultValue={30}
@@ -125,17 +125,17 @@ import { syntax } from '../../.next/static/chunks/webpack';
                             </Box>
 
                             <Box>
-                                <span style={{ display: 'inline-block', width: '23%', height: '30px', margin: '10px 2% 10px 0px', backgroundColor: '#eff4f5', textAlign: 'center', lineHeight: '32px', borderRadius: '50px', fontSize: '18px', fontWeight: '600', color: '#1fc7d4' }}>25%</span>
-                                <span style={{ display: 'inline-block', width: '23%', height: '30px', margin: '10px 2% 10px 0px', backgroundColor: '#eff4f5', textAlign: 'center', lineHeight: '32px', borderRadius: '50px', fontSize: '18px', fontWeight: '600', color: '#1fc7d4' }}>50%</span>
-                                <span style={{ display: 'inline-block', width: '23%', height: '30px', margin: '10px 2% 10px 0px', backgroundColor: '#eff4f5', textAlign: 'center', lineHeight: '32px', borderRadius: '50px', fontSize: '18px', fontWeight: '600', color: '#1fc7d4' }}>75%</span>
-                                <span style={{ display: 'inline-block', width: '23%', height: '30px', margin: '10px 2% 10px 0px', backgroundColor: '#eff4f5', textAlign: 'center', lineHeight: '32px', borderRadius: '50px', fontSize: '18px', fontWeight: '600', color: '#1fc7d4' }}>MAX</span>
+                                <span style={{ display: 'inline-block', width: '23%', height: '30px', margin: '10px 2% 10px 0px', backgroundColor: '#eff4f5', textAlign: 'center', lineHeight: '32px', borderRadius: '50px', fontSize: '18px', fontWeight: '600', color: '#502a7a' }}>25%</span>
+                                <span style={{ display: 'inline-block', width: '23%', height: '30px', margin: '10px 2% 10px 0px', backgroundColor: '#eff4f5', textAlign: 'center', lineHeight: '32px', borderRadius: '50px', fontSize: '18px', fontWeight: '600', color: '#502a7a' }}>50%</span>
+                                <span style={{ display: 'inline-block', width: '23%', height: '30px', margin: '10px 2% 10px 0px', backgroundColor: '#eff4f5', textAlign: 'center', lineHeight: '32px', borderRadius: '50px', fontSize: '18px', fontWeight: '600', color: '#502a7a' }}>75%</span>
+                                <span style={{ display: 'inline-block', width: '23%', height: '30px', margin: '10px 2% 10px 0px', backgroundColor: '#eff4f5', textAlign: 'center', lineHeight: '32px', borderRadius: '50px', fontSize: '18px', fontWeight: '600', color: '#502a7a' }}>MAX</span>
                             </Box>
                         </>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions style={{ justifyContent: 'center', display: "flex", flexDirection: "column", paddingBottom: '30px' }}>
-                    <Button sx={{ width: '90%', height: '70px', marginLeft: "10px", backgroundColor: '#1fc7d4', borderRadius: '25px', fontSize: '22px', fontWeight: 'bolder', color: '#fff', marginTop: '25px', '&:hover': { backgroundColor: '#1fc7da' } }} onClick={() => props.onClose("")}>Confirm</Button>
-                    <Button sx={{ width: '90%', height: '70px', backgroundColor: '#fff', borderRadius: '25px', fontSize: '22px', fontWeight: 'bolder', color: '#1fc7d4', marginTop: '25px', border: '4px solid #1fc7d4 ', '&:hover': { backgroundColor: '#1fc7d4', color: '#fff' } }} onClick={() => props.onClose("")}>Get CAKE</Button>
+                    <Button sx={{ width: '75%', height: '60px', marginLeft: "10px", backgroundColor: '#f49c63', borderRadius: '22px', fontSize: '22px', fontWeight: 'bolder', color: '#fff', marginTop: '25px', '&:hover': { backgroundColor: '#f47c63' } }} onClick={() => props.onClose("")}>Confirm</Button>
+                    <Button sx={{ width: '75%', height: '60px', backgroundColor: '#fff', borderRadius: '22px', fontSize: '22px', fontWeight: 'bolder', color: '#f49c63', marginTop: '25px', border: '4px solid #f49c63 ', '&:hover': { backgroundColor: '#f49c63', color: '#fff' } }} onClick={() => props.onClose("")}>Get CAKE</Button>
                 </DialogActions>
             </Dialog>
         </TableDiv >

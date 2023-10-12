@@ -97,6 +97,20 @@ const HeaderDiv = styled.div`
       }
     }
   }
+
+  .navFarmBTN{
+    padding: 6px 8px;
+  }
+
+  .navBtn a,
+  .navBtn button{
+    margin-left: 50px;
+    @media screen and (max-width: 458px){
+      margin: 5px;
+    }
+  }
+
+  
 `;
 
 const Networks = [{
@@ -161,32 +175,32 @@ const Header: FC = () => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   typography: 'body1',
-                  '& > :not(style) ~ :not(style)': {
-                    ml: 2,
-                  },
                 }}
               >
                 {newNetwork && (
 
                   <>
-                    <Link href="/"><span>Accounts</span></Link>
-                    <Link href="/farms"><span>Farms</span></Link>
-                    <Button
-                      id="fade-button"
-                      aria-controls={open ? 'fade-menu3' : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? 'true' : 'false'}
-                      onClick={handleClick}
-                      sx={{
-                        color: "#000",
-                        textTransform: 'capitalize',
-                        fontWeight: '500',
-                        fontSize: '18px'
-                      }}
-                      endIcon={<KeyboardArrowDownIcon />}
-                    >
-                      {newNetwork}
-                    </Button>
+                    <div className="navBtn">
+                      <Link className="navFarmBTN" href="/"><span>Account</span></Link>
+                      <Link className="navFarmBTN" href="/farms"><span>Farms</span></Link>
+                      <Button
+                        id="fade-button"
+                        aria-controls={open ? 'fade-menu3' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : 'false'}
+                        onClick={handleClick}
+                        sx={{
+                          color: "#000",
+                          textTransform: 'capitalize',
+                          fontWeight: '500',
+                          fontSize: '18px',
+
+                        }}
+                        endIcon={<KeyboardArrowDownIcon />}
+                      >
+                        {newNetwork}
+                      </Button>
+                    </div>
                     <Menu
                       id="fade-menu"
                       MenuListProps={{
