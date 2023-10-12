@@ -1,0 +1,28 @@
+.popupBtn1 {
+    width: '90%';
+    height: '70px';
+    backgroundColor: '#1fc7d4';
+    borderRadius: '25px';
+    fontSize: '22px';
+    fontWeight: 'bolder';
+    color: '#fff';
+    marginTop: '25px';
+}
+
+.popupBtn1:hover {
+    backgroundColor: '#1fc7da'
+}
+
+.sliderBtns {
+    display: 'inline-block';
+    width: '23%';
+    height: '30px';
+    margin: '10px 2% 10px 0px';
+    backgroundColor: '#eff4f5';
+    textAlign: 'center';
+    lineHeight: '32px';
+    borderRadius: '50px';
+    fontSize: '18px';
+    fontWeight: '600';
+    color: '#1fc7d4'
+}

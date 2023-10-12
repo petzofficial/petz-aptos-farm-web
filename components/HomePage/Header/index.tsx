@@ -169,6 +169,8 @@ const Header: FC = () => {
                 {newNetwork && (
 
                   <>
+                    <Link href="/"><span>Accounts</span></Link>
+                    <Link href="/farms"><span>Farms</span></Link>
                     <Button
                       id="fade-button"
                       aria-controls={open ? 'fade-menu3' : undefined}

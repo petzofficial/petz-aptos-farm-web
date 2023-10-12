@@ -18,23 +18,18 @@ export default function NavTabs() {
 
         <Tabs>
             <TabList>
-                <Tab><EventNoteIcon />Account</Tab>
+                <Tab><EventNoteIcon />Transactions</Tab>
                 <Tab><MonetizationOnOutlinedIcon />Coins</Tab>
                 <Tab><AccountBalanceWalletOutlinedIcon />Tokens</Tab>
-                <Tab><AgricultureOutlinedIcon />Farm</Tab>
             </TabList>
             <TabPanel>
                 <CustomTable />
-                {/* <Pagination /> */}
             </TabPanel>
             <TabPanel>
                 <CoinsTable />
             </TabPanel>
             <TabPanel>
                 <TokensTable />
-            </TabPanel>
-            <TabPanel>
-                <FarmsTable />
             </TabPanel>
         </Tabs>
 

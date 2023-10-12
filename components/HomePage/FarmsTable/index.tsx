@@ -1,28 +1,27 @@
-import { FC, useEffect } from "react";
-import { styled } from "@mui/material/styles";
-import MuiTable from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableContainer from "@mui/material/TableContainer";
-import Paper from "@mui/material/Paper";
+import React, { FC, useEffect } from "react";
 import { useAppDispatch } from "app/hooks";
 import { useAppSelector } from "app/hooks";
 import { selectAccount, selectCoins, fetchCoinsAction, selectNewNetwork } from "app/reducers/AccountSlice";
 import Image from 'next/image';
-import Aptos from "../../../assets/AptosLogo.svg";
-import UsdCoinLogo from "../../../assets/UsdCoin.svg";
-import WethLogo from "../../../assets/weth.svg";
-import SearchIcon from "../../../assets/search.svg";
+import Paper from "@mui/material/Paper";
+import { styled } from "@mui/material/styles";
+import MuiTable from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableContainer from "@mui/material/TableContainer";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemText from "@mui/material/ListItemText";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
-import React from "react";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { SimpleDialog } from "utils/Popups/popups";
+import Aptos from "../../../assets/AptosLogo.svg";
+import UsdCoinLogo from "../../../assets/UsdCoin.svg";
+import WethLogo from "../../../assets/weth.svg";
+import SearchIcon from "../../../assets/search.svg";
 import TetherLogo from "../../../assets/tether.svg";
 import CalendarIcon from "../../../assets/calendar.svg"
 import Grapglogo from "../../../assets/GraphLogo.svg"
-import { SimpleDialog } from "utils/Popups/popups";
 
 const TableDiv = styled("div")`
   width: 100%;
@@ -88,8 +87,8 @@ const TableDiv = styled("div")`
 }
 
 .sec1{
-  background-color:#211c41;
-  width:20%;
+  background-color:#f1e9e7;
+  width:26%;
   height: 600px;
   text-align: center;
   margin-top:30px;
@@ -97,11 +96,11 @@ const TableDiv = styled("div")`
   margin-right:2%;
 }
 .main_heading>h3{
-  color:#e4e5fa;
+  color:#000;
   font-size:20px;
 }
 .main_heading>span{
-  color:#e4e5fa;
+  color:#000;
   font-size:11px;
 }
 .main_heading{
@@ -115,13 +114,13 @@ const TableDiv = styled("div")`
 }
 .label{
   font-size:13px;
-  color:#FFFFFF;
+  color:#000;
   margin-top:10px;
   opacity: .6;
 }
 .afterheading{
   font-size:13px;
-  color:#D4CDED;
+  color:#000;
 }
 .afterHeading_Main{
   margin-top:20px;
@@ -142,13 +141,13 @@ const TableDiv = styled("div")`
 .point1>span{
   font-weight: 400;
   font-size: 13px;
-  color:#FFFFFF;
+  color:#000;
   line-height: 18px;
   opacity: .6;
 }
 .point1>p{
   font-size:13px;
-  color:#D4CDED;
+  color:#000;
   font-weight: 600;
   line-height: 18px;
   text-align:start;
@@ -158,7 +157,7 @@ const TableDiv = styled("div")`
   width: 100px;
   height:43px;
   border-radius:5px;
-  background-color: #43395b;
+  background-color: #f49c63;
   margin-top: 10px;
   color:#ffffff;
   -webkit-transition: all 0.5s ease-in-out;
@@ -167,7 +166,8 @@ const TableDiv = styled("div")`
   transition: all 0.5s ease-in-out;
 }
 .card_button:hover{
-  background-color: #8d29c1;
+  background-color: #f1e9e7;
+  color:#000;
   // -webkit-background: linear-gradient(90deg,#6e42ca 0%,#8d29c1 100%);
   // -moz-background: linear-gradient(90deg,#6e42ca 0%,#8d29c1 100%);
   // -o-background: linear-gradient(90deg,#6e42ca 0%,#8d29c1 100%);
@@ -222,7 +222,7 @@ const TableDiv = styled("div")`
   }
 }
 .headBtmSearch{
-  max-width: 1024px;
+  max-width: 860.5px;
   width: 100%;
   margin-left: auto;
   padding: 0px 0px;
@@ -234,7 +234,7 @@ const TableDiv = styled("div")`
   .cardbuttons_main {
     width: 96%;
     display: block;
-    margin: 15px auto 0px;
+    margin-left:7px; 
     button{
       font-size: 13px;
       display: inline-block;
@@ -419,7 +419,6 @@ const FarmsTable: FC = () => {
             <TableBody>
               <hr />
               <div className="CardsMaindiv">
-
                 <div className="sec1">
                   <div className="sec1_mainDiv">
                     <Image src={Aptos} alt="logo" className="" style={{ width: 46, height: 46 }} />
@@ -449,27 +448,20 @@ const FarmsTable: FC = () => {
                         <p>$18,868</p>
                       </div>
                       <div className="point1">
+                        <span>COIN STAKE:</span>
+                        <p>$18</p>
+                      </div>
+                      <div className="point1">
+                        <span>COINS EARNED:</span>
+                        <p>$868</p>
+                      </div>
+                      <div className="point1">
                         <span>Time Left:</span>
                         <p>4M 18W 6D<Image src={CalendarIcon} alt="logo" className="" style={{ width: 18, height: 18, }} /></p>
                       </div>
                     </div>
                     <hr />
                     <div className="cardbuttons_main">
-                      <Button
-                        id="fade-button"
-                        className="card_button"
-                        aria-controls={open ? 'fade-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : 'false'}
-                        sx={{
-                          color: "#000",
-                          textTransform: 'capitalize',
-                          fontWeight: '500',
-                          fontSize: '18px'
-                        }}
-                      >
-                        Coin Stake
-                      </Button>
                       <Button
                         id="fade-button"
                         className="card_button"
@@ -502,22 +494,6 @@ const FarmsTable: FC = () => {
                         onClick={handleShowPopup}
                       >
                         Unstake
-                      </Button>
-                      <Button
-                        id="fade-button"
-                        className="card_button"
-                        aria-controls={open ? 'fade-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : 'false'}
-
-                        sx={{
-                          color: "#000",
-                          textTransform: 'capitalize',
-                          fontWeight: '500',
-                          fontSize: '18px'
-                        }}
-                      >
-                        Coin earned
                       </Button>
                       <Button
                         id="fade-button"
@@ -564,28 +540,20 @@ const FarmsTable: FC = () => {
                         <p>$14,911</p>
                       </div>
                       <div className="point1">
+                        <span>COIN STAKE:</span>
+                        <p>$18</p>
+                      </div>
+                      <div className="point1">
+                        <span>COINS EARNED:</span>
+                        <p>$868</p>
+                      </div>
+                      <div className="point1">
                         <span>Time Left:</span>
                         <p>4M 18W 6D <Image src={CalendarIcon} alt="logo" className="" style={{ width: 18, height: 18, }} /></p>
                       </div>
                     </div>
                     <hr />
                     <div className="cardbuttons_main">
-                      <Button
-                        id="fade-button"
-                        className="card_button"
-                        aria-controls={open ? 'fade-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : 'false'}
-
-                        sx={{
-                          color: "#000",
-                          textTransform: 'capitalize',
-                          fontWeight: '500',
-                          fontSize: '18px'
-                        }}
-                      >
-                        Coin Stake
-                      </Button>
                       <Button
                         id="fade-button"
                         className="card_button"
@@ -617,21 +585,6 @@ const FarmsTable: FC = () => {
                         onClick={handleShowPopup}
                       >
                         Unstake
-                      </Button>
-                      <Button
-                        id="fade-button"
-                        className="card_button"
-                        aria-controls={open ? 'fade-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : 'false'}
-                        sx={{
-                          color: "#000",
-                          textTransform: 'capitalize',
-                          fontWeight: '500',
-                          fontSize: '18px'
-                        }}
-                      >
-                        Coin earned
                       </Button>
                       <Button
                         id="fade-button"
@@ -678,27 +631,20 @@ const FarmsTable: FC = () => {
                         <p>495,873</p>
                       </div>
                       <div className="point1">
+                        <span>COIN STAKE:</span>
+                        <p>$18</p>
+                      </div>
+                      <div className="point1">
+                        <span>COINS EARNED:</span>
+                        <p>$868</p>
+                      </div>
+                      <div className="point1">
                         <span>Time Left:</span>
                         <p>4M 18W 6D <Image src={CalendarIcon} alt="logo" className="" style={{ width: 18, height: 18, }} /></p>
                       </div>
                     </div>
                     <hr />
                     <div className="cardbuttons_main">
-                      <Button
-                        id="fade-button"
-                        className="card_button"
-                        aria-controls={open ? 'fade-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : 'false'}
-                        sx={{
-                          color: "#000",
-                          textTransform: 'capitalize',
-                          fontWeight: '500',
-                          fontSize: '18px'
-                        }}
-                      >
-                        Coin staked
-                      </Button>
                       <Button
                         id="fade-button"
                         className="card_button"
@@ -731,22 +677,6 @@ const FarmsTable: FC = () => {
                         onClick={handleShowPopup}
                       >
                         Unstake
-                      </Button>
-                      <Button
-                        id="fade-button"
-                        className="card_button"
-                        aria-controls={open ? 'fade-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : 'false'}
-
-                        sx={{
-                          color: "#000",
-                          textTransform: 'capitalize',
-                          fontWeight: '500',
-                          fontSize: '18px'
-                        }}
-                      >
-                        Coin earned
                       </Button>
                       <Button
                         id="fade-button"
