@@ -235,7 +235,7 @@ const TableDiv = styled("div")`
   }
 }
 .headBtmSearch{
-  max-width: 860.5px;
+  max-width: 840.5px;
   width: 100%;
   margin-left: auto;
   padding: 0px 0px;
