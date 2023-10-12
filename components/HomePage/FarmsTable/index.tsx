@@ -93,9 +93,13 @@ const TableDiv = styled("div")`
   margin-top:30px;
   border-radius:12px;
   margin-right:2%;
-  @media screen and (max-width: 485px){
-    width: 98%;
+  @media screen and (max-width: 850px){
+    width: 48%;
     margin: 10px 1%;
+    display: inline-block;
+  }
+  @media screen and (max-width: 667px){
+    width: 98%;
   }
 }
 .main_heading>h3{.cardbuttons_main
@@ -191,8 +195,9 @@ const TableDiv = styled("div")`
   display:flex;
   justify-content: center;
   align-items: center;
-  @media screen and (max-width: 485px){
+  @media screen and (max-width: 850px){
     display: block;
+    text-align: center;
     margin: 20px 0px; 
   }
 }
@@ -235,17 +240,39 @@ const TableDiv = styled("div")`
   }
 }
 .headBtmSearch{
-  max-width: 840.5px;
+  max-width: 80%;
   width: 100%;
-  margin-left: auto;
+  margin: auto;
   padding: 0px 0px;
-  @media screen and (max-width: 485px){
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media screen and (max-width: 850px){
     max-width: 100%;
+    display: block;
+  }
+   .headBtnEmpty{
+    width: 20%;
+    @media screen and (max-width: 1024px){
+      width: 20%;
+    }
+    @media screen and (max-width: 768px){
+      width: 0%;
+      display: none
+    }
   }
 }
+
+
+
   .headBtmSearch .headBtmSearch1, .headBtmSearch .headBtmSearch2{
     display: inline-block;
     padding: 0px 20px;
+    @media screen and (max-width: 850px){
+      display: block;
+      width: 275px;
+      margin: auto;
+    }
   }
   .cardbuttons_main {
     width: 96%;
@@ -319,7 +346,8 @@ const FarmsTable: FC = () => {
   return (
     <div>
       <div className="headBtmSearch">
-        <div className="headBtmSearch2">
+        <div className="headBtnEmpty"></div>
+        <div className="headBtmSearch2 headLeftBtn">
           <Button
             id="fade-button"
             className="dropdownButton"

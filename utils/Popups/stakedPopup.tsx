@@ -68,7 +68,23 @@ import { syntax } from '../../.next/static/chunks/webpack';
         background-color:red;
         color:#000;
     }
+    .custom-input {
+        border: none;
+        color: #fff;
+        font-size: 22px;
+        text-align: right;
+        padding: 25px 15px 0 0;
+        margin-top: 10px;
+        font-weight: 600;
+        width: 100%;
+        background-color: transparent;
+        outline: none;
+        -webkit-appearance: none; /* For Safari */
+        appearance: none;
+      }
+      
     `;
+
 
     function valuetext(value: number) {
         return `${value}`;
@@ -83,16 +99,16 @@ import { syntax } from '../../.next/static/chunks/webpack';
                     style: {
                         backgroundColor: '#fff',
                         boxShadow: 'none',
-                        color: 'white',
+                        color: '#000',
                         width: "100%",
                         maxWidth: "400px",
                         borderRadius: "30px",
                     },
                 }}
             >
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', backgroundColor: '#ecf0f4', position: 'relative' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', backgroundColor: '#f1e9e7', position: 'relative' }}>
                     <DialogTitle className="main_heading" id="alert-dialog-title"
-                        sx={{ color: '#452a7a', height: '70px', fontSize: '22px', fontWeight: '900' }}>
+                        sx={{ color: '#000', height: '70px', fontSize: '22px', fontWeight: '900' }}>
 
 
 
@@ -104,15 +120,18 @@ import { syntax } from '../../.next/static/chunks/webpack';
                     <DialogContentText id="alert-dialog-description">
                         <>
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '60px' }}>
-                                <h5 style={{ color: '#452a7a', height: '70px', fontSize: '22px', fontWeight: '900' }}>Stake:</h5>
-                                <h5 style={{ color: '#452a7a', height: '70px', fontSize: '22px', fontWeight: '900' }}>CAKE</h5>
+                                <h5 style={{ color: '#000', height: '70px', fontSize: '22px', fontWeight: '900' }}>Stake:</h5>
+                                <h5 style={{ color: '#000', height: '70px', fontSize: '22px', fontWeight: '900' }}>CAKE</h5>
                             </Box>
                             <Box>
-                                <Box sx={{ height: '120px', backgroundColor: '#eeeaf4', borderRadius: '20px' }}>
-                                    <h4 style={{ color: '#452a7a', fontSize: '22px', textAlign: 'right', marginBottom: '15px', padding: '25px 15px 0px 0px', fontWeight: '600' }}>0.6000000000000000</h4>
-                                    <p style={{ color: '#a194c5', fontSize: '17px', textAlign: 'right', padding: '0px 15px 0px 0px', fontWeight: '600' }}>~22.37 USD</p>
+                                <Box sx={{ height: '120px', backgroundColor: '#f1e9e7', borderRadius: '20px', marginTop: '25px' }}>
+                                    <input type='text' placeholder='0.000' style={{
+                                        border: 'none', color: '#000', fontSize: '22px', textAlign: 'right', padding: '25px 15px 0px 0px', marginTop: '10px', fontWeight: '600', width: '100%', backgroundColor: 'transparent', outline: "none", appearance: 'textfield', WebkitAppearance: 'textfield', MozAppearance: 'textfield'
+                                    }} />
+
+                                    <p style={{ color: '#000', fontSize: '17px', textAlign: 'right', padding: '0px 15px 0px 0px', fontWeight: '600' }}>~22.37 USD</p>
                                 </Box>
-                                <DialogTitle style={{ textAlign: 'right', color: '#a79bc9', padding: '5px 3px 24px 0px', fontWeight: 'bolder' }}>Balance: 2</DialogTitle>
+                                <DialogTitle style={{ textAlign: 'right', color: '#000', padding: '5px 3px 24px 0px', fontWeight: 'bolder' }}>Balance: 2</DialogTitle>
                             </Box>
                             <Box sx={{ width: "100%" }}>
                                 <MySlider
@@ -125,10 +144,10 @@ import { syntax } from '../../.next/static/chunks/webpack';
                             </Box>
 
                             <Box>
-                                <span style={{ display: 'inline-block', width: '23%', height: '30px', margin: '10px 2% 10px 0px', backgroundColor: '#eff4f5', textAlign: 'center', lineHeight: '32px', borderRadius: '50px', fontSize: '18px', fontWeight: '600', color: '#502a7a' }}>25%</span>
-                                <span style={{ display: 'inline-block', width: '23%', height: '30px', margin: '10px 2% 10px 0px', backgroundColor: '#eff4f5', textAlign: 'center', lineHeight: '32px', borderRadius: '50px', fontSize: '18px', fontWeight: '600', color: '#502a7a' }}>50%</span>
-                                <span style={{ display: 'inline-block', width: '23%', height: '30px', margin: '10px 2% 10px 0px', backgroundColor: '#eff4f5', textAlign: 'center', lineHeight: '32px', borderRadius: '50px', fontSize: '18px', fontWeight: '600', color: '#502a7a' }}>75%</span>
-                                <span style={{ display: 'inline-block', width: '23%', height: '30px', margin: '10px 2% 10px 0px', backgroundColor: '#eff4f5', textAlign: 'center', lineHeight: '32px', borderRadius: '50px', fontSize: '18px', fontWeight: '600', color: '#502a7a' }}>MAX</span>
+                                <span style={{ display: 'inline-block', width: '23%', height: '30px', margin: '10px 2% 10px 0px', backgroundColor: '#eff4f5', textAlign: 'center', lineHeight: '32px', borderRadius: '50px', fontSize: '18px', fontWeight: '600', color: '#000' }}>25%</span>
+                                <span style={{ display: 'inline-block', width: '23%', height: '30px', margin: '10px 2% 10px 0px', backgroundColor: '#eff4f5', textAlign: 'center', lineHeight: '32px', borderRadius: '50px', fontSize: '18px', fontWeight: '600', color: '#000' }}>50%</span>
+                                <span style={{ display: 'inline-block', width: '23%', height: '30px', margin: '10px 2% 10px 0px', backgroundColor: '#eff4f5', textAlign: 'center', lineHeight: '32px', borderRadius: '50px', fontSize: '18px', fontWeight: '600', color: '#000' }}>75%</span>
+                                <span style={{ display: 'inline-block', width: '23%', height: '30px', margin: '10px 2% 10px 0px', backgroundColor: '#eff4f5', textAlign: 'center', lineHeight: '32px', borderRadius: '50px', fontSize: '18px', fontWeight: '600', color: '#000' }}>MAX</span>
                             </Box>
                         </>
                     </DialogContentText>
@@ -137,7 +156,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
                     <Button sx={{ width: '75%', height: '60px', marginLeft: "10px", backgroundColor: '#f49c63', borderRadius: '22px', fontSize: '22px', fontWeight: 'bolder', color: '#fff', marginTop: '25px', '&:hover': { backgroundColor: '#f47c63' } }} onClick={() => props.onClose("")}>Confirm</Button>
                     <Button sx={{ width: '75%', height: '60px', backgroundColor: '#fff', borderRadius: '22px', fontSize: '22px', fontWeight: 'bolder', color: '#f49c63', marginTop: '25px', border: '4px solid #f49c63 ', '&:hover': { backgroundColor: '#f49c63', color: '#fff' } }} onClick={() => props.onClose("")}>Get CAKE</Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog >
         </TableDiv >
     );
 }
