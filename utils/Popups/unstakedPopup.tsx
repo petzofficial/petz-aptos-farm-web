@@ -92,25 +92,25 @@ import { syntax } from '../../.next/static/chunks/webpack';
             >
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', backgroundColor: '#f1e9e7', position: 'relative' }}>
                     <DialogTitle className="main_heading" id="alert-dialog-title"
-                        sx={{ color: '#000', height: '70px', fontWeight: '900' }}>
+                        sx={{ color: '#000', fontWeight: '900' }}>
                         <h3>Unstake</h3>
                     </DialogTitle>
-                    <Image onClick={() => props.onClose("")} src={closeIcon} alt="logo" style={{ cursor: "pointer", width: 25, height: 25, position: 'absolute', top: '20px', right: '20px' }} />
+                    <Image onClick={() => props.onClose("")} src={closeIcon} alt="logo" style={{ cursor: "pointer", width: 25, height: 30, position: 'absolute', top: '25px', right: '20px' }} />
                 </Box>
                 <DialogContent sx={{ padding: "0px 30px" }}>
                     <DialogContentText id="alert-dialog-description">
                         <>
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '60px' }}>
-                                <h3 style={{ color: '#000', height: '70px', fontWeight: '900' }}>Stake:</h3>
-                                <h3 style={{ color: '#000', height: '70px', fontWeight: '900' }}>CAKE</h3>
+                                <h4 style={{ color: '#000', fontWeight: '600' }}>Stake:</h4>
+                                <h4 style={{ color: '#000', fontWeight: '600' }}>CAKE</h4>
                             </Box>
                             <Box>
-                                <Box sx={{ height: '120px', backgroundColor: '#f1e9e7', borderRadius: '20px', marginTop: '25px' }}>
+                                <Box sx={{ height: '100px', backgroundColor: '#f1e9e7', borderRadius: '20px' }}>
                                     <input type='text' placeholder='0.000' style={{
-                                        border: 'none', color: '#000', fontSize: '13px', textAlign: 'right', padding: '25px 15px 0px 0px', marginTop: '10px', fontWeight: '600', width: '100%', backgroundColor: 'transparent', outline: "none", appearance: 'textfield', WebkitAppearance: 'textfield', MozAppearance: 'textfield'
+                                        border: 'none', color: '#000', fontSize: '13px', textAlign: 'right', padding: '25px 15px 0px 0px', fontWeight: '600', width: '100%', backgroundColor: 'transparent', outline: "none", appearance: 'textfield', WebkitAppearance: 'textfield', MozAppearance: 'textfield'
                                     }} /><p style={{ color: '#000', fontSize: '13px', textAlign: 'right', padding: '0px 15px 0px 0px', fontWeight: '600' }}>~22.37 USD</p>
                                 </Box>
-                                <DialogTitle style={{ textAlign: 'right', color: '#000', padding: '5px 3px 24px 0px', fontWeight: 'bolder', fontSize: "13px" }}>Balance: 2</DialogTitle>
+                                <DialogTitle style={{ textAlign: 'right', color: '#000', padding: '5px 3px', fontWeight: 'bolder', fontSize: '13px' }}>Balance: 2</DialogTitle>
                             </Box>
                             <Box sx={{ width: "100%" }}>
                                 <MySlider
@@ -132,7 +132,12 @@ import { syntax } from '../../.next/static/chunks/webpack';
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions style={{ justifyContent: 'center', display: "flex", flexDirection: "column", paddingBottom: '30px' }}>
-                    <Button sx={{ width: '70%', height: '60px', marginLeft: "10px", backgroundColor: '#f49c63', borderRadius: '20px', fontSize: '13px', fontWeight: 'bolder', color: '#fff', marginTop: '25px', '&:hover': { backgroundColor: '#f47c63' } }} onClick={() => props.onClose("")}>Confirm</Button>
+                    <Button
+                        sx={{ width: '50%', height: '40px', marginLeft: "10px", backgroundColor: '#f49c63', borderRadius: '20px', fontSize: '13px', fontWeight: 'bolder', color: '#fff', marginTop: '8px', '&:hover': { backgroundColor: '#f47c63' } }}
+                        onClick={() => props.onClose("")}
+                    >
+                        Confirm
+                    </Button>
                 </DialogActions>
             </Dialog>
         </TableDiv >

@@ -164,7 +164,7 @@ const TableDiv = styled("div")`
 .card_button{
   font-size:100px
   width: 100px;
-  height:43px;
+  height:40px;
   border-radius:5px;
   background-color: #f49c63;
   margin-top: 10px;
@@ -471,7 +471,6 @@ const FarmsTable: FC = () => {
       </div>
 
       <TableDiv>
-
         <div className="CardsMaindiv">
           <div className="sec1">
             <div className="sec1_mainDiv">
@@ -695,11 +694,11 @@ const FarmsTable: FC = () => {
                   <p>495,873</p>
                 </div>
                 <div className="point1">
-                  <span>COIN STAKE:</span>
+                  <span>STAKE:</span>
                   <p>$18</p>
                 </div>
                 <div className="point1">
-                  <span>COINS EARNED:</span>
+                  <span>EARNED:</span>
                   <p>$868</p>
                 </div>
                 <div className="point1">
@@ -708,6 +707,7 @@ const FarmsTable: FC = () => {
                 </div>
               </div>
               <hr />
+
               <div className="cardbuttons_main">
                 <div>
                   <Button
