@@ -50,6 +50,9 @@ const HeaderDiv = styled.div`
       }
       .headerRight1 {
         margin: 0px 30px;
+        @media screen and (max-width: 370px){
+          margin: 0;
+        }
         ul {
           margin: 0;
           padding: 0;
@@ -101,11 +104,16 @@ const HeaderDiv = styled.div`
   .navFarmBTN{
     padding: 6px 8px;
   }
-
+  .navBtn {
+    @media screen and (max-width: 540px){
+      text-align: center;
+    }
+  }
   .navBtn a,
   .navBtn button{
     margin-left: 50px;
-    @media screen and (max-width: 458px){
+    display: inline-block;
+    @media screen and (max-width: 540px){
       margin: 5px;
     }
   }

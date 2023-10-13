@@ -230,6 +230,7 @@ const TableDiv = styled("div")`
   width: 400px;
   border: none;
   position: relative;
+  
   @media screen and (max-width: 485px){
     width: 100%;
   }
@@ -245,8 +246,9 @@ const TableDiv = styled("div")`
   margin: auto;
   padding: 0px 0px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+   align-items: end;
   @media screen and (max-width: 850px){
     max-width: 100%;
     display: block;
@@ -268,6 +270,9 @@ const TableDiv = styled("div")`
   .headBtmSearch .headBtmSearch1, .headBtmSearch .headBtmSearch2{
     display: inline-block;
     padding: 0px 20px;
+    @media screen and (max-width: 992px){
+      width: 100%;
+    }
     @media screen and (max-width: 850px){
       display: block;
       width: 275px;
@@ -346,7 +351,7 @@ const FarmsTable: FC = () => {
   return (
     <div>
       <div className="headBtmSearch">
-        <div className="headBtnEmpty"></div>
+        {/* <div className="headBtnEmpty"></div> */}
         <div className="headBtmSearch2 headLeftBtn">
           <Button
             id="fade-button"
