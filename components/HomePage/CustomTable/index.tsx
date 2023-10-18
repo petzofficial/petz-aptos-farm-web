@@ -18,8 +18,6 @@ import { useRouter } from "next/router";
 import { useAppSelector } from "app/hooks";
 import { selectTransactions } from "app/reducers/AccountSlice";
 import { shortenString, formatTimestamp } from "utils/reUseAbleFunctions/reuseAbleFunctions";
-import { useAppDispatch } from 'app/hooks';
-import { fetchTransactionsAction, selectAccount } from 'app/reducers/AccountSlice';
 import React, { useEffect } from 'react';
 import ReactPaginate from "react-paginate";
 const TableDiv = styled("div")`
@@ -70,18 +68,15 @@ const TableDiv = styled("div")`
 const CustomTable: FC = () => {
   const router = useRouter()
   const transactions = useAppSelector(selectTransactions)
-  const transaction = useAppSelector(selectTransactions)
   const sortedTransactions = [...transactions].sort((a, b) => b.timestamp - a.timestamp);
   const [itemOffset, setItemOffset] = useState(0)
   const itemsPerPage = 10
   const pageCount = Math.ceil(sortedTransactions.length / itemsPerPage);
   const endOffset = itemOffset + itemsPerPage;
-  const currentItems = sortedTransactions.slice(itemOffset, endOffset);
-
-
+  const currentItems = sortedTransactions.slice(itemOffset, endOffset) as any;
 
   const handlePageClick = (event: any) => {
-    const newOffset = (event.selected * itemsPerPage) % transaction.length;
+    const newOffset = (event.selected * itemsPerPage) % transactions.length;
     setItemOffset(newOffset);
   };
 
@@ -144,12 +139,11 @@ const CustomTable: FC = () => {
 
                   </TableCell>
                   <TableCell>
-                    {transaction?.payload?.function.split('::code::')[1] ? (<span style={{ color: "#000", cursor: "pointer" }}>{transaction?.payload?.function.split('::code::')[1]}</span>) : (<span style={{ color: "#000", cursor: "pointer" }}>Script</span>)}
-
+                    {/* {transaction?.payload?.function.split('::code::')[1] ? (<span style={{ color: "#000", cursor: "pointer" }}>{transaction?.payload?.function.split('::code::')[1]}</span>) : (<span style={{ color: "#000", cursor: "pointer" }}>Script</span>)} */}
+                    {transaction?.payload?.function ? (<span style={{ color: "#000", cursor: "pointer" }}>{(transaction?.payload?.function?.split('::') || []).slice(1).join("::")}</span>) : (<span style={{ color: "#000", cursor: "pointer" }}>Script</span>)}
                   </TableCell>
                 </TableRow>
               ))}
-
             </TableBody>
           </MuiTable>
         </TableContainer>

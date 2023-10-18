@@ -7,7 +7,7 @@ import SendToImg from "../../../assets/sendto.png";
 import Image from "next/image";
 import { useAppSelector } from "app/hooks";
 import { selectSpecificTransaction } from "app/reducers/AccountSlice";
-import { shortenString } from "utils/reUseAbleFunctions/reuseAbleFunctions";
+import { convertToOctal, shortenString } from "utils/reUseAbleFunctions/reuseAbleFunctions";
 
 const BodySec1 = styled.div`
   padding: 0px 20px;
@@ -87,8 +87,7 @@ const Design2BodySec1: FC = () => {
               <th>Status:</th>
               <td>
                 <p>
-
-                  {specificTransaction?.success ? <Fragment><InfoOutlinedIcon /> <span style={{ backgroundColor: "transparent" }}>{specificTransaction?.success ? specificTransaction?.success === true && ("Success") : ("Un-successful")}</span> </Fragment> : "N/A"}
+                  <Fragment><InfoOutlinedIcon /> <span style={{ backgroundColor: "transparent" }}>{specificTransaction?.success ? specificTransaction?.success === true && ("Success") : ("Failed")}</span> </Fragment>
                 </p>
               </td>
             </tr>
@@ -128,12 +127,12 @@ const Design2BodySec1: FC = () => {
             </tr>
             <tr>
               <th>Amount:</th>
-              <td>{specificTransaction?.max_gas_amount} APT</td>
+              <td>{convertToOctal(specificTransaction?.gas_unit_price * specificTransaction?.gas_used).toLocaleString().split('.')[0]} APT</td>
             </tr>
           </tbody>
         </table>
       </div>
-    </BodySec1>
+    </BodySec1 >
   );
 }
 

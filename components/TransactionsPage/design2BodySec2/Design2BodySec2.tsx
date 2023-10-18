@@ -2,7 +2,7 @@ import { useAppSelector } from 'app/hooks';
 import { selectSpecificTransaction, selectTransactionBlock } from 'app/reducers/AccountSlice';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components/macro';
-import { convertToDecimal, formatTimestamp } from 'utils/reUseAbleFunctions/reuseAbleFunctions';
+import { convertToDecimal, convertToOctal, formatTimestamp } from 'utils/reUseAbleFunctions/reuseAbleFunctions';
 
 
 const BodySec2 = styled.div`
@@ -84,21 +84,27 @@ function Design2BodySec2(): ReactElement {
             </tr>
             <tr>
               <th>Expiration Timestamp:</th>
-              <td>{specificTransaction?.expiration_timestamp_secs ? formatTimestamp(specificTransaction.expiration_timestamp_secs) : ""}</td>
+              <td> {specificTransaction?.expiration_timestamp_secs
+                ? new Date(specificTransaction?.expiration_timestamp_secs * 1000).toLocaleString()
+                : ""}</td>
             </tr>
             <tr>
               <th>Timestamp:</th>
-              <td>{specificTransaction?.timestamp ? formatTimestamp(specificTransaction.timestamp) : ""}</td>
+              <td>
+                {specificTransaction?.timestamp
+                  ? new Date(parseInt(specificTransaction?.timestamp) / 1000).toLocaleString()
+                  : ""}
+              </td>
             </tr>
             <tr>
               <th>Gas Fee:</th>
               <td>
-                <span>{convertToDecimal(specificTransaction?.gas_used)}</span> APT <span>{specificTransaction?.gas_used} Gas Unit</span>
+                <span>{convertToOctal(specificTransaction?.gas_unit_price * specificTransaction?.gas_used)}</span> APT <span>{specificTransaction?.gas_used} Gas Unit</span>
               </td>
             </tr>
             <tr>
               <th>Gas Unit Price:</th>
-              <td>{specificTransaction?.gas_unit_price} APT</td>
+              <td>{convertToOctal(specificTransaction?.gas_unit_price)} APT</td>
             </tr>
             <tr>
               <th>Max Gas Limit:</th>

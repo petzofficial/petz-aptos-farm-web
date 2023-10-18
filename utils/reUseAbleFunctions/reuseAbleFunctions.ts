@@ -26,6 +26,10 @@ export const formatTimestamp = (timestamp: string) => {
   return formattedDate;
 };
 
+export const formatedExpirationTime = (expirationTime: any) => {
+  const output = new Date(expirationTime * 1000);
+  return output
+}
 export const convertToDecimal = (value: number | string) => {
   if (typeof value === "string") {
     if (value?.includes(".")) {
@@ -42,3 +46,13 @@ export const convertToDecimal = (value: number | string) => {
     return parseFloat(updatedValueStr);
   }
 };
+
+export const convertToOctal = (value: any) => {
+  const convertedValue = value / 100000000
+  return convertedValue
+}
+
+export const calculateGasFee = (gasUnitPrice: any, gasUnits: any) => {
+  const gasFee = gasUnitPrice * gasUnits
+  return gasFee
+}

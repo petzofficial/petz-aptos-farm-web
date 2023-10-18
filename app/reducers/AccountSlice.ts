@@ -215,15 +215,12 @@ export const fetchBalanceDetailsAction =
       return;
     }
     const moduleAddress = '0x1';
-
     const provider = getWalletNetwork(getState().account.network)
-
     try {
       const coinResource: any = await provider.getAccountResource(
         address,
         `${moduleAddress}::coin::CoinStore<${moduleAddress}::aptos_coin::AptosCoin>`
       );
-
       dispatch(setBalanceDetails(coinResource));
     } catch (e) {
       console.log(e)
@@ -233,7 +230,6 @@ export const fetchBalanceDetailsAction =
 export const fetchSpecificTransactionAction =
   (transactionVersion: string) =>
     (dispatch: any, getState: () => RootState) => {
-
       const transactions = getState().account.transactions;
       try {
         const specificTransactionResponse = transactions.find(
@@ -249,7 +245,6 @@ export const fetchNftImgAction =
   (tokenUri: string, tokenId: string) => async (dispatch: any) => {
     try {
       const { data } = await axios.get(`/api/image?tokenUrl=${tokenUri}`);
-
       dispatch(setSpecificTokenNftImg({ tokenId, image: data.image, attributes: data.attributes }));
     } catch (error) {
       console.error('>> Error fetching nft imgs :', error);
