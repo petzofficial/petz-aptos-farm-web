@@ -9,9 +9,14 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useAppDispatch } from "app/hooks";
 import { useAppSelector } from "app/hooks";
-import { selectAccount, selectCoins, fetchCoinsAction, selectNewNetwork } from "app/reducers/AccountSlice";
+import {
+  selectAccount,
+  selectCoins,
+  fetchCoinsAction,
+  selectNewNetwork,
+} from "app/reducers/AccountSlice";
 import { convertToDecimal } from "utils/reUseAbleFunctions/reuseAbleFunctions";
-import Image from 'next/image';
+import Image from "next/image";
 import Aptos from "../../../assets/aptos-apt-logo.svg";
 import Logo from "../../../assets/logo.png";
 
@@ -20,9 +25,16 @@ const TableDiv = styled("div")`
   width: 100%;
   margin: 30px 0;
   padding: 0px 20px;
+  box-shadow: none;
+
   table {
-    box-shadow: none;
-    border-bottom: none;
+    @media screen and (max-width: 1276px) {
+      width: 1300px;
+      overflow: hidden;
+      overflow-x: auto;
+      position: relative;
+      z-index: 99;
+    }
     th {
       border-bottom: none;
       svg {
@@ -42,13 +54,13 @@ const TableDiv = styled("div")`
         height: 40px;
         vertical-align: middle;
         span {
-          background-color: rgba(241,233,231,1);
+          background-color: rgba(241, 233, 231, 1);
           padding: 6px 12px;
           border-radius: 10px;
         }
       }
       span {
-        background-color: rgba(241,233,231,1);
+        background-color: rgba(241, 233, 231, 1);
         padding: 6px 12px;
         border-radius: 10px;
         svg {
@@ -60,24 +72,33 @@ const TableDiv = styled("div")`
   }
 `;
 
-
 const CoinsTable: FC = () => {
   const dispatch = useAppDispatch();
-  const coins = useAppSelector(selectCoins)
-  const account = useAppSelector(selectAccount)
-  const newNetwork = useAppSelector(selectNewNetwork)
+  const coins = useAppSelector(selectCoins);
+  const account = useAppSelector(selectAccount);
+  const newNetwork = useAppSelector(selectNewNetwork);
   useEffect(() => {
-
-    dispatch(fetchCoinsAction(account?.address))
-  }, [dispatch, account, newNetwork])
+    dispatch(fetchCoinsAction(account?.address));
+  }, [dispatch, account, newNetwork]);
 
   return (
     <div>
       {/* Use the styled component as a React component */}
       <TableDiv>
-        <TableContainer component={Paper} elevation={0}>
+        <TableContainer
+          component={Paper}
+          elevation={0}
+          sx={{
+            borderRadius: "10px",
+            border: "3px solid #f1e9e7",
+          }}
+        >
           <MuiTable sx={{ minWidth: 1200 }} aria-label="simple table">
-            <TableHead>
+            <TableHead
+              sx={{
+                borderBottom: "3px solid #f1e9e7",
+              }}
+            >
               <TableRow>
                 <TableCell>
                   <b>IMAGE</b>
@@ -97,12 +118,21 @@ const CoinsTable: FC = () => {
               {coins?.map((coins, index) => (
                 <TableRow key={index}>
                   <TableCell>
-                    <Image src={coins?.metadata?.symbol === "APT" ? Aptos : Logo} width="150" height="150" alt="" className="abc" />
+                    <Image
+                      src={coins?.metadata?.symbol === "APT" ? Aptos : Logo}
+                      width="150"
+                      height="150"
+                      alt=""
+                      className="abc"
+                    />
                   </TableCell>
                   <TableCell style={{ color: "#6b28a9" }}>
                     {coins?.metadata?.name}
                   </TableCell>
-                  <TableCell>{convertToDecimal(coins?.amount)}<span>{coins?.metadata?.symbol}</span></TableCell>
+                  <TableCell>
+                    {convertToDecimal(coins?.amount)}
+                    <span>{coins?.metadata?.symbol}</span>
+                  </TableCell>
                   <TableCell>{coins?.asset_type}</TableCell>
                 </TableRow>
               ))}
@@ -112,6 +142,6 @@ const CoinsTable: FC = () => {
       </TableDiv>
     </div>
   );
-}
+};
 
 export default CoinsTable;

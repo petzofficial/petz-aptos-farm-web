@@ -9,22 +9,37 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useAppDispatch, useAppSelector } from "app/hooks";
-import { fetchNftImgAction, fetchTokensAction, selectNewNetwork, selectTokens } from "app/reducers/AccountSlice";
+import {
+  fetchNftImgAction,
+  fetchTokensAction,
+  selectNewNetwork,
+  selectTokens,
+} from "app/reducers/AccountSlice";
 import { useRouter } from "next/router";
-import Image from 'next/image';
-
+import Image from "next/image";
 
 const TableDiv = styled("div")`
   width: 100%;
   margin: 30px 0;
   padding: 0px 20px;
+  box-shadow: none;
+
   table {
+    @media screen and (max-width: 1276px) {
+      width: 1300px;
+      overflow: hidden;
+      overflow-x: auto;
+      position: relative;
+      z-index: 99;
+    }
     th {
       border-bottom: none;
       svg {
         font-size: 14px;
         margin-left: 10px;
       }
+    }
+    tbody {
     }
     td {
       border-bottom: none;
@@ -33,18 +48,19 @@ const TableDiv = styled("div")`
       }
       img {
         display: inline-block;
-        margin-right:petz-aptos-dapp-main/components/HomePage/CustomTable/index.tsx 10px;
+        margin-right: petz-aptos-dapp-main/components/HomePage/CustomTable/index.tsx
+          10px;
         width: 40px;
         height: 40px;
         vertical-align: middle;
         span {
-          background-color: rgba(241,233,231,1);
+          background-color: rgba(241, 233, 231, 1);
           padding: 6px 12px;
           border-radius: 10px;
         }
       }
       span {
-        background-color: rgba(241,233,231,1);
+        background-color: rgba(241, 233, 231, 1);
         padding: 6px 12px;
         border-radius: 10px;
         svg {
@@ -56,36 +72,49 @@ const TableDiv = styled("div")`
   }
 `;
 
-
 const TokensTable: FC = () => {
   const dispatch = useAppDispatch();
-  const newNetwork = useAppSelector(selectNewNetwork)
-  const router = useRouter()
-  const tokens = useAppSelector(selectTokens) as any
+  const newNetwork = useAppSelector(selectNewNetwork);
+  const router = useRouter();
+  const tokens = useAppSelector(selectTokens) as any;
 
   useEffect(() => {
-    dispatch(fetchTokensAction())
-  }, [dispatch, newNetwork])
-
-
+    dispatch(fetchTokensAction());
+  }, [dispatch, newNetwork]);
 
   useEffect(() => {
     if (tokens) {
       tokens?.forEach((token: any) => {
         if (!token?.image) {
-          const tokenURI: string = token?.current_token_data?.token_uri
-          dispatch(fetchNftImgAction(tokenURI, token?.last_transaction_version as string))
+          const tokenURI: string = token?.current_token_data?.token_uri;
+          dispatch(
+            fetchNftImgAction(
+              tokenURI,
+              token?.last_transaction_version as string
+            )
+          );
         }
-      })
+      });
     }
-  }, [dispatch, tokens])
+  }, [dispatch, tokens]);
 
   return (
     <div>
       <TableDiv>
-        <TableContainer component={Paper} elevation={0}>
+        <TableContainer
+          component={Paper}
+          elevation={0}
+          sx={{
+            borderRadius: "10px",
+            border: "3px solid #f1e9e7",
+          }}
+        >
           <MuiTable sx={{ minWidth: 1200 }} aria-label="simple table">
-            <TableHead>
+            <TableHead
+              sx={{
+                borderBottom: "3px solid #f1e9e7",
+              }}
+            >
               <TableRow>
                 <TableCell>
                   <b>IMAGE</b>
@@ -106,47 +135,54 @@ const TokensTable: FC = () => {
                 <TableCell>
                   <b>AMOUNT</b>
                 </TableCell>
-
               </TableRow>
             </TableHead>
             <TableBody>
-
               {tokens?.map((token: any, index: any) => (
-                <TableRow key={index} onClick={() => { router.push(`/tokens/${token?.last_transaction_version}`) }} style={{ cursor: "pointer" }}>
+                <TableRow
+                  key={index}
+                  onClick={() => {
+                    router.push(`/tokens/${token?.last_transaction_version}`);
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
                   <TableCell>
-
-                    {token?.image ? <Image src={token?.image} width="50" height="50" alt="TokenImage" /> : ""}
-
+                    {token?.image ? (
+                      <Image
+                        src={token?.image}
+                        width="50"
+                        height="50"
+                        alt="TokenImage"
+                      />
+                    ) : (
+                      ""
+                    )}
                   </TableCell>
                   <TableCell style={{ color: "#6b28a9" }}>
                     {token?.current_token_data?.token_name}
                   </TableCell>
-                  <TableCell>{token?.current_token_data?.current_collection?.collection_name
-                  }</TableCell>
                   <TableCell>
-                    <span>
-                      {token?.table_type_v1}
-                    </span>
+                    {
+                      token?.current_token_data?.current_collection
+                        ?.collection_name
+                    }
                   </TableCell>
                   <TableCell>
-
+                    <span>{token?.table_type_v1}</span>
+                  </TableCell>
+                  <TableCell>
                     <span>{token?.property_version_v1}</span>
-
                   </TableCell>
                   <TableCell>
-
                     <span>{token?.amount}</span>
-
                   </TableCell>
-
                 </TableRow>
               ))}
-
             </TableBody>
           </MuiTable>
         </TableContainer>
       </TableDiv>
     </div>
   );
-}
+};
 export default TokensTable;

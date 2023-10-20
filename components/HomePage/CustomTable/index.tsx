@@ -30,12 +30,29 @@ const TableDiv = styled("div")`
   box-shadow: none;
 
   table {
+    @media screen and (max-width: 1276px) {
+      width: 1300px;
+      overflow: hidden;
+      overflow-x: auto;
+      position: relative;
+      z-index: 99;
+    }
     tbody {
     }
     th {
       max-width: 1200px;
       border-bottom: none;
-      width: 13%;
+      width: 18%;
+      padding: 10px;
+      &:first-child {
+        width: 10%;
+      }
+      &:nth-child(2) {
+        width: 9%;
+      }
+      &:nth-child(3) {
+        width: 10%;
+      }
       &:last-child {
         width: 35%;
       }
@@ -47,7 +64,17 @@ const TableDiv = styled("div")`
     }
     td {
       border-bottom: none;
-      width: 13%;
+      padding: 10px;
+      width: 20%;
+      &:first-child {
+        width: 10%;
+      }
+      &:nth-child(2) {
+        width: 8%;
+      }
+      &:nth-child(3) {
+        width: 10%;
+      }
       &:last-child {
         width: 35%;
       }
