@@ -1,5 +1,5 @@
-import { Design1BellowHeader } from "../components/HomePage";
-
+import { Design1BellowHeader } from "../../components/HomePage";
+import ErrorPage from "./ErrorPage";
 import { useEffect } from "react";
 import {
   selectAccount,
@@ -20,9 +20,15 @@ const HomePage = () => {
 
   return (
     <>
-      <ToastContainer />
-      <Design1BellowHeader />
-      <NavTabs />
+      {account ? (
+        <>
+          <ToastContainer />
+          <Design1BellowHeader />
+          <NavTabs />
+        </>
+      ) : (
+        <ErrorPage />
+      )}
     </>
   );
 };

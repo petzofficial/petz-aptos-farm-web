@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import MuiTable from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -17,6 +17,7 @@ import {
 } from "app/reducers/AccountSlice";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import ReactPaginate from "react-paginate";
 
 const TableDiv = styled("div")`
   width: 100%;
@@ -76,12 +77,10 @@ const TokensTable: FC = () => {
   const dispatch = useAppDispatch();
   const newNetwork = useAppSelector(selectNewNetwork);
   const router = useRouter();
-  const tokens = useAppSelector(selectTokens) as any;
-
+  const tokens = useAppSelector(selectTokens);
   useEffect(() => {
     dispatch(fetchTokensAction());
   }, [dispatch, newNetwork]);
-
   useEffect(() => {
     if (tokens) {
       tokens?.forEach((token: any) => {
@@ -97,6 +96,16 @@ const TokensTable: FC = () => {
       });
     }
   }, [dispatch, tokens]);
+
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 10;
+  const pageCount = Math.ceil(tokens.length / itemsPerPage);
+  const endOffset = itemOffset + itemsPerPage;
+  const currentItems = tokens.slice(itemOffset, endOffset);
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * itemsPerPage) % tokens.length;
+    setItemOffset(newOffset);
+  };
 
   return (
     <div>
@@ -138,7 +147,7 @@ const TokensTable: FC = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {tokens?.map((token: any, index: any) => (
+              {currentItems?.map((token: any, index: any) => (
                 <TableRow
                   key={index}
                   onClick={() => {
@@ -182,6 +191,19 @@ const TokensTable: FC = () => {
           </MuiTable>
         </TableContainer>
       </TableDiv>
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="&#8250;"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel="&#8249;"
+        renderOnZeroPageCount={null}
+        containerClassName="pagination"
+        previousLinkClassName="page-num"
+        nextLinkClassName="page-num"
+        activeLinkClassName="active"
+      />
     </div>
   );
 };

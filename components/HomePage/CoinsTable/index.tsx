@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import MuiTable from "@mui/material/Table"; // Rename the imported Table
 import TableBody from "@mui/material/TableBody";
@@ -19,6 +19,7 @@ import { convertToDecimal } from "utils/reUseAbleFunctions/reuseAbleFunctions";
 import Image from "next/image";
 import Aptos from "../../../assets/aptos-apt-logo.svg";
 import Logo from "../../../assets/logo.png";
+import ReactPaginate from "react-paginate";
 
 // Define a styled component with a capitalized name
 const TableDiv = styled("div")`
@@ -81,6 +82,15 @@ const CoinsTable: FC = () => {
     dispatch(fetchCoinsAction(account?.address));
   }, [dispatch, account, newNetwork]);
 
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 10;
+  const pageCount = Math.ceil(coins.length / itemsPerPage);
+  const endOffset = itemOffset + itemsPerPage;
+  const currentItems = coins.slice(itemOffset, endOffset);
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * itemsPerPage) % coins.length;
+    setItemOffset(newOffset);
+  };
   return (
     <div>
       {/* Use the styled component as a React component */}
@@ -115,7 +125,7 @@ const CoinsTable: FC = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {coins?.map((coins, index) => (
+              {currentItems?.map((coins, index) => (
                 <TableRow key={index}>
                   <TableCell>
                     <Image
@@ -140,6 +150,19 @@ const CoinsTable: FC = () => {
           </MuiTable>
         </TableContainer>
       </TableDiv>
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="&#8250;"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel="&#8249;"
+        renderOnZeroPageCount={null}
+        containerClassName="pagination"
+        previousLinkClassName="page-num"
+        nextLinkClassName="page-num"
+        activeLinkClassName="active"
+      />
     </div>
   );
 };

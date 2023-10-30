@@ -1,10 +1,18 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components/macro';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { fetchBalanceDetailsAction, selectAccount, selectBalanceDetails } from 'app/reducers/AccountSlice';
-import { convertToDecimal } from 'utils/reUseAbleFunctions/reuseAbleFunctions';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components/macro";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { useAppDispatch, useAppSelector } from "app/hooks";
+// import { isMobile } from "react-device-detect";
+import {
+  fetchBalanceDetailsAction,
+  selectAccount,
+  selectBalanceDetails,
+} from "app/reducers/AccountSlice";
+import {
+  convertToDecimal,
+  shortenString,
+} from "utils/reUseAbleFunctions/reuseAbleFunctions";
 const BellowHeader1 = styled.div`
   width: 100%;
   margin-top: 30px;
@@ -22,7 +30,8 @@ const BellowHeader1 = styled.div`
         position: relative;
       }
       p {
-        background-color: rgba(241,233,231,1);
+        width: fit-content;
+        background-color: rgba(241, 233, 231, 1);
         padding: 8px 20px;
         border-radius: 15px;
         svg {
@@ -31,7 +40,7 @@ const BellowHeader1 = styled.div`
       }
     }
     .rightSec {
-      background-color: rgba(58,52,51,0.05);
+      background-color: rgba(58, 52, 51, 0.05);
       padding: 10px 20px 20px 20px;
       width: 300px;
       border-radius: 15px;
@@ -57,33 +66,65 @@ const BellowHeader1 = styled.div`
   }
 `;
 
-interface Props { }
+interface Props {}
 
 const Design1BellowHeader: React.FC<Props> = () => {
-  const balance = useAppSelector(selectBalanceDetails) as any
-  const userAccount = useAppSelector(selectAccount) as any
+  const [isMobile, setIsMobile] = useState(false);
+  const balance = useAppSelector(selectBalanceDetails) as any;
+  const userAccount = useAppSelector(selectAccount) as any;
   const dispatch = useAppDispatch();
+
   useEffect(() => {
-    dispatch(fetchBalanceDetailsAction(userAccount?.address))
-  }, [dispatch, userAccount])
+    dispatch(fetchBalanceDetailsAction(userAccount?.address));
+  }, [dispatch, userAccount]);
 
+  useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth <= 768);
+    }
 
+    window.addEventListener("resize", handleResize);
 
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <div>
       <BellowHeader1>
         <div className="wrapwidth">
           <div className="leftSec">
             <h1>Account</h1>
-            <p>
-              {userAccount?.address}
-              <ContentCopyIcon style={{ cursor: "pointer" }} onClick={() => {
-                navigator.clipboard.writeText(userAccount?.address);
-              }} />
-            </p>
+            {isMobile ? (
+              <p>
+                {shortenString(userAccount?.address)}
+
+                <ContentCopyIcon
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    navigator.clipboard.writeText(userAccount?.address);
+                  }}
+                />
+              </p>
+            ) : (
+              <p>
+                {userAccount?.address}
+
+                <ContentCopyIcon
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    navigator.clipboard.writeText(userAccount?.address);
+                  }}
+                />
+              </p>
+            )}
           </div>
           <div className="rightSec">
-            {balance?.data ? (<h3>{convertToDecimal(balance?.data?.coin?.value)} APT</h3>) : ("")}
+            {balance?.data ? (
+              <h3>{convertToDecimal(balance?.data?.coin?.value)} APT</h3>
+            ) : (
+              ""
+            )}
             <p>
               Balance <InfoOutlinedIcon />
             </p>
