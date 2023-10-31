@@ -189,8 +189,12 @@ const Header: FC = () => {
 
                   <>
                     <div className="navBtn">
+                     <Link className="navFarmBTN" href="https://liquidswap.com/" target="_blank"><span>Swap</span></Link>
+                     <Link className="navFarmBTN" href="https://liquidswap.com/#/pools" target="_blank"><span>Liquidity</span></Link>
+                     <Link className="navFarmBTN" href="/farms"><span>Farms</span></Link>
+                     <Link className="navFarmBTN" href="https://bridge.liquidswap.com/ " target="_blank"><span>Bridge</span></Link>
                       <Link className="navFarmBTN" href="/"><span>Account</span></Link>
-                      <Link className="navFarmBTN" href="/farms"><span>Farms</span></Link>
+                    
                       <Button
                         id="fade-button"
                         aria-controls={open ? 'fade-menu3' : undefined}
