@@ -71,9 +71,8 @@ interface Props {}
 const Design1BellowHeader: React.FC<Props> = () => {
   const [isMobile, setIsMobile] = useState(false);
   const balance = useAppSelector(selectBalanceDetails) as any;
-  const userAccount = useAppSelector(selectAccount) as any;
+  const userAccount = useAppSelector(selectAccount);
   const dispatch = useAppDispatch();
-
   useEffect(() => {
     dispatch(fetchBalanceDetailsAction(userAccount?.address));
   }, [dispatch, userAccount]);
@@ -121,7 +120,7 @@ const Design1BellowHeader: React.FC<Props> = () => {
           </div>
           <div className="rightSec">
             {balance?.data ? (
-              <h3>{convertToDecimal(balance?.data?.coin?.value)} APT</h3>
+              <h3>{balance?.data?.coin?.value / 10 ** 8} APT</h3>
             ) : (
               ""
             )}

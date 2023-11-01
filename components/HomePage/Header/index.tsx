@@ -262,6 +262,12 @@ const Header: FC = () => {
       router.push(`/account`);
     } else if (name === "farms") {
       router.push(`/farms`);
+    } else if (name === "swap") {
+      router.push(`https://liquidswap.com/`);
+    } else if (name === "bridge") {
+      router.push(`https://bridge.liquidswap.com/`);
+    } else if (name === "liquidity") {
+      router.push(`https://liquidswap.com/#/pools`);
     }
     setisMenuOpen(!isMenuOpen);
     setOpenPopper(false);
@@ -324,11 +330,22 @@ const Header: FC = () => {
                           aria-labelledby="composition-button"
                           onKeyDown={handleListKeyDown}
                         >
-                          <MenuItem onClick={() => handleTabChange("account")}>
-                            Account
+                          <MenuItem onClick={() => handleTabChange("swap")}>
+                            Swap
+                          </MenuItem>
+                          <MenuItem
+                            onClick={() => handleTabChange("liquidity")}
+                          >
+                            Liquidity
                           </MenuItem>
                           <MenuItem onClick={() => handleTabChange("farms")}>
                             Farms
+                          </MenuItem>
+                          <MenuItem onClick={() => handleTabChange("bridge")}>
+                            Bridge
+                          </MenuItem>
+                          <MenuItem onClick={() => handleTabChange("account")}>
+                            Account
                           </MenuItem>
                           <div className="walletWrapper">
                             <WalletSelector />

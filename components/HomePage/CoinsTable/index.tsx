@@ -20,7 +20,8 @@ import Image from "next/image";
 import Aptos from "../../../assets/aptos-apt-logo.svg";
 import Logo from "../../../assets/logo.png";
 import ReactPaginate from "react-paginate";
-
+import ghostImg from "assets/ghost.png";
+import ErrorPage from "components/ErrorPage/ErrorPage";
 // Define a styled component with a capitalized name
 const TableDiv = styled("div")`
   width: 100%;
@@ -124,45 +125,50 @@ const CoinsTable: FC = () => {
                 </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
-              {currentItems?.map((coins, index) => (
-                <TableRow key={index}>
-                  <TableCell>
-                    <Image
-                      src={coins?.metadata?.symbol === "APT" ? Aptos : Logo}
-                      width="150"
-                      height="150"
-                      alt=""
-                      className="abc"
-                    />
-                  </TableCell>
-                  <TableCell style={{ color: "#6b28a9" }}>
-                    {coins?.metadata?.name}
-                  </TableCell>
-                  <TableCell>
-                    {convertToDecimal(coins?.amount)}
-                    <span>{coins?.metadata?.symbol}</span>
-                  </TableCell>
-                  <TableCell>{coins?.asset_type}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+            {account && (
+              <TableBody>
+                {currentItems?.map((coins, index) => (
+                  <TableRow key={index}>
+                    <TableCell>
+                      <Image
+                        src={coins?.metadata?.symbol === "APT" ? Aptos : Logo}
+                        width="150"
+                        height="150"
+                        alt=""
+                        className="abc"
+                      />
+                    </TableCell>
+                    <TableCell style={{ color: "#6b28a9" }}>
+                      {coins?.metadata?.name}
+                    </TableCell>
+                    <TableCell>
+                      {convertToDecimal(coins?.amount)}
+                      <span>{coins?.metadata?.symbol}</span>
+                    </TableCell>
+                    <TableCell>{coins?.asset_type}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            )}
           </MuiTable>
+          {!account && <ErrorPage />}
         </TableContainer>
       </TableDiv>
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="&#8250;"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="&#8249;"
-        renderOnZeroPageCount={null}
-        containerClassName="pagination"
-        previousLinkClassName="page-num"
-        nextLinkClassName="page-num"
-        activeLinkClassName="active"
-      />
+      {account && (
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="&#8250;"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="&#8249;"
+          renderOnZeroPageCount={null}
+          containerClassName="pagination"
+          previousLinkClassName="page-num"
+          nextLinkClassName="page-num"
+          activeLinkClassName="active"
+        />
+      )}
     </div>
   );
 };

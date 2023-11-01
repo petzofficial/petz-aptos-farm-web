@@ -12,17 +12,19 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import SenderImg from "../../../assets/sender.png";
 import SendToImg from "../../../assets/sendto.png";
 import TypeArrow from "../../../assets/arrowtype.png";
+import ghostImg from "assets/ghost.png";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAppSelector } from "app/hooks";
-import { selectTransactions } from "app/reducers/AccountSlice";
+import { selectAccount, selectTransactions } from "app/reducers/AccountSlice";
 import {
   shortenString,
   formatTimestamp,
 } from "utils/reUseAbleFunctions/reuseAbleFunctions";
 import React, { useEffect } from "react";
 import ReactPaginate from "react-paginate";
+import ErrorPage from "components/ErrorPage/ErrorPage";
 const TableDiv = styled("div")`
   width: 100%;
   margin: 30px 0;
@@ -109,6 +111,7 @@ const TableDiv = styled("div")`
 const CustomTable: FC = () => {
   const router = useRouter();
   const transactions = useAppSelector(selectTransactions);
+  const account = useAppSelector(selectAccount);
   const sortedTransactions = [...transactions].sort(
     (a, b) => b.timestamp - a.timestamp
   );
@@ -167,92 +170,96 @@ const CustomTable: FC = () => {
                 </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
-              {currentItems?.map((transaction: any, index: any) => (
-                <TableRow
-                  key={index}
-                  onClick={() => {
-                    router.push(`/transactions/${transaction?.version}`);
-                  }}
-                  style={{ cursor: "pointer" }}
-                >
-                  <TableCell style={{ color: "#6b28a9" }}>
-                    {transaction?.version}
-                  </TableCell>
-                  <TableCell>
-                    <Image
-                      src={TypeArrow}
-                      alt="asd"
-                      style={{ width: "23px", objectFit: "contain" }}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    {formatTimestamp(transaction?.timestamp)}
-                  </TableCell>
-                  <TableCell>
-                    <Image src={SenderImg} alt="" />
-                    <span>
-                      {shortenString(transaction?.sender)}{" "}
-                      <ContentCopyIcon
-                        style={{ color: "#000", cursor: "pointer" }}
-                        onClick={() => {
-                          navigator.clipboard.writeText(transaction?.sender);
-                        }}
+            {account && (
+              <TableBody>
+                {currentItems?.map((transaction: any, index: any) => (
+                  <TableRow
+                    key={index}
+                    onClick={() => {
+                      router.push(`/transactions/${transaction?.version}`);
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <TableCell style={{ color: "#6b28a9" }}>
+                      {transaction?.version}
+                    </TableCell>
+                    <TableCell>
+                      <Image
+                        src={TypeArrow}
+                        alt="asd"
+                        style={{ width: "23px", objectFit: "contain" }}
                       />
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <Image src={SendToImg} alt="" />
+                    </TableCell>
+                    <TableCell>
+                      {formatTimestamp(transaction?.timestamp)}
+                    </TableCell>
+                    <TableCell>
+                      <Image src={SenderImg} alt="" />
+                      <span>
+                        {shortenString(transaction?.sender)}{" "}
+                        <ContentCopyIcon
+                          style={{ color: "#000", cursor: "pointer" }}
+                          onClick={() => {
+                            navigator.clipboard.writeText(transaction?.sender);
+                          }}
+                        />
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <Image src={SendToImg} alt="" />
 
-                    <span>
-                      {shortenString(
-                        transaction?.payload?.function.split("::")[0]
-                      )}{" "}
-                      <ContentCopyIcon
-                        style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          navigator.clipboard.writeText(
-                            shortenString(
-                              transaction?.payload?.function.split("::")[0]
-                            )
-                          );
-                        }}
-                      />
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    {/* {transaction?.payload?.function.split('::code::')[1] ? (<span style={{ color: "#000", cursor: "pointer" }}>{transaction?.payload?.function.split('::code::')[1]}</span>) : (<span style={{ color: "#000", cursor: "pointer" }}>Script</span>)} */}
-                    {transaction?.payload?.function ? (
-                      <span style={{ color: "#000", cursor: "pointer" }}>
-                        {(transaction?.payload?.function?.split("::") || [])
-                          .slice(1)
-                          .join("::")}
+                      <span>
+                        {shortenString(
+                          transaction?.payload?.function.split("::")[0]
+                        )}{" "}
+                        <ContentCopyIcon
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            navigator.clipboard.writeText(
+                              shortenString(
+                                transaction?.payload?.function.split("::")[0]
+                              )
+                            );
+                          }}
+                        />
                       </span>
-                    ) : (
-                      <span style={{ color: "#000", cursor: "pointer" }}>
-                        Script
-                      </span>
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+                    </TableCell>
+                    <TableCell>
+                      {transaction?.payload?.function ? (
+                        <span style={{ color: "#000", cursor: "pointer" }}>
+                          {(transaction?.payload?.function?.split("::") || [])
+                            .slice(1)
+                            .join("::")}
+                        </span>
+                      ) : (
+                        <span style={{ color: "#000", cursor: "pointer" }}>
+                          Script
+                        </span>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            )}
           </MuiTable>
+          {!account && <ErrorPage />}
         </TableContainer>
       </TableDiv>
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="&#8250;"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="&#8249;"
-        renderOnZeroPageCount={null}
-        containerClassName="pagination"
-        previousLinkClassName="page-num"
-        nextLinkClassName="page-num"
-        activeLinkClassName="active"
-      />
+      {account && (
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="&#8250;"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="&#8249;"
+          renderOnZeroPageCount={null}
+          containerClassName="pagination"
+          previousLinkClassName="page-num"
+          nextLinkClassName="page-num"
+          activeLinkClassName="active"
+        />
+      )}
     </div>
   );
 };
