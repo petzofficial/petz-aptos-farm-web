@@ -39,7 +39,7 @@ const FooterDiv = styled.div`
       p{
         @media (max-width: 768px) {
           text-align: center;
-          margin: 10px 0px 0px 0px;
+          margin: 17px 0px;
         }
       }
       ul{
@@ -88,7 +88,7 @@ const FooterDiv = styled.div`
   }
 `;
 
-interface Props { }
+interface Props {}
 
 const Footer: React.FC<Props> = () => {
   return (
@@ -97,7 +97,11 @@ const Footer: React.FC<Props> = () => {
         <div className="wrapwidth">
           <div className="footer_left">
             <Link href="/">
-              <Image src={FooterLogo} alt="" style={{ width: 60, height: 60 }} />
+              <Image
+                src={FooterLogo}
+                alt=""
+                style={{ width: 60, height: 60 }}
+              />
             </Link>
             <p>Copyright &copy; 2023 PetZ Money</p>
             {/* <div className="">
@@ -141,8 +145,8 @@ const Footer: React.FC<Props> = () => {
             </ul>
           </div>
         </div>
-      </FooterDiv >
-    </div >
+      </FooterDiv>
+    </div>
   );
 };
 

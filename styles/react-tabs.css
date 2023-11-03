@@ -100,16 +100,16 @@
 
 
 
-@media (max-width:486px) {
+@media (max-width:511px) {
 
   .react-tabs__tab {
-    margin-left: 18px;
+    margin-left: 10px;
 
   }
 
 }
 
-@media (max-width:415px) {
+@media (max-width:439px) {
 
   .react-tabs__tab {
     margin-left: 19px;
@@ -174,7 +174,15 @@
     margin: 6px;
   }
 
+
 }
+
+@media (max-width: 334px) {
+  .react-tabs__tab {
+    font-size: 13px;
+  }
+}
+
 
 @media (max-width:321px) {
 

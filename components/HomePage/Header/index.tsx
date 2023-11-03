@@ -34,6 +34,8 @@ const HeaderDiv = styled.div`
   .wrapwith {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
     padding: 10px 20px;
     // @media (max-width: 768px) {
     //   display: block;
@@ -119,6 +121,11 @@ const HeaderDiv = styled.div`
     padding: 6px 8px;
   }
   .navBtn {
+    margin-top: 5px;
+    @media screen and (max-width: 768px) {
+      margin-top: 16px;
+    }
+
     @media screen and (max-width: 540px) {
       text-align: center;
     }
@@ -137,6 +144,12 @@ const HeaderDiv = styled.div`
   .navBtn button {
     margin-left: 50px;
     display: inline-block;
+    @media screen and (max-width: 1101px) {
+      margin-left: 35px;
+    }
+    @media screen and (max-width: 1012px) {
+      margin-left: 15px;
+    }
     @media screen and (max-width: 900px) {
       // margin: 5px;
       margin: 0px;
@@ -162,7 +175,7 @@ const HeaderDiv = styled.div`
   }
   .navBtn {
     @media screen and (max-width: 900px) {
-      margin-top: -20px;
+      margin-top: -2px;
     }
   }
 `;
@@ -258,6 +271,7 @@ const Header: FC = () => {
   };
 
   const handleTabChange = (name: string) => {
+    console.log("im here", name);
     if (name === "account") {
       router.push(`/account`);
     } else if (name === "farms") {
@@ -394,7 +408,7 @@ const Header: FC = () => {
                       >
                         <span>Bridge</span>
                       </Link>
-                      <Link className="navFarmBTN" href="/">
+                      <Link className="navFarmBTN" href="/account">
                         <span>Account</span>
                       </Link>
 

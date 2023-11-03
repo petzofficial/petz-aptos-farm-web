@@ -41,6 +41,7 @@ import { HexString, MaybeHexString } from "aptos";
 export interface Metadata {
   symbol: string;
   name: string;
+  icon_uri: string
   // asset_type: string;
 }
 

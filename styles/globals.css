@@ -1,6 +1,7 @@
 @import url("./react-tabs.css");
 @import url("./reactPagination.css");
 @import url("./popup.css");
+@import url('./pagination.css');
 
 body {
   padding: 0;

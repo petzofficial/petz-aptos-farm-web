@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+
   images: {
     remotePatterns: [
       {
@@ -9,7 +10,7 @@ const nextConfig = {
         hostname: 'nft.petz.money',
         port: '',
         pathname: '/v1/**',
-      },
+      }
     ],
   },
 };

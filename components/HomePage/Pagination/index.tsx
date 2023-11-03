@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
-import Pagination, { PaginationProps } from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
+import React, { FC } from "react";
+import Pagination, { PaginationProps } from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
-interface Props { }
+interface Props {}
 
 const PaginationButtons: FC = () => {
   const paginationProps: PaginationProps = {
@@ -12,14 +12,13 @@ const PaginationButtons: FC = () => {
   };
 
   return (
-    <Stack spacing={2} sx={{ alignItems: 'center', margin: '50px 0 20px' }}>
-      <Pagination {...paginationProps} />
+    <Stack spacing={2} sx={{ alignItems: "center", margin: "50px 0 20px" }}>
+      <Pagination {...paginationProps} sx={{ margin: "0" }} />
     </Stack>
   );
-}
+};
 
 export default PaginationButtons;
-
 
 // import { useAppDispatch, useAppSelector } from 'app/hooks';
 // import { fetchTransactionsAction, selectAccount, selectTransactions } from 'app/reducers/AccountSlice';
@@ -35,13 +34,11 @@ export default PaginationButtons;
 //   const dispatch = useAppDispatch()
 //   const itemsPerPage = 4
 
-
 //   useEffect(() => {
 //     const endOffset = itemOffset + itemsPerPage
 //     setPageCount(Math.ceil(transaction?.length / itemsPerPage))
 //     dispatch(fetchTransactionsAction(account?.address))
 //   }, [dispatch, account, itemOffset, itemsPerPage])
-
 
 //   const handlePageClick = (event: any) => {
 

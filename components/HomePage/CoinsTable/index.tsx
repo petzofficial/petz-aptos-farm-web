@@ -65,6 +65,9 @@ const TableDiv = styled("div")`
         background-color: rgba(241, 233, 231, 1);
         padding: 6px 12px;
         border-radius: 10px;
+        margin-left: 10px;
+        word-break: keep-all;
+        line-height: 28px;
         svg {
           font-size: 14px;
           vertical-align: middle;
@@ -77,6 +80,8 @@ const TableDiv = styled("div")`
 const CoinsTable: FC = () => {
   const dispatch = useAppDispatch();
   const coins = useAppSelector(selectCoins);
+  console.log(">> coins", coins);
+  // const coins = null;
   const account = useAppSelector(selectAccount);
   const newNetwork = useAppSelector(selectNewNetwork);
   useEffect(() => {
@@ -85,11 +90,11 @@ const CoinsTable: FC = () => {
 
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 10;
-  const pageCount = Math.ceil(coins.length / itemsPerPage);
+  const pageCount = Math.ceil(coins?.length / itemsPerPage);
   const endOffset = itemOffset + itemsPerPage;
-  const currentItems = coins.slice(itemOffset, endOffset);
+  const currentItems = coins?.slice(itemOffset, endOffset);
   const handlePageClick = (event: any) => {
-    const newOffset = (event.selected * itemsPerPage) % coins.length;
+    const newOffset = (event.selected * itemsPerPage) % coins?.length;
     setItemOffset(newOffset);
   };
   return (
@@ -131,18 +136,23 @@ const CoinsTable: FC = () => {
                   <TableRow key={index}>
                     <TableCell>
                       <Image
-                        src={coins?.metadata?.symbol === "APT" ? Aptos : Logo}
+                        src={
+                          coins?.metadata?.symbol === "APT"
+                            ? Aptos
+                            : coins?.metadata?.icon_uri || ""
+                        }
                         width="150"
                         height="150"
-                        alt=""
+                        alt="Coin Image"
                         className="abc"
+                        unoptimized
                       />
                     </TableCell>
                     <TableCell style={{ color: "#6b28a9" }}>
                       {coins?.metadata?.name}
                     </TableCell>
                     <TableCell>
-                      {convertToDecimal(coins?.amount)}
+                      {coins?.amount / 10 ** 8}
                       <span>{coins?.metadata?.symbol}</span>
                     </TableCell>
                     <TableCell>{coins?.asset_type}</TableCell>
@@ -151,10 +161,21 @@ const CoinsTable: FC = () => {
               </TableBody>
             )}
           </MuiTable>
-          {!account && <ErrorPage />}
+          {(!account && <ErrorPage />) ||
+            (!currentItems && (
+              <p
+                style={{
+                  textAlign: "center",
+                  fontWeight: "bolder",
+                  fontSize: "x-large",
+                }}
+              >
+                No coins data available
+              </p>
+            ))}
         </TableContainer>
       </TableDiv>
-      {account && (
+      {currentItems && (
         <ReactPaginate
           breakLabel="..."
           nextLabel="&#8250;"
