@@ -243,7 +243,7 @@ const CustomTable: FC = () => {
             )}
           </MuiTable>
           {!account && <ErrorPage />}
-          {!transactions.length && (
+          {!transactions.length && account && (
             <p
               style={{
                 textAlign: "center",

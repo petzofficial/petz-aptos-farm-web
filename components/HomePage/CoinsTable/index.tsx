@@ -163,7 +163,7 @@ const CoinsTable: FC = () => {
           </MuiTable>
           {!account && <ErrorPage />}
 
-          {!coins.length && (
+          {!coins.length && account && (
             <p
               style={{
                 textAlign: "center",

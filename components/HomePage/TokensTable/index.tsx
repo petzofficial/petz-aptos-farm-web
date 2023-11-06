@@ -198,7 +198,7 @@ const TokensTable: FC = () => {
             )}
           </MuiTable>
           {!account && <ErrorPage />}
-          {!tokens.length && (
+          {!tokens.length && account && (
             <p
               style={{
                 textAlign: "center",
