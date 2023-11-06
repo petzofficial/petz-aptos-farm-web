@@ -82,9 +82,11 @@ const TokensTable: FC = () => {
   const router = useRouter();
   const tokens = useAppSelector(selectTokens);
   const account = useAppSelector(selectAccount);
+
   useEffect(() => {
     dispatch(fetchTokensAction());
   }, [dispatch, newNetwork]);
+
   useEffect(() => {
     if (tokens) {
       tokens?.forEach((token: any) => {
@@ -196,6 +198,17 @@ const TokensTable: FC = () => {
             )}
           </MuiTable>
           {!account && <ErrorPage />}
+          {!tokens.length && (
+            <p
+              style={{
+                textAlign: "center",
+                fontWeight: "bolder",
+                fontSize: "x-large",
+              }}
+            >
+              No tokens data available
+            </p>
+          )}
         </TableContainer>
       </TableDiv>
       {account && (

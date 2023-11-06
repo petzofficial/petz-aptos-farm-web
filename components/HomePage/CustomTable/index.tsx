@@ -243,6 +243,17 @@ const CustomTable: FC = () => {
             )}
           </MuiTable>
           {!account && <ErrorPage />}
+          {!transactions.length && (
+            <p
+              style={{
+                textAlign: "center",
+                fontWeight: "bolder",
+                fontSize: "x-large",
+              }}
+            >
+              No Transactions data available
+            </p>
+          )}
         </TableContainer>
       </TableDiv>
       {account && (

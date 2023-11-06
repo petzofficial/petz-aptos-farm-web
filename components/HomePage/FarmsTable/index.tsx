@@ -297,6 +297,10 @@ const TableDiv = styled("div")`
       min-width: auto !important;
     }
 }
+
+.pagination {
+  margin-top : 10px
+}
  
 `;
 
@@ -324,6 +328,7 @@ const FarmsTable: FC = () => {
   const pageCount = Math.ceil(transactions.length / itemsPerPage);
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = transactions.slice(itemOffset, endOffset) as any;
+
   useEffect(() => {
     dispatch(fetchCoinsAction(account?.address));
   }, [dispatch, account, newNetwork]);
@@ -502,401 +507,418 @@ const FarmsTable: FC = () => {
 
       <TableDiv>
         {account ? (
-          <div className="CardsMaindiv">
-            <div className="sec1">
-              <div className="sec1_mainDiv">
-                <Image
-                  src={Aptos}
-                  alt="logo"
-                  className=""
-                  style={{ width: 46, height: 46 }}
-                />
-                <Image
-                  src={TetherLogo}
-                  alt="logo"
-                  className=""
-                  style={{ width: 46, height: 46, marginLeft: -10 }}
-                />
-                <div className="main_heading">
-                  <h3>USDT/APT</h3>
-                  <span>
-                    <Image
-                      src={Grapglogo}
-                      alt="logo"
-                      className="graph_logo"
-                      style={{ width: 15, height: 15 }}
-                    />
-                    Uncorellated
-                  </span>
-                </div>
-                <div className="afterHeading_Main">
-                  <span className="afterheading">
-                    0.00005962
-                    <Image
-                      src={Aptos}
-                      alt="logo"
-                      className="small_img"
-                      style={{ width: 18, height: 18 }}
-                    />
-                    APT
-                  </span>
-                  <span className="label">Per week per 1 LP</span>
-                </div>
-                <hr />
-                <div className="bottSec_Main">
-                  <div className="point1">
-                    <span>NFT:</span>
-                    <p>Pontem Dark Ages</p>
-                  </div>
-
-                  <div className="point1">
-                    <span>APR:</span>
-                    <p>2.2%</p>
-                  </div>
-
-                  <div className="point1">
-                    <span>TVL:</span>
-                    <p>$18,868</p>
-                  </div>
-                  <div className="point1">
-                    <span>STAKED:</span>
-                    <p>$18</p>
-                  </div>
-                  <div className="point1">
-                    <span>EARNED:</span>
-                    <p>$868</p>
-                  </div>
-                  <div className="point1">
-                    <span>Time Left:</span>
-                    <p>
-                      4M 18W 6D
+          <>
+            <div className="CardsMaindiv">
+              <div className="sec1">
+                <div className="sec1_mainDiv">
+                  <Image
+                    src={Aptos}
+                    alt="logo"
+                    className=""
+                    style={{ width: 46, height: 46 }}
+                  />
+                  <Image
+                    src={TetherLogo}
+                    alt="logo"
+                    className=""
+                    style={{ width: 46, height: 46, marginLeft: -10 }}
+                  />
+                  <div className="main_heading">
+                    <h3>USDT/APT</h3>
+                    <span>
                       <Image
-                        src={CalendarIcon}
+                        src={Grapglogo}
                         alt="logo"
-                        className=""
+                        className="graph_logo"
+                        style={{ width: 15, height: 15 }}
+                      />
+                      Uncorellated
+                    </span>
+                  </div>
+                  <div className="afterHeading_Main">
+                    <span className="afterheading">
+                      0.00005962
+                      <Image
+                        src={Aptos}
+                        alt="logo"
+                        className="small_img"
                         style={{ width: 18, height: 18 }}
                       />
-                    </p>
+                      APT
+                    </span>
+                    <span className="label">Per week per 1 LP</span>
+                  </div>
+                  <hr />
+                  <div className="bottSec_Main">
+                    <div className="point1">
+                      <span>NFT:</span>
+                      <p>Pontem Dark Ages</p>
+                    </div>
+
+                    <div className="point1">
+                      <span>APR:</span>
+                      <p>2.2%</p>
+                    </div>
+
+                    <div className="point1">
+                      <span>TVL:</span>
+                      <p>$18,868</p>
+                    </div>
+                    <div className="point1">
+                      <span>STAKED:</span>
+                      <p>$18</p>
+                    </div>
+                    <div className="point1">
+                      <span>EARNED:</span>
+                      <p>$868</p>
+                    </div>
+                    <div className="point1">
+                      <span>Time Left:</span>
+                      <p>
+                        4M 18W 6D
+                        <Image
+                          src={CalendarIcon}
+                          alt="logo"
+                          className=""
+                          style={{ width: 18, height: 18 }}
+                        />
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div className="cardbuttons_main">
+                    <div>
+                      <Button
+                        id="fade-button"
+                        className="card_button"
+                        aria-controls={open ? "fade-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : "false"}
+                        sx={{
+                          color: "#000",
+                          textTransform: "capitalize",
+                          fontWeight: "500",
+                          fontSize: "18px",
+                        }}
+                        onClick={handleShowPopup}
+                      >
+                        Stake
+                      </Button>
+                      <Button
+                        id="fade-button"
+                        className="card_button"
+                        aria-controls={open ? "fade-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : "false"}
+                        sx={{
+                          color: "#000",
+                          textTransform: "capitalize",
+                          fontWeight: "500",
+                          fontSize: "18px",
+                        }}
+                        onClick={handleShowUnstackedPopup}
+                      >
+                        Unstake
+                      </Button>
+                    </div>
+                    <div>
+                      <Button
+                        id="fade-button"
+                        className="card_button"
+                        aria-controls={open ? "fade-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : "false"}
+                        sx={{
+                          color: "#000",
+                          textTransform: "capitalize",
+                          fontWeight: "500",
+                          fontSize: "18px",
+                        }}
+                      >
+                        Harvest
+                      </Button>
+                    </div>
                   </div>
                 </div>
-                <hr />
-                <div className="cardbuttons_main">
-                  <div>
-                    <Button
-                      id="fade-button"
-                      className="card_button"
-                      aria-controls={open ? "fade-menu" : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? "true" : "false"}
-                      sx={{
-                        color: "#000",
-                        textTransform: "capitalize",
-                        fontWeight: "500",
-                        fontSize: "18px",
-                      }}
-                      onClick={handleShowPopup}
-                    >
-                      Stake
-                    </Button>
-                    <Button
-                      id="fade-button"
-                      className="card_button"
-                      aria-controls={open ? "fade-menu" : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? "true" : "false"}
-                      sx={{
-                        color: "#000",
-                        textTransform: "capitalize",
-                        fontWeight: "500",
-                        fontSize: "18px",
-                      }}
-                      onClick={handleShowUnstackedPopup}
-                    >
-                      Unstake
-                    </Button>
+              </div>
+              <div className="sec1">
+                <div className="sec1_mainDiv">
+                  <Image
+                    src={Aptos}
+                    alt="logo"
+                    className=""
+                    style={{ width: 46, height: 46 }}
+                  />
+                  <Image
+                    src={WethLogo}
+                    alt="logo"
+                    className="image_border"
+                    style={{ width: 46, height: 46, marginLeft: -10 }}
+                  />
+                  <div className="main_heading">
+                    <h3>WETH/APT</h3>
+                    <span>
+                      <Image
+                        src={Grapglogo}
+                        alt="logo"
+                        className="graph_logo"
+                        style={{ width: 15, height: 15 }}
+                      />
+                      Uncorellated
+                    </span>
                   </div>
-                  <div>
-                    <Button
-                      id="fade-button"
-                      className="card_button"
-                      aria-controls={open ? "fade-menu" : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? "true" : "false"}
-                      sx={{
-                        color: "#000",
-                        textTransform: "capitalize",
-                        fontWeight: "500",
-                        fontSize: "18px",
-                      }}
-                    >
-                      Harvest
-                    </Button>
+                  <div className="afterHeading_Main">
+                    <span className="afterheading">
+                      0.00276707
+                      <Image
+                        src={Aptos}
+                        alt="logo"
+                        className="small_img"
+                        style={{ width: 18, height: 18 }}
+                      />
+                      APT
+                    </span>
+                    <span className="label">Per week per 1 LP</span>
+                  </div>
+                  <hr />
+                  <div className="bottSec_Main">
+                    <div className="point1">
+                      <span>NFT:</span>
+                      <p>Pontem Space Pirates</p>
+                    </div>
+                    <div className="point1">
+                      <span>APR:</span>
+                      <p>3.04%</p>
+                    </div>
+                    <div className="point1">
+                      <span>TVL:</span>
+                      <p>$14,911</p>
+                    </div>
+                    <div className="point1">
+                      <span>STAKED:</span>
+                      <p>$18</p>
+                    </div>
+                    <div className="point1">
+                      <span>EARNED:</span>
+                      <p>$868</p>
+                    </div>
+                    <div className="point1">
+                      <span>Time Left:</span>
+                      <p>
+                        4M 18W 6D{" "}
+                        <Image
+                          src={CalendarIcon}
+                          alt="logo"
+                          className=""
+                          style={{ width: 18, height: 18 }}
+                        />
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div className="cardbuttons_main">
+                    <div>
+                      <Button
+                        id="fade-button"
+                        className="card_button"
+                        aria-controls={open ? "fade-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : "false"}
+                        sx={{
+                          color: "#000",
+                          textTransform: "capitalize",
+                          fontWeight: "500",
+                          fontSize: "18px",
+                        }}
+                        onClick={handleShowPopup}
+                      >
+                        Stake
+                      </Button>
+                      <Button
+                        id="fade-button"
+                        className="card_button"
+                        aria-controls={open ? "fade-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : "false"}
+                        sx={{
+                          color: "#000",
+                          textTransform: "capitalize",
+                          fontWeight: "500",
+                          fontSize: "18px",
+                        }}
+                        onClick={handleShowUnstackedPopup}
+                      >
+                        Unstake
+                      </Button>
+                    </div>
+                    <div>
+                      <Button
+                        id="fade-button"
+                        className="card_button"
+                        aria-controls={open ? "fade-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : "false"}
+                        sx={{
+                          color: "#000",
+                          textTransform: "capitalize",
+                          fontWeight: "500",
+                          fontSize: "18px",
+                        }}
+                      >
+                        Harvest
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="sec1">
+                <div className="sec1_mainDiv">
+                  <Image
+                    src={Aptos}
+                    alt="logo"
+                    className=""
+                    style={{ width: 46, height: 46 }}
+                  />
+                  <Image
+                    src={UsdCoinLogo}
+                    alt="logo"
+                    className=""
+                    style={{ width: 70, height: 46, marginLeft: -20 }}
+                  />
+                  <div className="main_heading">
+                    <h3>USDC/APT</h3>
+                    <span>
+                      <Image
+                        src={Grapglogo}
+                        alt="logo"
+                        className="graph_logo"
+                        style={{ width: 15, height: 15 }}
+                      />
+                      Uncorellated
+                    </span>
+                  </div>
+                  <div className="afterHeading_Main">
+                    <span className="afterheading">
+                      0.00001986
+                      <Image
+                        src={Aptos}
+                        alt="logo"
+                        className="small_img"
+                        style={{ width: 18, height: 18 }}
+                      />
+                      APT
+                    </span>
+                    <span className="label">Per week per 1 LP</span>
+                  </div>
+                  <hr />
+                  <div className="bottSec_Main">
+                    <div className="point1">
+                      <span>NFT:</span>
+                      <p>Pontem Space Pirates</p>
+                    </div>
+                    <div className="point1">
+                      <span>APR:</span>
+                      <p>0.92%</p>
+                    </div>
+                    <div className="point1">
+                      <span>TVL:</span>
+                      <p>495,873</p>
+                    </div>
+                    <div className="point1">
+                      <span>STAKE:</span>
+                      <p>$18</p>
+                    </div>
+                    <div className="point1">
+                      <span>EARNED:</span>
+                      <p>$868</p>
+                    </div>
+                    <div className="point1">
+                      <span>Time Left:</span>
+                      <p>
+                        4M 18W 6D{" "}
+                        <Image
+                          src={CalendarIcon}
+                          alt="logo"
+                          className=""
+                          style={{ width: 18, height: 18 }}
+                        />
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
+
+                  <div className="cardbuttons_main">
+                    <div>
+                      <Button
+                        id="fade-button"
+                        className="card_button"
+                        aria-controls={open ? "fade-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : "false"}
+                        sx={{
+                          color: "#000",
+                          textTransform: "capitalize",
+                          fontWeight: "500",
+                          fontSize: "18px",
+                        }}
+                        onClick={handleShowPopup}
+                      >
+                        Stake
+                      </Button>
+                      <Button
+                        id="fade-button"
+                        className="card_button"
+                        aria-controls={open ? "fade-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : "false"}
+                        sx={{
+                          color: "#000",
+                          textTransform: "capitalize",
+                          fontWeight: "500",
+                          fontSize: "18px",
+                        }}
+                        onClick={handleShowUnstackedPopup}
+                      >
+                        Unstake
+                      </Button>
+                    </div>
+                    <div>
+                      <Button
+                        id="fade-button"
+                        className="card_button"
+                        aria-controls={open ? "fade-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : "false"}
+                        sx={{
+                          color: "#000",
+                          textTransform: "capitalize",
+                          fontWeight: "500",
+                          fontSize: "18px",
+                        }}
+                      >
+                        Harvest
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="sec1">
-              <div className="sec1_mainDiv">
-                <Image
-                  src={Aptos}
-                  alt="logo"
-                  className=""
-                  style={{ width: 46, height: 46 }}
-                />
-                <Image
-                  src={WethLogo}
-                  alt="logo"
-                  className="image_border"
-                  style={{ width: 46, height: 46, marginLeft: -10 }}
-                />
-                <div className="main_heading">
-                  <h3>WETH/APT</h3>
-                  <span>
-                    <Image
-                      src={Grapglogo}
-                      alt="logo"
-                      className="graph_logo"
-                      style={{ width: 15, height: 15 }}
-                    />
-                    Uncorellated
-                  </span>
-                </div>
-                <div className="afterHeading_Main">
-                  <span className="afterheading">
-                    0.00276707
-                    <Image
-                      src={Aptos}
-                      alt="logo"
-                      className="small_img"
-                      style={{ width: 18, height: 18 }}
-                    />
-                    APT
-                  </span>
-                  <span className="label">Per week per 1 LP</span>
-                </div>
-                <hr />
-                <div className="bottSec_Main">
-                  <div className="point1">
-                    <span>NFT:</span>
-                    <p>Pontem Space Pirates</p>
-                  </div>
-                  <div className="point1">
-                    <span>APR:</span>
-                    <p>3.04%</p>
-                  </div>
-                  <div className="point1">
-                    <span>TVL:</span>
-                    <p>$14,911</p>
-                  </div>
-                  <div className="point1">
-                    <span>STAKED:</span>
-                    <p>$18</p>
-                  </div>
-                  <div className="point1">
-                    <span>EARNED:</span>
-                    <p>$868</p>
-                  </div>
-                  <div className="point1">
-                    <span>Time Left:</span>
-                    <p>
-                      4M 18W 6D{" "}
-                      <Image
-                        src={CalendarIcon}
-                        alt="logo"
-                        className=""
-                        style={{ width: 18, height: 18 }}
-                      />
-                    </p>
-                  </div>
-                </div>
-                <hr />
-                <div className="cardbuttons_main">
-                  <div>
-                    <Button
-                      id="fade-button"
-                      className="card_button"
-                      aria-controls={open ? "fade-menu" : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? "true" : "false"}
-                      sx={{
-                        color: "#000",
-                        textTransform: "capitalize",
-                        fontWeight: "500",
-                        fontSize: "18px",
-                      }}
-                      onClick={handleShowPopup}
-                    >
-                      Stake
-                    </Button>
-                    <Button
-                      id="fade-button"
-                      className="card_button"
-                      aria-controls={open ? "fade-menu" : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? "true" : "false"}
-                      sx={{
-                        color: "#000",
-                        textTransform: "capitalize",
-                        fontWeight: "500",
-                        fontSize: "18px",
-                      }}
-                      onClick={handleShowUnstackedPopup}
-                    >
-                      Unstake
-                    </Button>
-                  </div>
-                  <div>
-                    <Button
-                      id="fade-button"
-                      className="card_button"
-                      aria-controls={open ? "fade-menu" : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? "true" : "false"}
-                      sx={{
-                        color: "#000",
-                        textTransform: "capitalize",
-                        fontWeight: "500",
-                        fontSize: "18px",
-                      }}
-                    >
-                      Harvest
-                    </Button>
-                  </div>
-                </div>
-              </div>
+            <div className="pagination">
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel="&#8250;"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={5}
+                pageCount={pageCount}
+                previousLabel="&#8249;"
+                renderOnZeroPageCount={null}
+                containerClassName="pagination"
+                previousLinkClassName="page-num"
+                nextLinkClassName="page-num"
+                activeLinkClassName="active"
+              />
             </div>
-            <div className="sec1">
-              <div className="sec1_mainDiv">
-                <Image
-                  src={Aptos}
-                  alt="logo"
-                  className=""
-                  style={{ width: 46, height: 46 }}
-                />
-                <Image
-                  src={UsdCoinLogo}
-                  alt="logo"
-                  className=""
-                  style={{ width: 70, height: 46, marginLeft: -20 }}
-                />
-                <div className="main_heading">
-                  <h3>USDC/APT</h3>
-                  <span>
-                    <Image
-                      src={Grapglogo}
-                      alt="logo"
-                      className="graph_logo"
-                      style={{ width: 15, height: 15 }}
-                    />
-                    Uncorellated
-                  </span>
-                </div>
-                <div className="afterHeading_Main">
-                  <span className="afterheading">
-                    0.00001986
-                    <Image
-                      src={Aptos}
-                      alt="logo"
-                      className="small_img"
-                      style={{ width: 18, height: 18 }}
-                    />
-                    APT
-                  </span>
-                  <span className="label">Per week per 1 LP</span>
-                </div>
-                <hr />
-                <div className="bottSec_Main">
-                  <div className="point1">
-                    <span>NFT:</span>
-                    <p>Pontem Space Pirates</p>
-                  </div>
-                  <div className="point1">
-                    <span>APR:</span>
-                    <p>0.92%</p>
-                  </div>
-                  <div className="point1">
-                    <span>TVL:</span>
-                    <p>495,873</p>
-                  </div>
-                  <div className="point1">
-                    <span>STAKE:</span>
-                    <p>$18</p>
-                  </div>
-                  <div className="point1">
-                    <span>EARNED:</span>
-                    <p>$868</p>
-                  </div>
-                  <div className="point1">
-                    <span>Time Left:</span>
-                    <p>
-                      4M 18W 6D{" "}
-                      <Image
-                        src={CalendarIcon}
-                        alt="logo"
-                        className=""
-                        style={{ width: 18, height: 18 }}
-                      />
-                    </p>
-                  </div>
-                </div>
-                <hr />
-
-                <div className="cardbuttons_main">
-                  <div>
-                    <Button
-                      id="fade-button"
-                      className="card_button"
-                      aria-controls={open ? "fade-menu" : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? "true" : "false"}
-                      sx={{
-                        color: "#000",
-                        textTransform: "capitalize",
-                        fontWeight: "500",
-                        fontSize: "18px",
-                      }}
-                      onClick={handleShowPopup}
-                    >
-                      Stake
-                    </Button>
-                    <Button
-                      id="fade-button"
-                      className="card_button"
-                      aria-controls={open ? "fade-menu" : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? "true" : "false"}
-                      sx={{
-                        color: "#000",
-                        textTransform: "capitalize",
-                        fontWeight: "500",
-                        fontSize: "18px",
-                      }}
-                      onClick={handleShowUnstackedPopup}
-                    >
-                      Unstake
-                    </Button>
-                  </div>
-                  <div>
-                    <Button
-                      id="fade-button"
-                      className="card_button"
-                      aria-controls={open ? "fade-menu" : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? "true" : "false"}
-                      sx={{
-                        color: "#000",
-                        textTransform: "capitalize",
-                        fontWeight: "500",
-                        fontSize: "18px",
-                      }}
-                    >
-                      Harvest
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          </>
         ) : (
           <div
             style={{
@@ -910,31 +932,29 @@ const FarmsTable: FC = () => {
             <ErrorPage />
           </div>
         )}
-
-        {/* </TableBody>
-          </MuiTable>
-        </TableContainer> */}
+        <TableDiv>
+          {false && (
+            <p
+              style={{
+                minHeight: 400,
+                fontWeight: "bolder",
+                fontSize: "x-large",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              No farms data available
+            </p>
+          )}
+        </TableDiv>
       </TableDiv>
       <UnstackedPopup
         open={showUnStackedPopup}
         onClose={handleCloseUnstackedPopup}
       />
       <StackedPopup open={showStackedPopup} onClose={handleClosePopup} />
-      {account && (
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel="&#8250;"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={pageCount}
-          previousLabel="&#8249;"
-          renderOnZeroPageCount={null}
-          containerClassName="pagination"
-          previousLinkClassName="page-num"
-          nextLinkClassName="page-num"
-          activeLinkClassName="active"
-        />
-      )}
     </div>
   );
 };

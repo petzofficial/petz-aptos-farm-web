@@ -80,8 +80,6 @@ const TableDiv = styled("div")`
 const CoinsTable: FC = () => {
   const dispatch = useAppDispatch();
   const coins = useAppSelector(selectCoins);
-  console.log(">> coins", coins);
-  // const coins = null;
   const account = useAppSelector(selectAccount);
   const newNetwork = useAppSelector(selectNewNetwork);
   useEffect(() => {
@@ -93,10 +91,12 @@ const CoinsTable: FC = () => {
   const pageCount = Math.ceil(coins?.length / itemsPerPage);
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = coins?.slice(itemOffset, endOffset);
+
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % coins?.length;
     setItemOffset(newOffset);
   };
+
   return (
     <div>
       {/* Use the styled component as a React component */}
@@ -161,18 +161,19 @@ const CoinsTable: FC = () => {
               </TableBody>
             )}
           </MuiTable>
-          {(!account && <ErrorPage />) ||
-            (!currentItems && (
-              <p
-                style={{
-                  textAlign: "center",
-                  fontWeight: "bolder",
-                  fontSize: "x-large",
-                }}
-              >
-                No coins data available
-              </p>
-            ))}
+          {!account && <ErrorPage />}
+
+          {!coins.length && (
+            <p
+              style={{
+                textAlign: "center",
+                fontWeight: "bolder",
+                fontSize: "x-large",
+              }}
+            >
+              No coins data available
+            </p>
+          )}
         </TableContainer>
       </TableDiv>
       {currentItems && (
