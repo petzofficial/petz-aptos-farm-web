@@ -7,26 +7,19 @@ import {
   selectNewNetwork,
   selectTransactions,
 } from "app/reducers/AccountSlice";
-import Image from "next/image";
 import { styled } from "@mui/material/styles";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import ListItemText from "@mui/material/ListItemText";
-import Fade from "@mui/material/Fade";
-import Button from "@mui/material/Button";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { StackedPopup } from "utils/Popups/stakedPopup";
+import { StackedPopup } from "components/FarmComponents/Popups/stakedPopup";
 import Aptos from "../../../assets/AptosLogo.svg";
 import UsdCoinLogo from "../../../assets/UsdCoin.svg";
 import WethLogo from "../../../assets/weth.svg";
-import SearchIcon from "../../../assets/search.svg";
 import TetherLogo from "../../../assets/tether.svg";
-import CalendarIcon from "../../../assets/calendar.svg";
 import Grapglogo from "../../../assets/GraphLogo.svg";
-import { UnstackedPopup } from "utils/Popups/unstakedPopup";
-import ghostImg from "assets/ghost.png";
+import { UnstackedPopup } from "components/FarmComponents/Popups/unstakedPopup";
 import ErrorPage from "components/ErrorPage/ErrorPage";
 import ReactPaginate from "react-paginate";
+import FarmCardTemplate from "components/FarmComponents/FarmCardTemplate/FarmCardTemplate";
+import { ICardData2 } from "types/cardsTypes";
+import SearchBar from "components/FarmComponents/SearchBar";
 
 const TableDiv = styled("div")`
   width: 100%;
@@ -303,66 +296,97 @@ const TableDiv = styled("div")`
 }
  
 `;
+const CardsData: ICardData2[] = [
+  {
+    images: {
+      logoImg1: Aptos,
+      logoImg2: TetherLogo,
+      cryptoLogo: Aptos,
+      graphLogo: Grapglogo,
+    },
+    type: "USDT/APT",
+    connectionType: "Uncorellated",
+    cryptoAmount: "0.00005962",
+    cryptoName: "APT",
+    durationDetails: "Per week per 1 LP",
+    gtapheDetails: "Uncorellated",
+    itemName: "NFT:",
+    itemDetails: "Pontem Dark Ages",
+    APR: "5.88%",
+    TVL: "$7,701",
+    staked: "$18",
+    earned: "$968",
+    timeLeft: "3M 16W 17H",
+  },
+  {
+    images: {
+      logoImg1: Aptos,
+      logoImg2: WethLogo,
+      cryptoLogo: Aptos,
+      graphLogo: Grapglogo,
+    },
+    type: "WETH/APT",
+    connectionType: "Uncorellated",
+    cryptoAmount: "0.00015868",
+    cryptoName: "APT",
+    durationDetails: "Per week per 1 LP",
+    gtapheDetails: "Uncorellated",
+    itemName: "NFT:",
+    itemDetails: "Pontem Space Pirates",
+    APR: "3.08%",
+    TVL: "$15,173",
+    staked: "$12",
+    earned: "$1068",
+    timeLeft: "4M 17W 18H",
+  },
+  {
+    images: {
+      logoImg1: Aptos,
+      logoImg2: UsdCoinLogo,
+      cryptoLogo: Aptos,
+      graphLogo: Grapglogo,
+    },
+    type: "USDT/APT",
+    connectionType: "Uncorellated",
+    cryptoAmount: "0.00276784",
+    cryptoName: "APT",
+    durationDetails: "Per week per 1 LP",
+    gtapheDetails: "Uncorellated",
+    itemName: "NFT:",
+    itemDetails: "Pontem Space Jacksparrow",
+    APR: "0.58%",
+    TVL: "$817,204",
+    staked: "$1324",
+    earned: "$1168",
+    timeLeft: "5M 18W 19H",
+  },
+];
 
 const FarmsTable: FC = () => {
   const transactions = useAppSelector(selectTransactions);
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [anchorEl1, setAnchorEl1] = React.useState<null | HTMLElement>(null);
-  const [selectedFarm, setSelectedFarm] = React.useState<string | null>(
-    "All Farms"
-  );
-  const [selectedType, setSelectedType] = React.useState<string | null>(
-    "Active"
-  );
   const [showStackedPopup, setStackedShowPopup] =
     React.useState<boolean>(false);
   const [showUnStackedPopup, setUnStackedShowPopup] =
     React.useState<boolean>(false);
-  const open = Boolean(anchorEl);
-  const open1 = Boolean(anchorEl1);
   const dispatch = useAppDispatch();
   const account = useAppSelector(selectAccount);
   const newNetwork = useAppSelector(selectNewNetwork);
-  const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 10;
-  const pageCount = Math.ceil(transactions.length / itemsPerPage);
+  const pageCount = Math.ceil(40 / itemsPerPage);
+  const [itemOffset, setItemOffset] = useState(0);
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = transactions.slice(itemOffset, endOffset) as any;
 
   useEffect(() => {
     dispatch(fetchCoinsAction(account?.address));
   }, [dispatch, account, newNetwork]);
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClick2 = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl1(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const handleClose2 = () => {
-    setAnchorEl1(null);
-  };
-
-  const handleMenuItemClick = (itemName: string) => {
-    setSelectedFarm(itemName);
-    handleClose();
-  };
-  const handleFarmValidityClick = (itemName: string) => {
-    setSelectedType(itemName);
-    handleClose2();
-  };
-
-  const handleShowPopup = () => {
+  const handleShowStackedPopup = () => {
     setStackedShowPopup(true);
   };
   const handleShowUnstackedPopup = () => {
     setUnStackedShowPopup(true);
   };
-  const handleClosePopup = () => {
+  const handleCloseStackedPopup = () => {
     setStackedShowPopup(false);
   };
   const handleCloseUnstackedPopup = () => {
@@ -373,535 +397,22 @@ const FarmsTable: FC = () => {
     const newOffset = (event.selected * itemsPerPage) % transactions.length;
     setItemOffset(newOffset);
   };
+
   return (
     <div>
-      <div className="headBtmSearch">
-        {/* <div className="headBtnEmpty"></div> */}
-        <div className="headBtmSearch2 headLeftBtn">
-          <Button
-            id="fade-button"
-            className="dropdownButton"
-            aria-controls={open ? "fade-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : "false"}
-            onClick={handleClick}
-            sx={{
-              color: "#000",
-              textTransform: "capitalize",
-              fontWeight: "500",
-              fontSize: "18px",
-              verticalAlign: "middle",
-              lineHeight: "normal",
-            }}
-            endIcon={<KeyboardArrowDownIcon />}
-          >
-            {selectedFarm}
-          </Button>
-          <Menu
-            id="fade-menu"
-            MenuListProps={{
-              "aria-labelledby": "fade-button",
-            }}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            TransitionComponent={Fade}
-          >
-            <MenuItem
-              onClick={() => handleMenuItemClick("All Farms")}
-              sx={{
-                width: "200px",
-                "&:hover": { borderRadius: "10px", backgroundColor: "#e4e4e7" },
-                margin: "8px 10px",
-                color: "#121615",
-                borderRadius: "10px",
-                backgroundColor: "#f6efef",
-              }}
-            >
-              <ListItemText>All Farms</ListItemText>
-            </MenuItem>
-            <MenuItem
-              onClick={() => handleMenuItemClick("My Farms")}
-              sx={{
-                width: "200px",
-                "&:hover": { borderRadius: "10px", backgroundColor: "#e4e4e7" },
-                margin: "5px 10px",
-                color: "#121615",
-                borderRadius: "10px",
-                backgroundColor: "#f6efef",
-              }}
-            >
-              <ListItemText>My Farms</ListItemText>
-            </MenuItem>
-          </Menu>
-
-          <Button
-            id="fade-button2"
-            className="dropdownButton2"
-            aria-controls={open1 ? "fade-menu2" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : "false"}
-            onClick={handleClick2}
-            sx={{
-              color: "#000",
-              textTransform: "capitalize",
-              fontWeight: "500",
-              fontSize: "18px",
-            }}
-            endIcon={<KeyboardArrowDownIcon />}
-          >
-            {selectedType}
-          </Button>
-          <Menu
-            id="fade-menu2"
-            MenuListProps={{
-              "aria-labelledby": "fade-button2",
-            }}
-            anchorEl={anchorEl1}
-            open={open1}
-            TransitionComponent={Fade}
-          >
-            <MenuItem
-              onClick={() => handleFarmValidityClick("Active")}
-              sx={{
-                width: "200px",
-                "&:hover": { borderRadius: "10px", backgroundColor: "#e4e4e7" },
-                margin: "8px 10px",
-                color: "#121615",
-                borderRadius: "10px",
-                backgroundColor: "#f6efef",
-              }}
-            >
-              <ListItemText>Active</ListItemText>
-            </MenuItem>
-            <MenuItem
-              onClick={() => handleFarmValidityClick("Expired")}
-              sx={{
-                width: "200px",
-                "&:hover": { borderRadius: "10px", backgroundColor: "#e4e4e7" },
-                margin: "5px 10px",
-                color: "#121615",
-                borderRadius: "10px",
-                backgroundColor: "#f6efef",
-              }}
-            >
-              <ListItemText>Expired</ListItemText>
-            </MenuItem>
-          </Menu>
-        </div>
-
-        <div className="search headBtmSearch2">
-          <Image
-            src={SearchIcon}
-            alt="logo"
-            className="search_icon"
-            style={{ width: 16, height: 16 }}
-          />
-          <input
-            className="searchBar"
-            type="search"
-            placeholder="Search Pools"
-          />
-        </div>
-      </div>
-
+      <SearchBar />
       <TableDiv>
         {account ? (
           <>
             <div className="CardsMaindiv">
-              <div className="sec1">
-                <div className="sec1_mainDiv">
-                  <Image
-                    src={Aptos}
-                    alt="logo"
-                    className=""
-                    style={{ width: 46, height: 46 }}
-                  />
-                  <Image
-                    src={TetherLogo}
-                    alt="logo"
-                    className=""
-                    style={{ width: 46, height: 46, marginLeft: -10 }}
-                  />
-                  <div className="main_heading">
-                    <h3>USDT/APT</h3>
-                    <span>
-                      <Image
-                        src={Grapglogo}
-                        alt="logo"
-                        className="graph_logo"
-                        style={{ width: 15, height: 15 }}
-                      />
-                      Uncorellated
-                    </span>
-                  </div>
-                  <div className="afterHeading_Main">
-                    <span className="afterheading">
-                      0.00005962
-                      <Image
-                        src={Aptos}
-                        alt="logo"
-                        className="small_img"
-                        style={{ width: 18, height: 18 }}
-                      />
-                      APT
-                    </span>
-                    <span className="label">Per week per 1 LP</span>
-                  </div>
-                  <hr />
-                  <div className="bottSec_Main">
-                    <div className="point1">
-                      <span>NFT:</span>
-                      <p>Pontem Dark Ages</p>
-                    </div>
-
-                    <div className="point1">
-                      <span>APR:</span>
-                      <p>2.2%</p>
-                    </div>
-
-                    <div className="point1">
-                      <span>TVL:</span>
-                      <p>$18,868</p>
-                    </div>
-                    <div className="point1">
-                      <span>STAKED:</span>
-                      <p>$18</p>
-                    </div>
-                    <div className="point1">
-                      <span>EARNED:</span>
-                      <p>$868</p>
-                    </div>
-                    <div className="point1">
-                      <span>Time Left:</span>
-                      <p>
-                        4M 18W 6D
-                        <Image
-                          src={CalendarIcon}
-                          alt="logo"
-                          className=""
-                          style={{ width: 18, height: 18 }}
-                        />
-                      </p>
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="cardbuttons_main">
-                    <div>
-                      <Button
-                        id="fade-button"
-                        className="card_button"
-                        aria-controls={open ? "fade-menu" : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? "true" : "false"}
-                        sx={{
-                          color: "#000",
-                          textTransform: "capitalize",
-                          fontWeight: "500",
-                          fontSize: "18px",
-                        }}
-                        onClick={handleShowPopup}
-                      >
-                        Stake
-                      </Button>
-                      <Button
-                        id="fade-button"
-                        className="card_button"
-                        aria-controls={open ? "fade-menu" : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? "true" : "false"}
-                        sx={{
-                          color: "#000",
-                          textTransform: "capitalize",
-                          fontWeight: "500",
-                          fontSize: "18px",
-                        }}
-                        onClick={handleShowUnstackedPopup}
-                      >
-                        Unstake
-                      </Button>
-                    </div>
-                    <div>
-                      <Button
-                        id="fade-button"
-                        className="card_button"
-                        aria-controls={open ? "fade-menu" : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? "true" : "false"}
-                        sx={{
-                          color: "#000",
-                          textTransform: "capitalize",
-                          fontWeight: "500",
-                          fontSize: "18px",
-                        }}
-                      >
-                        Harvest
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="sec1">
-                <div className="sec1_mainDiv">
-                  <Image
-                    src={Aptos}
-                    alt="logo"
-                    className=""
-                    style={{ width: 46, height: 46 }}
-                  />
-                  <Image
-                    src={WethLogo}
-                    alt="logo"
-                    className="image_border"
-                    style={{ width: 46, height: 46, marginLeft: -10 }}
-                  />
-                  <div className="main_heading">
-                    <h3>WETH/APT</h3>
-                    <span>
-                      <Image
-                        src={Grapglogo}
-                        alt="logo"
-                        className="graph_logo"
-                        style={{ width: 15, height: 15 }}
-                      />
-                      Uncorellated
-                    </span>
-                  </div>
-                  <div className="afterHeading_Main">
-                    <span className="afterheading">
-                      0.00276707
-                      <Image
-                        src={Aptos}
-                        alt="logo"
-                        className="small_img"
-                        style={{ width: 18, height: 18 }}
-                      />
-                      APT
-                    </span>
-                    <span className="label">Per week per 1 LP</span>
-                  </div>
-                  <hr />
-                  <div className="bottSec_Main">
-                    <div className="point1">
-                      <span>NFT:</span>
-                      <p>Pontem Space Pirates</p>
-                    </div>
-                    <div className="point1">
-                      <span>APR:</span>
-                      <p>3.04%</p>
-                    </div>
-                    <div className="point1">
-                      <span>TVL:</span>
-                      <p>$14,911</p>
-                    </div>
-                    <div className="point1">
-                      <span>STAKED:</span>
-                      <p>$18</p>
-                    </div>
-                    <div className="point1">
-                      <span>EARNED:</span>
-                      <p>$868</p>
-                    </div>
-                    <div className="point1">
-                      <span>Time Left:</span>
-                      <p>
-                        4M 18W 6D{" "}
-                        <Image
-                          src={CalendarIcon}
-                          alt="logo"
-                          className=""
-                          style={{ width: 18, height: 18 }}
-                        />
-                      </p>
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="cardbuttons_main">
-                    <div>
-                      <Button
-                        id="fade-button"
-                        className="card_button"
-                        aria-controls={open ? "fade-menu" : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? "true" : "false"}
-                        sx={{
-                          color: "#000",
-                          textTransform: "capitalize",
-                          fontWeight: "500",
-                          fontSize: "18px",
-                        }}
-                        onClick={handleShowPopup}
-                      >
-                        Stake
-                      </Button>
-                      <Button
-                        id="fade-button"
-                        className="card_button"
-                        aria-controls={open ? "fade-menu" : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? "true" : "false"}
-                        sx={{
-                          color: "#000",
-                          textTransform: "capitalize",
-                          fontWeight: "500",
-                          fontSize: "18px",
-                        }}
-                        onClick={handleShowUnstackedPopup}
-                      >
-                        Unstake
-                      </Button>
-                    </div>
-                    <div>
-                      <Button
-                        id="fade-button"
-                        className="card_button"
-                        aria-controls={open ? "fade-menu" : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? "true" : "false"}
-                        sx={{
-                          color: "#000",
-                          textTransform: "capitalize",
-                          fontWeight: "500",
-                          fontSize: "18px",
-                        }}
-                      >
-                        Harvest
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="sec1">
-                <div className="sec1_mainDiv">
-                  <Image
-                    src={Aptos}
-                    alt="logo"
-                    className=""
-                    style={{ width: 46, height: 46 }}
-                  />
-                  <Image
-                    src={UsdCoinLogo}
-                    alt="logo"
-                    className=""
-                    style={{ width: 70, height: 46, marginLeft: -20 }}
-                  />
-                  <div className="main_heading">
-                    <h3>USDC/APT</h3>
-                    <span>
-                      <Image
-                        src={Grapglogo}
-                        alt="logo"
-                        className="graph_logo"
-                        style={{ width: 15, height: 15 }}
-                      />
-                      Uncorellated
-                    </span>
-                  </div>
-                  <div className="afterHeading_Main">
-                    <span className="afterheading">
-                      0.00001986
-                      <Image
-                        src={Aptos}
-                        alt="logo"
-                        className="small_img"
-                        style={{ width: 18, height: 18 }}
-                      />
-                      APT
-                    </span>
-                    <span className="label">Per week per 1 LP</span>
-                  </div>
-                  <hr />
-                  <div className="bottSec_Main">
-                    <div className="point1">
-                      <span>NFT:</span>
-                      <p>Pontem Space Pirates</p>
-                    </div>
-                    <div className="point1">
-                      <span>APR:</span>
-                      <p>0.92%</p>
-                    </div>
-                    <div className="point1">
-                      <span>TVL:</span>
-                      <p>495,873</p>
-                    </div>
-                    <div className="point1">
-                      <span>STAKE:</span>
-                      <p>$18</p>
-                    </div>
-                    <div className="point1">
-                      <span>EARNED:</span>
-                      <p>$868</p>
-                    </div>
-                    <div className="point1">
-                      <span>Time Left:</span>
-                      <p>
-                        4M 18W 6D{" "}
-                        <Image
-                          src={CalendarIcon}
-                          alt="logo"
-                          className=""
-                          style={{ width: 18, height: 18 }}
-                        />
-                      </p>
-                    </div>
-                  </div>
-                  <hr />
-
-                  <div className="cardbuttons_main">
-                    <div>
-                      <Button
-                        id="fade-button"
-                        className="card_button"
-                        aria-controls={open ? "fade-menu" : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? "true" : "false"}
-                        sx={{
-                          color: "#000",
-                          textTransform: "capitalize",
-                          fontWeight: "500",
-                          fontSize: "18px",
-                        }}
-                        onClick={handleShowPopup}
-                      >
-                        Stake
-                      </Button>
-                      <Button
-                        id="fade-button"
-                        className="card_button"
-                        aria-controls={open ? "fade-menu" : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? "true" : "false"}
-                        sx={{
-                          color: "#000",
-                          textTransform: "capitalize",
-                          fontWeight: "500",
-                          fontSize: "18px",
-                        }}
-                        onClick={handleShowUnstackedPopup}
-                      >
-                        Unstake
-                      </Button>
-                    </div>
-                    <div>
-                      <Button
-                        id="fade-button"
-                        className="card_button"
-                        aria-controls={open ? "fade-menu" : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? "true" : "false"}
-                        sx={{
-                          color: "#000",
-                          textTransform: "capitalize",
-                          fontWeight: "500",
-                          fontSize: "18px",
-                        }}
-                      >
-                        Harvest
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {CardsData?.map((cardData, index) => (
+                <FarmCardTemplate
+                  key={index}
+                  cards={cardData}
+                  onShowStackedPopup={handleShowStackedPopup}
+                  onShowUnstackedPopup={handleShowUnstackedPopup}
+                />
+              ))}
             </div>
             <div className="pagination">
               <ReactPaginate
@@ -954,7 +465,7 @@ const FarmsTable: FC = () => {
         open={showUnStackedPopup}
         onClose={handleCloseUnstackedPopup}
       />
-      <StackedPopup open={showStackedPopup} onClose={handleClosePopup} />
+      <StackedPopup open={showStackedPopup} onClose={handleCloseStackedPopup} />
     </div>
   );
 };

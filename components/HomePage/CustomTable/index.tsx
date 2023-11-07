@@ -12,8 +12,6 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import SenderImg from "../../../assets/sender.png";
 import SendToImg from "../../../assets/sendto.png";
 import TypeArrow from "../../../assets/arrowtype.png";
-import ghostImg from "assets/ghost.png";
-import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAppSelector } from "app/hooks";
@@ -22,7 +20,7 @@ import {
   shortenString,
   formatTimestamp,
 } from "utils/reUseAbleFunctions/reuseAbleFunctions";
-import React, { useEffect } from "react";
+import React from "react";
 import ReactPaginate from "react-paginate";
 import ErrorPage from "components/ErrorPage/ErrorPage";
 const TableDiv = styled("div")`
