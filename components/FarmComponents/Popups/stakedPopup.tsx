@@ -1,4 +1,4 @@
-import * as React from "react";
+import  React,{useState, useMemo} from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -12,6 +12,7 @@ import Image from "next/image";
 import Slider from "@mui/material/Slider";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Network, Provider } from "aptos";
+import { CustomSlider } from "./CustomSlider";
 
 export const provider = new Provider(Network.TESTNET);
 
@@ -30,6 +31,8 @@ const MySlider = styled(Slider)(() => ({
 export interface SimpleDialogProps {
   open: boolean;
   onClose: (value: string) => void;
+  userResource: any;
+  stakeResource: any
 }
 const marks = [
   {
@@ -89,7 +92,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
       
     `;
     const { account, network, signAndSubmitTransaction } = useWallet();
-
+    const [valuee, setValue] = useState(0);
     const moduleAddress2 = "0x82afe3de6e9acaf4f2de72ae50c3851a65bb86576198ef969937d59190873dfd";
     const handleStake = async () => {
       if (!account) return [];
@@ -131,9 +134,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
   function valuetext(value: number) {
     return `${value}`;
   }
-  const handleChange = (e:any)=> {
-console.log(e.target.value)
-  }
+  const TVL = props?.stakeResource?.data?.stake_coins?.value/(Math.pow(10, 8))
   return (
     <TableDiv>
       <Dialog
@@ -230,7 +231,7 @@ console.log(e.target.value)
                       fontWeight: "600",
                     }}
                   >
-                    ~22.37 USD
+                    ~{TVL} USD
                   </p>
                 </Box>
                 <DialogTitle
@@ -242,18 +243,19 @@ console.log(e.target.value)
                     fontSize: "13px",
                   }}
                 >
-                  Balance: 2
+                  {/* Balance: {valuee} */}
                 </DialogTitle>
               </Box>
               <Box sx={{ width: "100%" }}>
-                <MySlider
+                {/* <MySlider
                   aria-label="Always visible"
                   defaultValue={30}
                   getAriaValueText={valuetext}
                   step={10}
                   valueLabelDisplay="on"
                   onChange={(e)=>handleChange(e)}
-                />
+                /> */}
+               <CustomSlider />
               </Box>
 
               <Box>

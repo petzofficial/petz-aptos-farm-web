@@ -12,6 +12,7 @@ import Image from "next/image";
 import Slider from "@mui/material/Slider";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Network, Provider } from "aptos";
+import { CustomSlider } from "./CustomSlider";
 
 export const provider = new Provider(Network.TESTNET);
 
@@ -30,6 +31,8 @@ const MySlider = styled(Slider)(() => ({
 export interface SimpleDialogProps {
   open: boolean;
   onClose: (value: string) => void;
+  userResource: any;
+  stakeResource:any
 }
 const marks = [
   {
@@ -119,6 +122,8 @@ export function UnstackedPopup(props: SimpleDialogProps) {
   function valuetext(value: number) {
     return `${value}`;
   }
+  console.log(props?.userResource,'adawda')
+    const TVL = props?.stakeResource?.data?.stake_coins?.value/(Math.pow(10, 8))
   return (
     <TableDiv>
       <Dialog
@@ -213,7 +218,7 @@ export function UnstackedPopup(props: SimpleDialogProps) {
                       fontWeight: "600",
                     }}
                   >
-                    ~22.37 USD
+                    ~{TVL} USD
                   </p>
                 </Box>
                 <DialogTitle
@@ -225,17 +230,18 @@ export function UnstackedPopup(props: SimpleDialogProps) {
                     fontSize: "13px",
                   }}
                 >
-                  Balance: 2
+                  {/* Balance: 2 */}
                 </DialogTitle>
               </Box>
               <Box sx={{ width: "100%" }}>
-                <MySlider
+                {/* <MySlider
                   aria-label="Always visible"
                   defaultValue={30}
                   getAriaValueText={valuetext}
                   step={10}
                   valueLabelDisplay="on"
-                />
+                /> */}
+                <CustomSlider />
               </Box>
 
               <Box>

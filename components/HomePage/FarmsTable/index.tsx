@@ -550,8 +550,15 @@ const FarmsTable: FC = () => {
       <UnstackedPopup
         open={showUnStackedPopup}
         onClose={handleCloseUnstackedPopup}
+        userResource={userResource}
+        stakeResource={stakeResource}
       />
-      <StackedPopup open={showStackedPopup} onClose={handleCloseStackedPopup} />
+      <StackedPopup
+        open={showStackedPopup}
+        onClose={handleCloseStackedPopup} 
+        userResource={userResource}
+        stakeResource={stakeResource}
+      />
     </div>
   );
 };
