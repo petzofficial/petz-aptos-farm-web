@@ -131,6 +131,9 @@ import { syntax } from '../../.next/static/chunks/webpack';
   function valuetext(value: number) {
     return `${value}`;
   }
+  const handleChange = (e:any)=> {
+console.log(e.target.value)
+  }
   return (
     <TableDiv>
       <Dialog
@@ -249,6 +252,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
                   getAriaValueText={valuetext}
                   step={10}
                   valueLabelDisplay="on"
+                  onChange={(e)=>handleChange(e)}
                 />
               </Box>
 
@@ -365,7 +369,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
             }}
             onClick={() => props.onClose("")}
           >
-            Get CAKE
+            Get MOON/APT
           </Button>
         </DialogActions>
       </Dialog>

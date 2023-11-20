@@ -208,7 +208,7 @@ const FarmCardTemplate = (props:any) => {
   const RPS = props?.cards?.data?.reward_per_sec * (604800) / (Math.pow(10, 8))
   const APR = (props?.cards?.data?.reward_per_sec * (31536000) / (Math.pow(10, 8)) / props?.cards?.data?.stake_coins?.value/(Math.pow(10, 8))) * 100
   const TVL=props?.cards?.data?.stake_coins?.value/(Math.pow(10, 8))
-  const curve = props?.cards?.type.includes("Uncorrelated");
+  const curve = props?.cards?.type?.includes("Uncorrelated");
   console.log(curve,'awfadawda')
   return (
     <MainDiv>
