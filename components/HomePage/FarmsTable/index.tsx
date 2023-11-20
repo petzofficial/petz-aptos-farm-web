@@ -20,6 +20,10 @@ import ReactPaginate from "react-paginate";
 import FarmCardTemplate from "components/FarmComponents/FarmCardTemplate/FarmCardTemplate";
 import { ICardData2 } from "types/cardsTypes";
 import SearchBar from "components/FarmComponents/SearchBar";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { Network, Provider } from "aptos";
+
+export const provider = new Provider(Network.TESTNET);
 
 const TableDiv = styled("div")`
   width: 100%;
@@ -374,6 +378,8 @@ const FarmsTable: FC = () => {
   const itemsPerPage = 10;
   const pageCount = Math.ceil(40 / itemsPerPage);
   const [itemOffset, setItemOffset] = useState(0);
+  const [stakeResource,setStakeResource] = useState({});
+  const [userResource,setUserResource] = useState({});
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = transactions.slice(itemOffset, endOffset) as any;
 
@@ -397,7 +403,86 @@ const FarmsTable: FC = () => {
     const newOffset = (event.selected * itemsPerPage) % transactions.length;
     setItemOffset(newOffset);
   };
+  const { account:acc } = useWallet();
+  const moduleAddress = "0x1";
+  const nftModuleAddress = "0x3";
 
+  const moduleAddress2 = "0x82afe3de6e9acaf4f2de72ae50c3851a65bb86576198ef969937d59190873dfd";
+  const resourceAddress = "0x8484ec04e905df1987e0b378fbe8de1a6eaf8bd620f68b5dee3d0227974b022a";
+ 
+
+ const fetchList = async () => {
+    if (!acc) return [];
+    try {
+   /*    const transactionResource = await provider.getAccountTransactions(
+        account?.address
+      );
+
+      const coinResource = await provider.getAccountResource(
+        account?.address,
+        `${moduleAddress}::coin::CoinStore<${moduleAddress}::aptos_coin::AptosCoin>`,
+      ); */
+
+     /*  const cmResource2 = await provider.getAccountResource(
+        account?.address,
+        `${moduleAddress2}::candymachine::MintData`,
+      ); */
+
+   /*    const nftResource = await provider.getOwnedTokens(
+        account?.address
+      );
+
+      const faResource = await provider.getAccountCoinsData(
+        account?.address
+      );
+
+      const resource = await provider.getAccountResources(
+        account?.address
+      );
+
+      const cmResource = await provider.getAccountResource(
+        resourceAddress,
+        `${moduleAddress2}::candymachine::CandyMachine`,
+      ); */
+ 
+      const stakePoolResource = await provider.getAccountResource(
+        moduleAddress2,
+        `${moduleAddress2}::stake::StakePool<0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>, 0x1::aptos_coin::AptosCoin>`,
+      );  
+      setStakeResource({...stakePoolResource,images: {
+        logoImg1: Aptos,
+        logoImg2: TetherLogo,
+        cryptoLogo: Aptos,
+        graphLogo: Grapglogo,
+      }})
+      const eventResource = await provider.getEventsByCreationNumber(
+        account?.address,
+       "6", 
+      );  
+      
+
+      const tableHandle = (stakePoolResource as any).data.stakes.handle;
+      const tableItem = {
+        key_type: "address",
+        value_type: `${moduleAddress2}::stake::UserStake`,
+        key: "0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5",
+      };
+      const currentUserStakeResource = await provider.getTableItem(tableHandle, tableItem);
+    
+     console.log({stakePoolResource})
+     console.log({stakeResource})
+     console.log({currentUserStakeResource})
+     setUserResource(currentUserStakeResource)
+     //console.log(cmResource2)
+      
+    } catch (e: any) {
+     
+    }
+  };
+  useEffect(() => {
+    fetchList();
+  }, [account?.address]);
+  console.log(acc,'avwdawdawd')
   return (
     <div>
       <SearchBar />
@@ -405,14 +490,15 @@ const FarmsTable: FC = () => {
         {account ? (
           <>
             <div className="CardsMaindiv">
-              {CardsData?.map((cardData, index) => (
+              {/* {stakeResource?.map((cardData, index) => ( */}
                 <FarmCardTemplate
-                  key={index}
-                  cards={cardData}
+                  // key={index}
+                  userResource={userResource}
+                  cards={stakeResource}
                   onShowStackedPopup={handleShowStackedPopup}
                   onShowUnstackedPopup={handleShowUnstackedPopup}
                 />
-              ))}
+              {/* ))} */}
             </div>
             <div className="pagination">
               <ReactPaginate

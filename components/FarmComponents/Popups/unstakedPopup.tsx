@@ -10,6 +10,10 @@ import { Box } from "@mui/material";
 import closeIcon from "../../../assets/closeIcon.svg";
 import Image from "next/image";
 import Slider from "@mui/material/Slider";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { Network, Provider } from "aptos";
+
+export const provider = new Provider(Network.TESTNET);
 
 const MySlider = styled(Slider)(() => ({
   "& .MuiSlider-thumb": {
@@ -60,8 +64,8 @@ export function UnstackedPopup(props: SimpleDialogProps) {
         align-items: center;
         width:100% !important;
         margin: 0 auimport { Image } from 'next/image';
-to;import { styled } from 'styled-components/macro';
-import { syntax } from '../../.next/static/chunks/webpack';
+        to;import { styled } from 'styled-components/macro';
+        import { syntax } from '../../.next/static/chunks/webpack';
 
     }
     .main_heading{
@@ -69,7 +73,49 @@ import { syntax } from '../../.next/static/chunks/webpack';
         color:#000;
     }
     `;
-
+    const { account, network, signAndSubmitTransaction } = useWallet();
+    const moduleAddress = "0x1";
+    const nftModuleAddress = "0x3";
+  
+    const moduleAddress2 = "0x82afe3de6e9acaf4f2de72ae50c3851a65bb86576198ef969937d59190873dfd";
+    const resourceAddress = "0x8484ec04e905df1987e0b378fbe8de1a6eaf8bd620f68b5dee3d0227974b022a";
+    const handleUnStake = async () => {
+      if (!account) return [];
+       const payload = {
+        type: "entry_function_payload",
+        function: `${moduleAddress2}::scripts::stake`,
+        type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>","0x1::aptos_coin::AptosCoin"],
+        arguments: [moduleAddress2,999],
+      }; 
+  
+       const payload2 = {
+        type: "entry_function_payload",
+        function: `${moduleAddress2}::scripts::unstake`,
+        type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>","0x1::aptos_coin::AptosCoin"],
+        arguments: [moduleAddress2,1],
+      }; 
+  
+      const payload3 = {
+        type: "entry_function_payload",
+        function: `${moduleAddress2}::scripts::harvest`,
+        type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>","0x1::aptos_coin::AptosCoin"],
+        arguments: [moduleAddress2,1],
+      }; 
+  
+      try {
+        // sign and submit transaction to chain
+        const response = await signAndSubmitTransaction(payload2);
+        // wait for transaction
+        await provider.waitForTransaction(response.hash);
+  
+  
+      } catch (error: any) {
+        console.log("error", error);
+      } finally {
+        //setTransactionInProgress(false);
+      }
+      
+    }
   function valuetext(value: number) {
     return `${value}`;
   }
@@ -286,7 +332,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
               marginTop: "8px",
               "&:hover": { backgroundColor: "#f47c63" },
             }}
-            onClick={() => props.onClose("")}
+            onClick={() => {handleUnStake();props.onClose("")}}
           >
             Confirm
           </Button>

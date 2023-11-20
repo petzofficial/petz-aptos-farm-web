@@ -10,6 +10,10 @@ import { Box } from "@mui/material";
 import closeIcon from "../../../assets/closeIcon.svg";
 import Image from "next/image";
 import Slider from "@mui/material/Slider";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { Network, Provider } from "aptos";
+
+export const provider = new Provider(Network.TESTNET);
 
 const MySlider = styled(Slider)(() => ({
   "& .MuiSlider-thumb": {
@@ -84,7 +88,46 @@ import { syntax } from '../../.next/static/chunks/webpack';
       }
       
     `;
+    const { account, network, signAndSubmitTransaction } = useWallet();
 
+    const moduleAddress2 = "0x82afe3de6e9acaf4f2de72ae50c3851a65bb86576198ef969937d59190873dfd";
+    const handleStake = async () => {
+      if (!account) return [];
+       const payload = {
+        type: "entry_function_payload",
+        function: `${moduleAddress2}::scripts::stake`,
+        type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>","0x1::aptos_coin::AptosCoin"],
+        arguments: [moduleAddress2,999],
+      }; 
+  
+       const payload2 = {
+        type: "entry_function_payload",
+        function: `${moduleAddress2}::scripts::unstake`,
+        type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>","0x1::aptos_coin::AptosCoin"],
+        arguments: [moduleAddress2,1],
+      }; 
+  
+      const payload3 = {
+        type: "entry_function_payload",
+        function: `${moduleAddress2}::scripts::harvest`,
+        type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>","0x1::aptos_coin::AptosCoin"],
+        arguments: [moduleAddress2,1],
+      }; 
+  
+      try {
+        // sign and submit transaction to chain
+        const response = await signAndSubmitTransaction(payload);
+        // wait for transaction
+        await provider.waitForTransaction(response.hash);
+  
+  
+      } catch (error: any) {
+        console.log("error", error);
+      } finally {
+        //setTransactionInProgress(false);
+      }
+      
+    }
   function valuetext(value: number) {
     return `${value}`;
   }
@@ -303,7 +346,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
               marginTop: "8px",
               "&:hover": { backgroundColor: "#f47c63" },
             }}
-            onClick={() => props.onClose("")}
+            onClick={() => {handleStake();props.onClose("")}}
           >
             Confirm
           </Button>

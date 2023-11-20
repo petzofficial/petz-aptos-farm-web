@@ -4,6 +4,11 @@ import CalendarIcon from "../../../assets/calendar.svg";
 import Image from "next/image";
 import styled from "styled-components";
 import { ICardData } from "types/cardsTypes";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { Network, Provider } from "aptos";
+
+export const provider = new Provider(Network.TESTNET);
+
 const MainDiv = styled.div`
     background-color:#f1e9e7;
     width:26%;
@@ -133,7 +138,77 @@ import { ICardData } from '../../../types/cardsTypes';
   }
 `;
 
-const FarmCardTemplate = (props: ICardData) => {
+const FarmCardTemplate = (props:any) => {
+  const { account, network, signAndSubmitTransaction } = useWallet();
+  const moduleAddress = "0x1";
+  const nftModuleAddress = "0x3";
+
+  const moduleAddress2 = "0x82afe3de6e9acaf4f2de72ae50c3851a65bb86576198ef969937d59190873dfd";
+  const resourceAddress = "0x8484ec04e905df1987e0b378fbe8de1a6eaf8bd620f68b5dee3d0227974b022a";
+
+  const handleHarvest = async () => {
+    if (!account) return [];
+     const payload = {
+      type: "entry_function_payload",
+      function: `${moduleAddress2}::scripts::stake`,
+      type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>","0x1::aptos_coin::AptosCoin"],
+      arguments: [moduleAddress2,999],
+    }; 
+
+     const payload2 = {
+      type: "entry_function_payload",
+      function: `${moduleAddress2}::scripts::unstake`,
+      type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>","0x1::aptos_coin::AptosCoin"],
+      arguments: [moduleAddress2,1],
+    }; 
+
+    const payload3 = {
+      type: "entry_function_payload",
+      function: `${moduleAddress2}::scripts::harvest`,
+      type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>","0x1::aptos_coin::AptosCoin"],
+      arguments: [moduleAddress2,1],
+    }; 
+
+    try {
+      // sign and submit transaction to chain
+      const response = await signAndSubmitTransaction(payload3);
+      // wait for transaction
+      await provider.waitForTransaction(response.hash);
+
+
+    } catch (error: any) {
+      console.log("error", error);
+    } finally {
+      //setTransactionInProgress(false);
+    }
+    
+  }
+  const unixTimestamp = props?.userResource?.unlock_time; // Replace this with your Unix timestamp
+  const date = new Date(unixTimestamp * 1000); // Convert Unix timestamp to milliseconds
+
+  // Get the various components of the date
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // Month is 0-indexed, so we add 1
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+
+  const unixTimestamp2 = props?.cards?.data?.start_timestamp; // Replace this with your Unix timestamp
+  const date2 = new Date(unixTimestamp2 * 1000);
+  
+  // Get the various components of the date
+  const year2 = date2.getFullYear();
+  const month2 = date2.getMonth() + 1; // Month is 0-indexed, so we add 1
+  const day2 = date2.getDate();
+  const hours2= date2.getHours();
+  const minutes2 = date2.getMinutes();
+  const seconds2= date2.getSeconds();
+
+  const RPS = props?.cards?.data?.reward_per_sec * (604800) / (Math.pow(10, 8))
+  const APR = (props?.cards?.data?.reward_per_sec * (31536000) / (Math.pow(10, 8)) / props?.cards?.data?.stake_coins?.value/(Math.pow(10, 8))) * 100
+  const TVL=props?.cards?.data?.stake_coins?.value/(Math.pow(10, 8))
+  console.log(props?.cards?.data?.end_timestamp,'awfadawda')
   return (
     <MainDiv>
       <div className="sec1_mainDiv">
@@ -153,7 +228,7 @@ const FarmCardTemplate = (props: ICardData) => {
           style={{ marginLeft: "-10px" }}
         />
         <div className="main_heading">
-          <h3>{props?.cards?.type}</h3>
+          {/* <h3>{props?.cards?.type}</h3> */}
           <span>
             <Image
               src={props?.cards?.images?.graphLogo?.src}
@@ -167,7 +242,8 @@ const FarmCardTemplate = (props: ICardData) => {
         </div>
         <div className="afterHeading_Main">
           <span className="afterheading">
-            {props?.cards?.cryptoAmount}
+            {/* {props?.cards?.cryptoAmount} */}
+            {RPS}
             <Image
               src={props?.cards?.images?.cryptoLogo?.src}
               alt="logo"
@@ -182,29 +258,42 @@ const FarmCardTemplate = (props: ICardData) => {
         <hr />
         <div className="bottSec_Main">
           <div className="point1">
-            <span>{props?.cards?.itemName}:</span>
-            <p>{props?.cards?.itemDetails}</p>
+            <span>NFT:</span>
+            <p>{props?.cards?.data?.nft_config}</p>
           </div>
           <div className="point1">
             <span>APR:</span>
-            <p>{props?.cards?.APR}</p>
+            <p>{APR.toString().slice(0,4)}%</p>
           </div>
           <div className="point1">
             <span>TVL:</span>
-            <p>{props?.cards?.TVL}</p>
+            <p>${TVL}</p>
           </div>
           <div className="point1">
             <span>STAKED:</span>
-            <p>{props?.cards?.staked}</p>
+            <p>${props?.userResource?.amount}</p>
           </div>
           <div className="point1">
             <span>EARNED:</span>
-            <p>{props?.cards?.earned}</p>
+            <p>${props?.userResource?.earned_reward}</p>
+          </div>
+          
+          <div className="point1">
+            <span>Reward Time:</span>
+            <p>
+              {`${year}-${month}-${day} ${hours}:${minutes}:${seconds}`}
+              <Image
+                src={CalendarIcon}
+                alt="logo"
+                className=""
+                style={{ width: 18, height: 18 }}
+              />
+            </p>
           </div>
           <div className="point1">
-            <span>Time Left:</span>
+            <span>Unlock Time:</span>
             <p>
-              {props?.cards?.timeLeft}{" "}
+              {`${year2}-${month2}-${day2} ${hours2}:${minutes2}:${seconds2}`}
               <Image
                 src={CalendarIcon}
                 alt="logo"
@@ -260,6 +349,9 @@ const FarmCardTemplate = (props: ICardData) => {
                 textTransform: "capitalize",
                 fontWeight: "500",
                 fontSize: "18px",
+              }}
+              onClick={() => {
+                handleHarvest()
               }}
             >
               Harvest
