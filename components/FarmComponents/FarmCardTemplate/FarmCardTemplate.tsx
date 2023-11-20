@@ -208,7 +208,8 @@ const FarmCardTemplate = (props:any) => {
   const RPS = props?.cards?.data?.reward_per_sec * (604800) / (Math.pow(10, 8))
   const APR = (props?.cards?.data?.reward_per_sec * (31536000) / (Math.pow(10, 8)) / props?.cards?.data?.stake_coins?.value/(Math.pow(10, 8))) * 100
   const TVL=props?.cards?.data?.stake_coins?.value/(Math.pow(10, 8))
-  console.log(props?.cards?.data?.end_timestamp,'awfadawda')
+  const curve = props?.cards?.type.includes("Uncorrelated");
+  console.log(curve,'awfadawda')
   return (
     <MainDiv>
       <div className="sec1_mainDiv">
@@ -228,7 +229,7 @@ const FarmCardTemplate = (props:any) => {
           style={{ marginLeft: "-10px" }}
         />
         <div className="main_heading">
-          {/* <h3>{props?.cards?.type}</h3> */}
+          <h3>MOON/APT</h3>
           <span>
             <Image
               src={props?.cards?.images?.graphLogo?.src}
@@ -237,7 +238,7 @@ const FarmCardTemplate = (props:any) => {
               width={15}
               height={15}
             />
-            {props?.cards?.connectionType}
+            {curve ? "Uncorrelated" : ""}
           </span>
         </div>
         <div className="afterHeading_Main">
