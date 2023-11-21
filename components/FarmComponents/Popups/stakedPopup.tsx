@@ -135,6 +135,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
     return `${value}`;
   }
   const TVL = props?.stakeResource?.data?.stake_coins?.value
+  console.log(props?.stakeResource,'dawfada')
   return (
     <TableDiv>
       <Dialog
@@ -193,7 +194,15 @@ import { syntax } from '../../.next/static/chunks/webpack';
                 }}
               >
                 <h4 style={{ color: "#000", fontWeight: "600" }}>Stake:</h4>
-                <h4 style={{ color: "#000", fontWeight: "600" }}>MOON/APT</h4>
+                {/* <h4 style={{ color: "#000", fontWeight: "600" }}>MOON/APT</h4> */}
+                <Image
+                  src={props?.stakeResource?.images?.cryptoLogo?.src}
+                  alt="logo"
+                  className="image_border"
+                  width={46}
+                  height={46}
+                  style={{ marginLeft: "-10px" }}
+                />
               </Box>
               <Box>
                 <Box

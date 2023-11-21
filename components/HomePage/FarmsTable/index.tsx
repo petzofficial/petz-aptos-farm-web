@@ -482,7 +482,6 @@ const FarmsTable: FC = () => {
   useEffect(() => {
     fetchList();
   }, [account?.address]);
-  console.log(acc,'avwdawdawd')
   return (
     <div>
       <SearchBar />

@@ -181,7 +181,15 @@ export function UnstackedPopup(props: SimpleDialogProps) {
                 }}
               >
                 <h4 style={{ color: "#000", fontWeight: "600" }}>Stake:</h4>
-                <h4 style={{ color: "#000", fontWeight: "600" }}>MOON/APT</h4>
+                {/* <h4 style={{ color: "#000", fontWeight: "600" }}>MOON/APT</h4> */}
+                <Image
+                  src={props?.stakeResource?.images?.cryptoLogo?.src}
+                  alt="logo"
+                  className="image_border"
+                  width={46}
+                  height={46}
+                  style={{ marginLeft: "-10px" }}
+                />
               </Box>
               <Box>
                 <Box
