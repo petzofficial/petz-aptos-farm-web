@@ -1,11 +1,12 @@
-import { useCallback, useState } from "react";
-
+import { useCallback, useEffect, useState } from "react";
+import DialogTitle from "@mui/material/DialogTitle";
+import { Box } from "@mui/material";
 import { debounce } from "@mui/material/utils";
-import { Slider } from "@mui/material";
 import { styled } from "@mui/material/styles";
-
-export const CustomSlider = () => {
-  const [value, setValue] = useState(500);
+import Slider from "@mui/material/Slider";
+export const CustomSlider = (props: any) => {
+  const [value, setValue] = useState(props.moonValue);
+  const [textValue, setTextValue] = useState<any>("");
   const MySlider = styled(Slider)(() => ({
     "& .MuiSlider-thumb": {
       backgroundColor: "#f49c63",
@@ -17,7 +18,7 @@ export const CustomSlider = () => {
       backgroundColor: "#f49c63",
     },
   }));
-  const handleSliderChange = useCallback((event:any, value:any) => {
+  const handleSliderChange = useCallback((event: any, value: any) => {
     debounceSliderChange(value);
   }, []);
 
@@ -25,10 +26,65 @@ export const CustomSlider = () => {
     console.log(val);
     setValue(val);
   }, 200);
-  const bal = 500 * value / 100
+  const bal = props.moonValue * value / 100
+  useEffect(()=>{
+    setTextValue(bal)
+  },[bal])
   return (
     <div className="App">
-      <p>{`Balance: ${bal}`}</p>
+      <Box>
+        <Box
+          sx={{
+            height: "100px",
+            backgroundColor: "#f1e9e7",
+            borderRadius: "20px",
+          }}
+        >
+          <input
+            type="text"
+            placeholder="0.000"
+            style={{
+              border: "none",
+              color: "#000",
+              fontSize: "13px",
+              textAlign: "right",
+              padding: "25px 15px 0px 0px",
+              fontWeight: "600",
+              width: "100%",
+              backgroundColor: "transparent",
+              outline: "none",
+              appearance: "textfield",
+              WebkitAppearance: "textfield",
+              MozAppearance: "textfield",
+            }}
+            value={textValue}
+            onChange={(e)=>setTextValue(e.target.value)}
+          />
+          <p
+            style={{
+              color: "#000",
+              fontSize: "13px",
+              textAlign: "right",
+              padding: "0px 15px 0px 0px",
+              fontWeight: "600",
+            }}
+          >
+            ~{(Number(textValue) / 100).toString().slice(0, 8)} USD
+          </p>
+        </Box>
+        <DialogTitle
+          style={{
+            textAlign: "right",
+            color: "#000",
+            padding: "5px 3px",
+            fontWeight: "bolder",
+            fontSize: "13px",
+          }}
+        >
+          {/* Balance: 2 */}
+        </DialogTitle>
+      </Box>
+      <p>{`Balance: ${props.moonValue}`}</p>
       <MySlider
         defaultValue={value}
         onChange={(e, v) => handleSliderChange(e, v)}
@@ -37,6 +93,80 @@ export const CustomSlider = () => {
         step={10}
         valueLabelDisplay="on"
       />
+      <Box>
+                <span
+                  style={{
+                    display: "inline-block",
+                    width: "23%",
+                    height: "30px",
+                    margin: "10px 2% 10px 0px",
+                    backgroundColor: "#eff4f5",
+                    textAlign: "center",
+                    lineHeight: "32px",
+                    borderRadius: "50px",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    color: "#000",
+                  }}
+                  onClick={()=>setValue(25)}
+                >
+                  25%
+                </span>
+                <span
+                  style={{
+                    display: "inline-block",
+                    width: "23%",
+                    height: "30px",
+                    margin: "10px 2% 10px 0px",
+                    backgroundColor: "#eff4f5",
+                    textAlign: "center",
+                    lineHeight: "32px",
+                    borderRadius: "50px",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    color: "#000",
+                  }}
+                  onClick={()=>setValue(50)}
+                >
+                  50%
+                </span>
+                <span
+                  style={{
+                    display: "inline-block",
+                    width: "23%",
+                    height: "30px",
+                    margin: "10px 2% 10px 0px",
+                    backgroundColor: "#eff4f5",
+                    textAlign: "center",
+                    lineHeight: "32px",
+                    borderRadius: "50px",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    color: "#000",
+                  }}
+                  onClick={()=>setValue(75)}
+                >
+                  75%
+                </span>
+                <span
+                  style={{
+                    display: "inline-block",
+                    width: "23%",
+                    height: "30px",
+                    margin: "10px 2% 10px 0px",
+                    backgroundColor: "#eff4f5",
+                    textAlign: "center",
+                    lineHeight: "32px",
+                    borderRadius: "50px",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    color: "#000",
+                  }}
+                  onClick={()=>setValue(100)}
+                >
+                  MAX
+                </span>
+              </Box>
     </div>
   );
 }

@@ -122,8 +122,9 @@ export function UnstackedPopup(props: SimpleDialogProps) {
   function valuetext(value: number) {
     return `${value}`;
   }
-  console.log(props?.userResource,'adawda')
+  console.log(props?.userResource,'adawdsssa')
     const TVL = props?.stakeResource?.data?.stake_coins?.value/(Math.pow(10, 8))
+    const moonValue = props?.userResource.amount
   return (
     <TableDiv>
       <Dialog
@@ -181,18 +182,10 @@ export function UnstackedPopup(props: SimpleDialogProps) {
                 }}
               >
                 <h4 style={{ color: "#000", fontWeight: "600" }}>Stake:</h4>
-                {/* <h4 style={{ color: "#000", fontWeight: "600" }}>MOON/APT</h4> */}
-                <Image
-                  src={props?.stakeResource?.images?.cryptoLogo?.src}
-                  alt="logo"
-                  className="image_border"
-                  width={46}
-                  height={46}
-                  style={{ marginLeft: "-10px" }}
-                />
+                <h4 style={{ color: "#000", fontWeight: "600" }}>MOON/APTU</h4>
               </Box>
               <Box>
-                <Box
+                {/* <Box
                   sx={{
                     height: "100px",
                     backgroundColor: "#f1e9e7",
@@ -228,7 +221,7 @@ export function UnstackedPopup(props: SimpleDialogProps) {
                   >
                     ~{TVL} USD
                   </p>
-                </Box>
+                </Box> */}
                 <DialogTitle
                   style={{
                     textAlign: "right",
@@ -249,7 +242,7 @@ export function UnstackedPopup(props: SimpleDialogProps) {
                   step={10}
                   valueLabelDisplay="on"
                 /> */}
-                <CustomSlider />
+                <CustomSlider  moonValue = {moonValue}/>
               </Box>
 
               <Box>

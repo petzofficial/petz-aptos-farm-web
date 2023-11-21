@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import Button from "@mui/material/Button";
 import CalendarIcon from "../../../assets/calendar.svg";
 import Image from "next/image";
@@ -184,8 +184,36 @@ const FarmCardTemplate = (props:any) => {
     
   }
   const unixTimestamp = props?.userResource?.unlock_time; // Replace this with your Unix timestamp
-  const date = new Date(unixTimestamp * 1000); // Convert Unix timestamp to milliseconds
+// Convert Unix timestamp to milliseconds
+  const [timeLeft, setTimeLeft] = useState(0);
+  const date = new Date(timeLeft * 1000); 
+  useLayoutEffect(()=>{
+    setTimeLeft(unixTimestamp)
+  },[unixTimestamp])
+useEffect(() => {
+    // exit early when we reach 0
+    
+    if (!timeLeft) return;
 
+    // if(timeLeft===0){
+    //    console.log("TIME LEFT IS 0");
+    //    setTimeLeft(null)
+    // }
+
+    // save intervalId to clear the interval when the
+    // component re-renders
+    const intervalId = setInterval(() => {
+
+      setTimeLeft(timeLeft - 1);
+    }, 1000);
+
+    // clear interval on re-render to avoid memory leaks
+    return () => clearInterval(intervalId);
+    // add timeLeft as a dependency to re-rerun the effect
+    // when we update it
+  }, [timeLeft]);
+ 
+  console.log(timeLeft,'timeleft')
   // Get the various components of the date
   const year = date.getFullYear();
   const month = date.getMonth() + 1; // Month is 0-indexed, so we add 1
@@ -195,8 +223,26 @@ const FarmCardTemplate = (props:any) => {
   const seconds = date.getSeconds();
 
   const unixTimestamp2 = props?.cards?.data?.start_timestamp; // Replace this with your Unix timestamp
-  const date2 = new Date(unixTimestamp2 * 1000);
-  
+  const [timeLeft2, setTimeLeft2] = useState(0);
+  const date2 = new Date(timeLeft2 * 1000);
+  useLayoutEffect(()=>{
+    setTimeLeft2(unixTimestamp2)
+  },[unixTimestamp2])
+  useEffect(() => {
+    if (!timeLeft2) return;
+
+    // if(timeLeft===0){
+    //    console.log("TIME LEFT IS 0");
+    //    setTimeLeft(null)
+    // }
+    const intervalId = setInterval(() => {
+
+      setTimeLeft2(timeLeft2 - 1);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [timeLeft2]);
+  console.log(timeLeft2,'timeLeft2')
   // Get the various components of the date
   const year2 = date2.getFullYear();
   const month2 = date2.getMonth() + 1; // Month is 0-indexed, so we add 1
@@ -208,6 +254,8 @@ const FarmCardTemplate = (props:any) => {
   const RPS = props?.cards?.data?.reward_per_sec * (604800) / (Math.pow(10, 8))
   const APR = (props?.cards?.data?.reward_per_sec * (31536000) / (Math.pow(10, 8)) / props?.cards?.data?.stake_coins?.value/(Math.pow(10, 8))) * 100
   const TVL = props?.cards?.data?.stake_coins?.value/(Math.pow(10, 8))
+  const staked = props?.userResource?.amount / (Math.pow(10, 8))
+  const earned = props?.userResource?.earned_reward / (Math.pow(10, 8))
   const curve = props?.cards?.type?.includes("Uncorrelated");
   console.log(curve,'awfadawda')
   return (
@@ -229,7 +277,7 @@ const FarmCardTemplate = (props:any) => {
           style={{ marginLeft: "-10px" }}
         />
         <div className="main_heading">
-          <h3>MOON/APT</h3>
+          <h3>MOON/APTU</h3>
           <span>
             <Image
               src={props?.cards?.images?.graphLogo?.src}
@@ -254,7 +302,7 @@ const FarmCardTemplate = (props:any) => {
             />
             APT
           </span>
-          <span className="label">{props?.cards?.durationDetails}</span>
+          <span className="label">Per week per 1 LP</span>
         </div>
         <hr />
         <div className="bottSec_Main">
@@ -272,11 +320,11 @@ const FarmCardTemplate = (props:any) => {
           </div>
           <div className="point1">
             <span>STAKED:</span>
-            <p>${props?.userResource?.amount}</p>
+            <p>${staked}</p>
           </div>
           <div className="point1">
             <span>EARNED:</span>
-            <p>${props?.userResource?.earned_reward}</p>
+            <p>${earned}</p>
           </div>
           
           <div className="point1">
