@@ -30,6 +30,7 @@ export const CustomSlider = (props: any) => {
   useEffect(()=>{
     setTextValue(bal)
   },[bal])
+  console.log(textValue,'textValue')
   return (
     <div className="App">
       <Box>
@@ -90,7 +91,7 @@ export const CustomSlider = (props: any) => {
         onChange={(e, v) => handleSliderChange(e, v)}
         min={0}
         max={100}
-        step={10}
+        //step={10}
         valueLabelDisplay="on"
       />
       <Box>
