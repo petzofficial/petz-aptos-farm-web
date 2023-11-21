@@ -134,7 +134,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
   function valuetext(value: number) {
     return `${value}`;
   }
-  const TVL = props?.stakeResource?.data?.stake_coins?.value/(Math.pow(10, 8))
+  const TVL = props?.stakeResource?.data?.stake_coins?.value
   return (
     <TableDiv>
       <Dialog
@@ -193,7 +193,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
                 }}
               >
                 <h4 style={{ color: "#000", fontWeight: "600" }}>Stake:</h4>
-                <h4 style={{ color: "#000", fontWeight: "600" }}>CAKE</h4>
+                <h4 style={{ color: "#000", fontWeight: "600" }}>MOON/APT</h4>
               </Box>
               <Box>
                 <Box

@@ -5,7 +5,7 @@ import { Slider } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 export const CustomSlider = () => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(500);
   const MySlider = styled(Slider)(() => ({
     "& .MuiSlider-thumb": {
       backgroundColor: "#f49c63",
@@ -25,9 +25,10 @@ export const CustomSlider = () => {
     console.log(val);
     setValue(val);
   }, 200);
+  const bal = 500 * value / 100
   return (
     <div className="App">
-      <h1>{`Balance: ${value}`}</h1>
+      <p>{`Balance: ${bal}`}</p>
       <MySlider
         defaultValue={value}
         onChange={(e, v) => handleSliderChange(e, v)}

@@ -181,7 +181,7 @@ export function UnstackedPopup(props: SimpleDialogProps) {
                 }}
               >
                 <h4 style={{ color: "#000", fontWeight: "600" }}>Stake:</h4>
-                <h4 style={{ color: "#000", fontWeight: "600" }}>CAKE</h4>
+                <h4 style={{ color: "#000", fontWeight: "600" }}>MOON/APT</h4>
               </Box>
               <Box>
                 <Box
