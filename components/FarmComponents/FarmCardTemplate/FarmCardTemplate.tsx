@@ -138,36 +138,19 @@ import { ICardData } from '../../../types/cardsTypes';
   }
 `;
 
-const FarmCardTemplate = (props:any) => {
-  const { account, network, signAndSubmitTransaction } = useWallet();
-  const moduleAddress = "0x1";
-  const nftModuleAddress = "0x3";
+const FarmCardTemplate = (props: any) => {
+  const { account, signAndSubmitTransaction } = useWallet();
 
   const moduleAddress2 = "0x82afe3de6e9acaf4f2de72ae50c3851a65bb86576198ef969937d59190873dfd";
-  const resourceAddress = "0x8484ec04e905df1987e0b378fbe8de1a6eaf8bd620f68b5dee3d0227974b022a";
 
   const handleHarvest = async () => {
     if (!account) return [];
-     const payload = {
-      type: "entry_function_payload",
-      function: `${moduleAddress2}::scripts::stake`,
-      type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>","0x1::aptos_coin::AptosCoin"],
-      arguments: [moduleAddress2,999],
-    }; 
-
-     const payload2 = {
-      type: "entry_function_payload",
-      function: `${moduleAddress2}::scripts::unstake`,
-      type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>","0x1::aptos_coin::AptosCoin"],
-      arguments: [moduleAddress2,1],
-    }; 
-
     const payload3 = {
       type: "entry_function_payload",
       function: `${moduleAddress2}::scripts::harvest`,
-      type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>","0x1::aptos_coin::AptosCoin"],
-      arguments: [moduleAddress2,1],
-    }; 
+      type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>", "0x1::aptos_coin::AptosCoin"],
+      arguments: [moduleAddress2, earned],
+    };
 
     try {
       // sign and submit transaction to chain
@@ -181,60 +164,42 @@ const FarmCardTemplate = (props:any) => {
     } finally {
       //setTransactionInProgress(false);
     }
-    
+
   }
   const unixTimestamp = props?.userResource?.unlock_time; // Replace this with your Unix timestamp
-// Convert Unix timestamp to milliseconds
+  // Convert Unix timestamp to milliseconds
   const [timeLeft, setTimeLeft] = useState(0);
-  const date = new Date(timeLeft * 1000); 
-  useLayoutEffect(()=>{
+  const date = new Date(timeLeft * 1000);
+  const todayDate = new Date();
+  useLayoutEffect(() => {
     setTimeLeft(unixTimestamp)
-  },[unixTimestamp])
-useEffect(() => {
-    // exit early when we reach 0
-    
+  }, [unixTimestamp])
+
+  useEffect(() => {
     if (!timeLeft) return;
-
-    // if(timeLeft===0){
-    //    console.log("TIME LEFT IS 0");
-    //    setTimeLeft(null)
-    // }
-
-    // save intervalId to clear the interval when the
-    // component re-renders
     const intervalId = setInterval(() => {
 
       setTimeLeft(timeLeft - 1);
     }, 1000);
-
-    // clear interval on re-render to avoid memory leaks
     return () => clearInterval(intervalId);
-    // add timeLeft as a dependency to re-rerun the effect
-    // when we update it
   }, [timeLeft]);
- 
-  console.log(timeLeft,'timeleft')
+
   // Get the various components of the date
   const year = date.getFullYear();
-  const month = date.getMonth() + 1; // Month is 0-indexed, so we add 1
-  const day = date.getDate();
+  const month = (date.getMonth() + 1) - (todayDate.getMonth() + 1); // Month is 0-indexed, so we add 1
+  const day = todayDate.getDate() - date.getDate();
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const seconds = date.getSeconds();
-
+  const currentWeek = Math.ceil(day / 7)
   const unixTimestamp2 = props?.cards?.data?.start_timestamp; // Replace this with your Unix timestamp
   const [timeLeft2, setTimeLeft2] = useState(0);
   const date2 = new Date(timeLeft2 * 1000);
-  useLayoutEffect(()=>{
+  useLayoutEffect(() => {
     setTimeLeft2(unixTimestamp2)
-  },[unixTimestamp2])
+  }, [unixTimestamp2])
   useEffect(() => {
     if (!timeLeft2) return;
-
-    // if(timeLeft===0){
-    //    console.log("TIME LEFT IS 0");
-    //    setTimeLeft(null)
-    // }
     const intervalId = setInterval(() => {
 
       setTimeLeft2(timeLeft2 - 1);
@@ -242,22 +207,21 @@ useEffect(() => {
 
     return () => clearInterval(intervalId);
   }, [timeLeft2]);
-  console.log(timeLeft2,'timeLeft2')
   // Get the various components of the date
   const year2 = date2.getFullYear();
-  const month2 = date2.getMonth() + 1; // Month is 0-indexed, so we add 1
-  const day2 = date2.getDate();
-  const hours2= date2.getHours();
+  const month2 = (date.getMonth() + 1) - (date2.getMonth() + 1); // Month is 0-indexed, so we add 1
+  const day2 = todayDate.getDate() - date2.getDate();
+  const hours2 = date2.getHours();
+  const currentWeek2 = Math.ceil(day2 / 7)
   const minutes2 = date2.getMinutes();
-  const seconds2= date2.getSeconds();
+  const seconds2 = date2.getSeconds();
 
-  const RPS = props?.cards?.data?.reward_per_sec * (604800) / (Math.pow(10, 8))
-  const APR = (props?.cards?.data?.reward_per_sec * (31536000) / (Math.pow(10, 8)) / props?.cards?.data?.stake_coins?.value/(Math.pow(10, 8))) * 100
-  const TVL = props?.cards?.data?.stake_coins?.value/(Math.pow(10, 8))
-  const staked = props?.userResource?.amount / (Math.pow(10, 8))
-  const earned = props?.userResource?.earned_reward / (Math.pow(10, 8))
+  const RPS = (props?.cards?.data?.reward_per_sec * (604800) / (Math.pow(10, 8))).toFixed(8)
+  const APR = (props?.cards?.data?.reward_per_sec * (31536000) / (Math.pow(10, 8)) / props?.cards?.data?.stake_coins?.value / (Math.pow(10, 8))) * 100
+  const TVL = (props?.cards?.data?.stake_coins?.value / (Math.pow(10, 8))).toFixed(8)
+  const staked = (props?.userResource?.amount / (Math.pow(10, 8))).toFixed(8)
+  const earned = (props?.userResource?.earned_reward / (Math.pow(10, 8))).toFixed(8)
   const curve = props?.cards?.type?.includes("Uncorrelated");
-  console.log(curve,'awfadawda')
   return (
     <MainDiv>
       <div className="sec1_mainDiv">
@@ -312,7 +276,7 @@ useEffect(() => {
           </div>
           <div className="point1">
             <span>APR:</span>
-            <p>{APR.toString().slice(0,4)}%</p>
+            <p>{APR.toString().slice(0, 4)}%</p>
           </div>
           <div className="point1">
             <span>TVL:</span>
@@ -326,11 +290,11 @@ useEffect(() => {
             <span>EARNED:</span>
             <p>${earned}</p>
           </div>
-          
+
           <div className="point1">
             <span>Reward Time:</span>
             <p>
-              {`${year}-${month}-${day} ${hours}:${minutes}:${seconds}`}
+              {`${month}M ${currentWeek}W ${hours}H`}
               <Image
                 src={CalendarIcon}
                 alt="logo"
@@ -342,7 +306,7 @@ useEffect(() => {
           <div className="point1">
             <span>Unlock Time:</span>
             <p>
-              {`${year2}-${month2}-${day2} ${hours2}:${minutes2}:${seconds2}`}
+              {`${month2}M ${currentWeek2}W ${hours2}H`}
               <Image
                 src={CalendarIcon}
                 alt="logo"

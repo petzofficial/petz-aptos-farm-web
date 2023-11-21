@@ -108,20 +108,6 @@ import { syntax } from '../../.next/static/chunks/webpack';
       arguments: [moduleAddress2, 999],
     };
 
-    const payload2 = {
-      type: "entry_function_payload",
-      function: `${moduleAddress2}::scripts::unstake`,
-      type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>", "0x1::aptos_coin::AptosCoin"],
-      arguments: [moduleAddress2, 1],
-    };
-
-    const payload3 = {
-      type: "entry_function_payload",
-      function: `${moduleAddress2}::scripts::harvest`,
-      type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>", "0x1::aptos_coin::AptosCoin"],
-      arguments: [moduleAddress2, 1],
-    };
-
     try {
       // sign and submit transaction to chain
       const response = await signAndSubmitTransaction(payload);
@@ -140,12 +126,10 @@ import { syntax } from '../../.next/static/chunks/webpack';
     return `${value}`;
   }
   const TVL = props?.stakeResource?.data?.stake_coins?.value
-  console.log(coins, 'dawfada')
   const findMoonApt: any = coins?.find((v) => (
     v.metadata.symbol == "MOON-APTU"
   ))
-  const moonValue = findMoonApt?.amount 
-  console.log(findMoonApt, 'findMoonApt')
+  const moonValue = (findMoonApt?.amount / (Math.pow(10, 8))).toFixed(8)
   return (
     <TableDiv>
       <Dialog

@@ -5,8 +5,8 @@ import { debounce } from "@mui/material/utils";
 import { styled } from "@mui/material/styles";
 import Slider from "@mui/material/Slider";
 export const CustomSlider = (props: any) => {
-  const [value, setValue] = useState(props.moonValue);
-  const [textValue, setTextValue] = useState<any>("");
+  const [value, setValue] = useState(0);
+  const [textValue, setTextValue] = useState<any>(0);
   const MySlider = styled(Slider)(() => ({
     "& .MuiSlider-thumb": {
       backgroundColor: "#f49c63",
@@ -23,14 +23,10 @@ export const CustomSlider = (props: any) => {
   }, []);
 
   const debounceSliderChange = debounce((val) => {
-    console.log(val);
     setValue(val);
   }, 200);
-  const bal = props.moonValue * value / 100
-  useEffect(()=>{
-    setTextValue(bal)
-  },[bal])
-  console.log(textValue,'textValue')
+  //const bal = props.moonValue * value / 100
+  const valueUSD = (value*Number(textValue)) / 100
   return (
     <div className="App">
       <Box>
@@ -58,8 +54,8 @@ export const CustomSlider = (props: any) => {
               WebkitAppearance: "textfield",
               MozAppearance: "textfield",
             }}
-            value={textValue}
-            onChange={(e)=>setTextValue(e.target.value)}
+            //value={textValue}
+            onChange={(e) => setTextValue(e.target.value)}
           />
           <p
             style={{
@@ -70,7 +66,7 @@ export const CustomSlider = (props: any) => {
               fontWeight: "600",
             }}
           >
-            ~{(Number(textValue) / 100).toString().slice(0, 8)} USD
+            ~{valueUSD} USD
           </p>
         </Box>
         <DialogTitle
@@ -95,79 +91,79 @@ export const CustomSlider = (props: any) => {
         valueLabelDisplay="on"
       />
       <Box>
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: "23%",
-                    height: "30px",
-                    margin: "10px 2% 10px 0px",
-                    backgroundColor: "#eff4f5",
-                    textAlign: "center",
-                    lineHeight: "32px",
-                    borderRadius: "50px",
-                    fontSize: "13px",
-                    fontWeight: "600",
-                    color: "#000",
-                  }}
-                  onClick={()=>setValue(25)}
-                >
-                  25%
-                </span>
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: "23%",
-                    height: "30px",
-                    margin: "10px 2% 10px 0px",
-                    backgroundColor: "#eff4f5",
-                    textAlign: "center",
-                    lineHeight: "32px",
-                    borderRadius: "50px",
-                    fontSize: "13px",
-                    fontWeight: "600",
-                    color: "#000",
-                  }}
-                  onClick={()=>setValue(50)}
-                >
-                  50%
-                </span>
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: "23%",
-                    height: "30px",
-                    margin: "10px 2% 10px 0px",
-                    backgroundColor: "#eff4f5",
-                    textAlign: "center",
-                    lineHeight: "32px",
-                    borderRadius: "50px",
-                    fontSize: "13px",
-                    fontWeight: "600",
-                    color: "#000",
-                  }}
-                  onClick={()=>setValue(75)}
-                >
-                  75%
-                </span>
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: "23%",
-                    height: "30px",
-                    margin: "10px 2% 10px 0px",
-                    backgroundColor: "#eff4f5",
-                    textAlign: "center",
-                    lineHeight: "32px",
-                    borderRadius: "50px",
-                    fontSize: "13px",
-                    fontWeight: "600",
-                    color: "#000",
-                  }}
-                  onClick={()=>setValue(100)}
-                >
-                  MAX
-                </span>
-              </Box>
+        <span
+          style={{
+            display: "inline-block",
+            width: "23%",
+            height: "30px",
+            margin: "10px 2% 10px 0px",
+            backgroundColor: "#eff4f5",
+            textAlign: "center",
+            lineHeight: "32px",
+            borderRadius: "50px",
+            fontSize: "13px",
+            fontWeight: "600",
+            color: "#000",
+          }}
+          onClick={() => setValue(25)}
+        >
+          25%
+        </span>
+        <span
+          style={{
+            display: "inline-block",
+            width: "23%",
+            height: "30px",
+            margin: "10px 2% 10px 0px",
+            backgroundColor: "#eff4f5",
+            textAlign: "center",
+            lineHeight: "32px",
+            borderRadius: "50px",
+            fontSize: "13px",
+            fontWeight: "600",
+            color: "#000",
+          }}
+          onClick={() => setValue(50)}
+        >
+          50%
+        </span>
+        <span
+          style={{
+            display: "inline-block",
+            width: "23%",
+            height: "30px",
+            margin: "10px 2% 10px 0px",
+            backgroundColor: "#eff4f5",
+            textAlign: "center",
+            lineHeight: "32px",
+            borderRadius: "50px",
+            fontSize: "13px",
+            fontWeight: "600",
+            color: "#000",
+          }}
+          onClick={() => setValue(75)}
+        >
+          75%
+        </span>
+        <span
+          style={{
+            display: "inline-block",
+            width: "23%",
+            height: "30px",
+            margin: "10px 2% 10px 0px",
+            backgroundColor: "#eff4f5",
+            textAlign: "center",
+            lineHeight: "32px",
+            borderRadius: "50px",
+            fontSize: "13px",
+            fontWeight: "600",
+            color: "#000",
+          }}
+          onClick={() => setValue(100)}
+        >
+          MAX
+        </span>
+      </Box>
     </div>
   );
 }
