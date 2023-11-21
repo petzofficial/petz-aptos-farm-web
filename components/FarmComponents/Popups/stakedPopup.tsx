@@ -382,7 +382,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
             }}
             onClick={() => props.onClose("")}
           >
-            Get MOON/APT
+            Get MOON/APTU
           </Button>
         </DialogActions>
       </Dialog>

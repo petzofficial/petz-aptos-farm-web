@@ -245,7 +245,7 @@ export function UnstackedPopup(props: SimpleDialogProps) {
                 <CustomSlider  moonValue = {moonValue}/>
               </Box>
 
-              <Box>
+              {/* <Box>
                 <span
                   style={{
                     display: "inline-block",
@@ -314,7 +314,7 @@ export function UnstackedPopup(props: SimpleDialogProps) {
                 >
                   MAX
                 </span>
-              </Box>
+              </Box> */}
             </>
           </DialogContentText>
         </DialogContent>
