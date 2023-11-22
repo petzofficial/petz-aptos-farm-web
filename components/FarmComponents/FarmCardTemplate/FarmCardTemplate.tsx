@@ -176,18 +176,10 @@ const FarmCardTemplate = (props: any) => {
   const [timeLeft, setTimeLeft] = useState(0);
   const date = new Date(timeLeft * 1000);
   const todayDate = new Date();
+  
   useLayoutEffect(() => {
     setTimeLeft(unixTimestamp)
   }, [unixTimestamp])
-
-  useEffect(() => {
-    if (!timeLeft) return;
-    const intervalId = setInterval(() => {
-
-      setTimeLeft(timeLeft - 1);
-    }, 1000);
-    return () => clearInterval(intervalId);
-  }, [timeLeft]);
 
   // Get the various components of the date
   const month = (todayDate.getMonth() + 1) - (date.getMonth() + 1); // Month is 0-indexed, so we add 1
@@ -197,18 +189,11 @@ const FarmCardTemplate = (props: any) => {
   
   const [timeLeft2, setTimeLeft2] = useState(0);
   const date2 = new Date(timeLeft2 * 1000);
+
   useLayoutEffect(() => {
     setTimeLeft2(unixTimestamp2)
   }, [unixTimestamp2])
-  useEffect(() => {
-    if (!timeLeft2) return;
-    const intervalId = setInterval(() => {
 
-      setTimeLeft2(timeLeft2 - 1);
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [timeLeft2]);
   // Get the various components of the date
   const month2 = (date2.getMonth() + 1) - (date.getMonth() + 1); // Month is 0-indexed, so we add 1
   const day2 =  date2.getDate() - todayDate.getDate();
@@ -216,12 +201,11 @@ const FarmCardTemplate = (props: any) => {
 
   const RPS = (props?.cards?.data?.reward_per_sec * (604800) / (Math.pow(10, 8))).toFixed(8)
   const APR = ((props?.cards?.data?.reward_per_sec * (31536000) / Math.pow(10, 8)) / (props?.cards?.data?.stake_coins?.value / Math.pow(10, 8))) * 100
-  //console.log(props?.cards?.data?.reward_per_sec * (31536000) / Math.pow(10, 8))
-  //console.log(props?.cards?.data?.stake_coins?.value / Math.pow(10, 8))
   const TVL = (props?.cards?.data?.stake_coins?.value / (Math.pow(10, 8))).toFixed(8)
   const staked = (props?.userResource?.amount / (Math.pow(10, 8))).toFixed(8)
   const earned = (props?.userResource?.earned_reward / (Math.pow(10, 8))).toFixed(8)
   const curve = props?.cards?.type?.includes("Uncorrelated");
+
   return (
     <MainDiv>
       <div className="sec1_mainDiv">
