@@ -277,7 +277,7 @@ const FarmCardTemplate = (props: any) => {
         <div className="bottSec_Main">
           <div className="point1">
             <span>NFT:</span>
-            <p>{props?.cards?.data?.nft_config}</p>
+            <p>{props?.cards?.data?.nft_config ? props?.cards?.data?.nft_config : "N/A"}</p>
           </div>
           <div className="point1">
             <span>APR:</span>
@@ -299,7 +299,7 @@ const FarmCardTemplate = (props: any) => {
           <div className="point1">
             <span>Reward Time:</span>
             <p>
-              {`${month}M ${currentWeek}W ${hours}H`}
+              {`${month}M ${currentWeek}W ${day}D`}
               <Image
                 src={CalendarIcon}
                 alt="logo"
@@ -311,7 +311,7 @@ const FarmCardTemplate = (props: any) => {
           <div className="point1">
             <span>Unlock Time:</span>
             <p>
-              {`${month2}M ${currentWeek2}W ${hours2}H`}
+              {todayDate.getTime() > date.getTime() ? "Unlocked" :  `${month2}M ${currentWeek2}W ${day2}D`}
               <Image
                 src={CalendarIcon}
                 alt="logo"
