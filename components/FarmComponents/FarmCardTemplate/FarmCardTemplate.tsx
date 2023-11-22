@@ -190,14 +190,11 @@ const FarmCardTemplate = (props: any) => {
   }, [timeLeft]);
 
   // Get the various components of the date
-  const year = date.getFullYear();
-  const month = (date.getMonth() + 1) - (todayDate.getMonth() + 1); // Month is 0-indexed, so we add 1
-  const day = todayDate.getDate() - date.getDate();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
+  const month = (todayDate.getMonth() + 1) - (date.getMonth() + 1); // Month is 0-indexed, so we add 1
+  const day = date.getDate() - todayDate.getDate();
   const currentWeek = Math.ceil(day / 7)
   const unixTimestamp2 = props?.cards?.data?.start_timestamp; // Replace this with your Unix timestamp
+  
   const [timeLeft2, setTimeLeft2] = useState(0);
   const date2 = new Date(timeLeft2 * 1000);
   useLayoutEffect(() => {
@@ -213,13 +210,9 @@ const FarmCardTemplate = (props: any) => {
     return () => clearInterval(intervalId);
   }, [timeLeft2]);
   // Get the various components of the date
-  const year2 = date2.getFullYear();
-  const month2 = (date.getMonth() + 1) - (date2.getMonth() + 1); // Month is 0-indexed, so we add 1
-  const day2 = todayDate.getDate() - date2.getDate();
-  const hours2 = date2.getHours();
+  const month2 = (date2.getMonth() + 1) - (date.getMonth() + 1); // Month is 0-indexed, so we add 1
+  const day2 =  date2.getDate() - todayDate.getDate();
   const currentWeek2 = Math.ceil(day2 / 7)
-  const minutes2 = date2.getMinutes();
-  const seconds2 = date2.getSeconds();
 
   const RPS = (props?.cards?.data?.reward_per_sec * (604800) / (Math.pow(10, 8))).toFixed(8)
   const APR = (props?.cards?.data?.reward_per_sec * (31536000) / (Math.pow(10, 8)) / props?.cards?.data?.stake_coins?.value / (Math.pow(10, 8))) * 100
@@ -230,24 +223,29 @@ const FarmCardTemplate = (props: any) => {
   return (
     <MainDiv>
       <div className="sec1_mainDiv">
-        <Image
-          src={props?.cards?.images?.logoImg1?.src}
-          alt="logo"
-          className=""
-          width={46}
-          height={46}
-        />
-        <Image
-          src={props?.cards?.images?.logoImg2?.src}
-          alt="logo"
-          className="image_border"
-          width={46}
-          height={46}
-          style={{ marginLeft: "-10px" }}
-        />
+        {props?.cards?.images?.logoImg1?.src && (
+        <>
+          <Image
+            src={props?.cards?.images?.logoImg1?.src}
+            alt="logo"
+            className=""
+            width={46}
+            height={46}
+          />
+          <Image
+            src={props?.cards?.images?.logoImg2?.src}
+            alt="logo"
+            className="image_border"
+            width={46}
+            height={46}
+            style={{ marginLeft: "-10px" }}
+          />
+        </>
+        )}
         <div className="main_heading">
           <h3>MOON/APTU</h3>
           <span>
+            {props?.cards?.images?.graphLogo?.src && (
             <Image
               src={props?.cards?.images?.graphLogo?.src}
               alt="logo"
@@ -255,6 +253,7 @@ const FarmCardTemplate = (props: any) => {
               width={15}
               height={15}
             />
+            )}
             {curve ? "Uncorrelated" : ""}
           </span>
         </div>
@@ -262,6 +261,7 @@ const FarmCardTemplate = (props: any) => {
           <span className="afterheading">
             {/* {props?.cards?.cryptoAmount} */}
             {RPS}
+            {props?.cards?.images?.cryptoLogo?.src && (
             <Image
               src={props?.cards?.images?.cryptoLogo?.src}
               alt="logo"
@@ -269,6 +269,7 @@ const FarmCardTemplate = (props: any) => {
               width={18}
               height={18}
             />
+            )}
             APT
           </span>
           <span className="label">Per week per 1 LP</span>
@@ -299,7 +300,7 @@ const FarmCardTemplate = (props: any) => {
           <div className="point1">
             <span>Reward Time:</span>
             <p>
-              {`${month}M ${currentWeek}W ${day}D`}
+             {todayDate.getTime() > date.getTime() ? "Inactive" : `${month}M ${currentWeek}W ${day}D`}
               <Image
                 src={CalendarIcon}
                 alt="logo"
