@@ -6,7 +6,7 @@ import { styled } from "@mui/material/styles";
 import Slider from "@mui/material/Slider";
 export const CustomSlider = (props: any) => {
   const [value, setValue] = useState(0);
-  const [textValue, setTextValue] = useState<any>();
+  const [textValue, setTextValue] = useState<any>("");
   const MySlider = styled(Slider)(() => ({
     "& .MuiSlider-thumb": {
       backgroundColor: "#f49c63",
@@ -18,17 +18,11 @@ export const CustomSlider = (props: any) => {
       backgroundColor: "#f49c63",
     },
   }));
-  const handleSliderChange = useCallback((event: any, value: any) => {
-    debounceSliderChange(value);
-  }, []);
-
-  const debounceSliderChange = debounce((val) => {
-    setValue(val);
-  }, 200);
-  //const bal = props.moonValue * value / 100
-  
+  const handleSliderChange = (e:any)=>{
+    setValue(e.target.value);
+  }
   useEffect(()=>{
-    setTextValue((value*Number(props.moonValue)) / 100)
+    setTextValue((value*Number(props?.moonValue)) / 100)
   },[value])
   return (
     <div className="App">
@@ -87,7 +81,7 @@ export const CustomSlider = (props: any) => {
       <p>{`Balance: ${props.moonValue}`}</p>
       <MySlider
         defaultValue={value}
-        onChange={(e, v) => handleSliderChange(e, v)}
+        onChange={(e) => handleSliderChange(e)}
         min={0}
         max={100}
         //step={10}
