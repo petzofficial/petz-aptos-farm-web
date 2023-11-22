@@ -118,7 +118,6 @@ import { syntax } from '../../.next/static/chunks/webpack';
     v.metadata.symbol == "MOON-APTU"
   ))
   const moonValue = (findMoonApt?.amount / (Math.pow(10, 8))).toFixed(8)
-  console.log(provider,'providerdfawd')
   return (
     <TableDiv>
       <Dialog

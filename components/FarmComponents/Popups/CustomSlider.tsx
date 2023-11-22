@@ -6,7 +6,7 @@ import { styled } from "@mui/material/styles";
 import Slider from "@mui/material/Slider";
 export const CustomSlider = (props: any) => {
   const [value, setValue] = useState(0);
-  const [textValue, setTextValue] = useState<any>(props.moonValue);
+  const [textValue, setTextValue] = useState<any>();
   const MySlider = styled(Slider)(() => ({
     "& .MuiSlider-thumb": {
       backgroundColor: "#f49c63",
@@ -26,7 +26,10 @@ export const CustomSlider = (props: any) => {
     setValue(val);
   }, 200);
   //const bal = props.moonValue * value / 100
-  const valueUSD = (value*Number(props.moonValue)) / 100
+  
+  useEffect(()=>{
+    setTextValue((value*Number(props.moonValue)) / 100)
+  },[value])
   return (
     <div className="App">
       <Box>
@@ -54,7 +57,7 @@ export const CustomSlider = (props: any) => {
               WebkitAppearance: "textfield",
               MozAppearance: "textfield",
             }}
-            value={valueUSD}
+            value={textValue}
             onChange={(e) => setTextValue(e.target.value)}
           />
           <p
@@ -66,7 +69,7 @@ export const CustomSlider = (props: any) => {
               fontWeight: "600",
             }}
           >
-            ~{valueUSD} USD
+            ~{textValue} USD
           </p>
         </Box>
         <DialogTitle

@@ -445,7 +445,6 @@ const FarmsTable: FC = () => {
   useEffect(() => {
     fetchList();
   }, [account?.address]);
-  console.log(provider,'providerx')
   return (
     <div>
       <SearchBar />
