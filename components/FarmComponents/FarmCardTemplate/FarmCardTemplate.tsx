@@ -215,7 +215,9 @@ const FarmCardTemplate = (props: any) => {
   const currentWeek2 = Math.ceil(day2 / 7)
 
   const RPS = (props?.cards?.data?.reward_per_sec * (604800) / (Math.pow(10, 8))).toFixed(8)
-  const APR = (props?.cards?.data?.reward_per_sec * (31536000) / (Math.pow(10, 8)) / props?.cards?.data?.stake_coins?.value / (Math.pow(10, 8))) * 100
+  const APR = ((props?.cards?.data?.reward_per_sec * (31536000) / Math.pow(10, 8)) / (props?.cards?.data?.stake_coins?.value / Math.pow(10, 8))) * 100
+  //console.log(props?.cards?.data?.reward_per_sec * (31536000) / Math.pow(10, 8))
+  //console.log(props?.cards?.data?.stake_coins?.value / Math.pow(10, 8))
   const TVL = (props?.cards?.data?.stake_coins?.value / (Math.pow(10, 8))).toFixed(8)
   const staked = (props?.userResource?.amount / (Math.pow(10, 8))).toFixed(8)
   const earned = (props?.userResource?.earned_reward / (Math.pow(10, 8))).toFixed(8)
@@ -282,7 +284,7 @@ const FarmCardTemplate = (props: any) => {
           </div>
           <div className="point1">
             <span>APR:</span>
-            <p>{APR.toString().slice(0, 4)}%</p>
+            <p>{APR.toFixed(2)}%</p>
           </div>
           <div className="point1">
             <span>TVL:</span>
