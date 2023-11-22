@@ -182,9 +182,9 @@ const FarmCardTemplate = (props: any) => {
   }, [unixTimestamp])
 
   // Get the various components of the date
-  const month = (todayDate.getMonth() + 1) - (date.getMonth() + 1); // Month is 0-indexed, so we add 1
+  const month = (date.getMonth() + 1) - (todayDate.getMonth() + 1); // Month is 0-indexed, so we add 1
   const day = date.getDate() - todayDate.getDate();
-  const currentWeek = Math.ceil(day / 7)
+  const hours = date.getHours() - todayDate.getHours();
   const unixTimestamp2 = props?.cards?.data?.start_timestamp; // Replace this with your Unix timestamp
   
   const [timeLeft2, setTimeLeft2] = useState(0);
@@ -195,9 +195,9 @@ const FarmCardTemplate = (props: any) => {
   }, [unixTimestamp2])
 
   // Get the various components of the date
-  const month2 = (date2.getMonth() + 1) - (date.getMonth() + 1); // Month is 0-indexed, so we add 1
+  const month2 = (date2.getMonth() + 1) - (todayDate.getMonth() + 1); // Month is 0-indexed, so we add 1
   const day2 =  date2.getDate() - todayDate.getDate();
-  const currentWeek2 = Math.ceil(day2 / 7)
+  const hours2 = date2.getHours() - todayDate.getHours();
 
   const RPS = (props?.cards?.data?.reward_per_sec * (604800) / (Math.pow(10, 8))).toFixed(8)
   const APR = ((props?.cards?.data?.reward_per_sec * (31536000) / Math.pow(10, 8)) / (props?.cards?.data?.stake_coins?.value / Math.pow(10, 8))) * 100
@@ -286,7 +286,7 @@ const FarmCardTemplate = (props: any) => {
           <div className="point1">
             <span>Reward Time:</span>
             <p>
-             {todayDate.getTime() > date.getTime() ? "Inactive" : `${month}M ${currentWeek}W ${day}D`}
+             {todayDate.getTime() > date.getTime() ? "Inactive" : `${month}M ${day}D ${hours}H`}
               <Image
                 src={CalendarIcon}
                 alt="logo"
@@ -298,7 +298,7 @@ const FarmCardTemplate = (props: any) => {
           <div className="point1">
             <span>Unlock Time:</span>
             <p>
-              {todayDate.getTime() > date.getTime() ? "Unlocked" :  `${month2}M ${currentWeek2}W ${day2}D`}
+              {todayDate.getTime() > date.getTime() ? "Unlocked" :  `${month2}M ${day2}D ${hours2}H`}
               <Image
                 src={CalendarIcon}
                 alt="logo"
