@@ -78,13 +78,13 @@ export const CustomSlider = (props: any) => {
           {/* Balance: 2 */}
         </DialogTitle>
       </Box>
-      <p>{`Balance: ${props.moonValue}`}</p>
+      <p>{`Balance: ${props?.moonValue}`}</p>
       <MySlider
         defaultValue={value}
         onChange={(e) => handleSliderChange(e)}
         min={0}
         max={100}
-        //step={10}
+        step={10}
         valueLabelDisplay="on"
       />
       <Box>
