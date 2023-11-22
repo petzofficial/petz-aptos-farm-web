@@ -11,10 +11,12 @@ import closeIcon from "../../../assets/closeIcon.svg";
 import Image from "next/image";
 import Slider from "@mui/material/Slider";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
-import { Network, Provider } from "aptos";
 import { CustomSlider } from "./CustomSlider";
-
-export const provider = new Provider(Network.TESTNET);
+import { useAppSelector } from "app/hooks";
+import {
+  selectNewNetwork
+} from "app/reducers/AccountSlice";
+import { getWalletNetwork } from 'utils/aptosNetWorks/AptosNetworks';
 
 const MySlider = styled(Slider)(() => ({
   "& .MuiSlider-thumb": {
@@ -58,7 +60,8 @@ function valuetext(value: number) {
 }
 export function UnstackedPopup(props: SimpleDialogProps) {
   const { open } = props;
-
+  const newNetwork = useAppSelector(selectNewNetwork) as any;
+  const provider = getWalletNetwork(newNetwork)
   const TableDiv = styled("div")`
     .point1{
         display: flex;

@@ -5,9 +5,12 @@ import Image from "next/image";
 import styled from "styled-components";
 import { ICardData } from "types/cardsTypes";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
-import { Network, Provider } from "aptos";
+import { useAppSelector } from "app/hooks";
+import {
+  selectNewNetwork
+} from "app/reducers/AccountSlice";
+import { getWalletNetwork } from 'utils/aptosNetWorks/AptosNetworks';
 
-export const provider = new Provider(Network.TESTNET);
 
 const MainDiv = styled.div`
     background-color:#f1e9e7;
@@ -140,6 +143,8 @@ import { ICardData } from '../../../types/cardsTypes';
 
 const FarmCardTemplate = (props: any) => {
   const { account, signAndSubmitTransaction } = useWallet();
+  const newNetwork = useAppSelector(selectNewNetwork) as any;
+  const provider = getWalletNetwork(newNetwork)
 
   const moduleAddress2 = "0x82afe3de6e9acaf4f2de72ae50c3851a65bb86576198ef969937d59190873dfd";
 

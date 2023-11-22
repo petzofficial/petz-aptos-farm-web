@@ -21,9 +21,8 @@ import FarmCardTemplate from "components/FarmComponents/FarmCardTemplate/FarmCar
 import { ICardData2 } from "types/cardsTypes";
 import SearchBar from "components/FarmComponents/SearchBar";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
-import { Network, Provider } from "aptos";
-
-export const provider = new Provider(Network.TESTNET);
+import { getWalletNetwork } from 'utils/aptosNetWorks/AptosNetworks';
+ 
 
 const TableDiv = styled("div")`
   width: 100%;
@@ -365,8 +364,12 @@ const CardsData: ICardData2[] = [
     timeLeft: "5M 18W 19H",
   },
 ];
-
+// MAINNET = "mainnet",
+//     TESTNET = "mainnet",
+//     DEVNET
 const FarmsTable: FC = () => {
+  const newNetwork = useAppSelector(selectNewNetwork) as any;
+  const provider = getWalletNetwork(newNetwork)
   const transactions = useAppSelector(selectTransactions);
   const [showStackedPopup, setStackedShowPopup] =
     React.useState<boolean>(false);
@@ -374,7 +377,6 @@ const FarmsTable: FC = () => {
     React.useState<boolean>(false);
   const dispatch = useAppDispatch();
   const account = useAppSelector(selectAccount);
-  const newNetwork = useAppSelector(selectNewNetwork);
   const itemsPerPage = 10;
   const pageCount = Math.ceil(40 / itemsPerPage);
   const [itemOffset, setItemOffset] = useState(0);
@@ -443,6 +445,7 @@ const FarmsTable: FC = () => {
   useEffect(() => {
     fetchList();
   }, [account?.address]);
+  console.log(provider,'providerx')
   return (
     <div>
       <SearchBar />

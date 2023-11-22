@@ -11,26 +11,14 @@ import closeIcon from "../../../assets/closeIcon.svg";
 import Image from "next/image";
 import Slider from "@mui/material/Slider";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
-import { Network, Provider } from "aptos";
 import { CustomSlider } from "./CustomSlider";
 import { useAppSelector } from "app/hooks";
 import {
   selectCoins,
+  selectNewNetwork
 } from "app/reducers/AccountSlice";
+import { getWalletNetwork } from 'utils/aptosNetWorks/AptosNetworks';
 
-export const provider = new Provider(Network.TESTNET);
-
-const MySlider = styled(Slider)(() => ({
-  "& .MuiSlider-thumb": {
-    backgroundColor: "#f49c63",
-  },
-  "& .MuiSlider-rail": {
-    backgroundColor: "#f49c63",
-  },
-  "& .MuiSlider-track": {
-    backgroundColor: "#f49c63",
-  },
-}));
 
 export interface SimpleDialogProps {
   open: boolean;
@@ -62,7 +50,8 @@ function valuetext(value: number) {
 }
 export function StackedPopup(props: SimpleDialogProps) {
   const { open } = props;
-
+  const newNetwork = useAppSelector(selectNewNetwork) as any;
+  const provider = getWalletNetwork(newNetwork)
   const TableDiv = styled("div")`
     .point1{
         display: flex;
@@ -96,8 +85,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
       
     `;
   const coins = useAppSelector(selectCoins);
-  const { account, network, signAndSubmitTransaction } = useWallet();
-  const [valuee, setValue] = useState(0);
+  const { account, signAndSubmitTransaction } = useWallet();
   const moduleAddress2 = "0x82afe3de6e9acaf4f2de72ae50c3851a65bb86576198ef969937d59190873dfd";
   const handleStake = async () => {
     if (!account) return [];
@@ -130,6 +118,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
     v.metadata.symbol == "MOON-APTU"
   ))
   const moonValue = (findMoonApt?.amount / (Math.pow(10, 8))).toFixed(8)
+  console.log(provider,'providerdfawd')
   return (
     <TableDiv>
       <Dialog
