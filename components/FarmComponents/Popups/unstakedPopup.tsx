@@ -134,6 +134,7 @@ export function UnstackedPopup(props: SimpleDialogProps) {
             justifyContent: "space-between",
             backgroundColor: "#f1e9e7",
             position: "relative",
+            height: "80px",
           }}
         >
           <DialogTitle
@@ -141,7 +142,7 @@ export function UnstackedPopup(props: SimpleDialogProps) {
             id="alert-dialog-title"
             sx={{ color: "#000", fontWeight: "900" }}
           >
-            <h3>Unstake</h3>
+            <h3>Unstake in Pool</h3>
           </DialogTitle>
           <Image
             onClick={() => props.onClose("")}
@@ -167,7 +168,7 @@ export function UnstackedPopup(props: SimpleDialogProps) {
                   height: "60px",
                 }}
               >
-                <h4 style={{ color: "#000", fontWeight: "600" }}>UnStake:</h4>
+                <h4 style={{ color: "#000", fontWeight: "600" }}>Unstake:</h4>
                 <h4 style={{ color: "#000", fontWeight: "600" }}>MOON/APTU</h4>
               </Box>
               <Box>
