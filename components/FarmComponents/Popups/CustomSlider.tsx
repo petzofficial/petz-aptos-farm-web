@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Box } from "@mui/material";
 import Slider from "@mui/material/Slider";
+import { styled } from '@mui/system';
 
 export const CustomSlider = (props: any) => {
   const [value, setValue] = useState(0);
@@ -9,6 +10,13 @@ export const CustomSlider = (props: any) => {
   const handleSliderChange = (e:any)=>{
     setValue(e.target.value);
   }
+  const Span = styled('span')({
+    cursor:"pointer",
+    color:"red",
+    '&:hover': {
+      backgroundColor: '#f49c63 !important',
+   },
+  });
   useEffect(()=>{
     setTextValue((value*Number(props?.moonValue)) / 100)
   },[value])
@@ -76,7 +84,7 @@ export const CustomSlider = (props: any) => {
         valueLabelDisplay="on"
       />
       <Box>
-        <span
+        <Span
           style={{
             display: "inline-block",
             width: "23%",
@@ -93,8 +101,8 @@ export const CustomSlider = (props: any) => {
           onClick={() => setValue(25)}
         >
           25%
-        </span>
-        <span
+        </Span>
+        <Span
           style={{
             display: "inline-block",
             width: "23%",
@@ -111,8 +119,8 @@ export const CustomSlider = (props: any) => {
           onClick={() => setValue(50)}
         >
           50%
-        </span>
-        <span
+        </Span>
+        <Span
           style={{
             display: "inline-block",
             width: "23%",
@@ -129,8 +137,8 @@ export const CustomSlider = (props: any) => {
           onClick={() => setValue(75)}
         >
           75%
-        </span>
-        <span
+        </Span>
+        <Span
           style={{
             display: "inline-block",
             width: "23%",
@@ -147,7 +155,7 @@ export const CustomSlider = (props: any) => {
           onClick={() => setValue(100)}
         >
           MAX
-        </span>
+        </Span>
       </Box>
     </div>
   );
