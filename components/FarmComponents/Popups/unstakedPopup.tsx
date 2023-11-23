@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useRef} from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -36,29 +36,9 @@ export interface SimpleDialogProps {
   userResource: any;
   stakeResource:any
 }
-const marks = [
-  {
-    value: 25,
-    label: "25%",
-  },
-  {
-    value: 50,
-    label: "50%",
-  },
-  {
-    value: 75,
-    label: "75%",
-  },
-  {
-    value: 100,
-    label: "MAX",
-  },
-];
 
-function valuetext(value: number) {
-  return `${value}°C`;
-}
 export function UnstackedPopup(props: SimpleDialogProps) {
+  const myRef = useRef<any>("0") 
   const { open } = props;
   const newNetwork = useAppSelector(selectNewNetwork) as any;
   const provider = getWalletNetwork(newNetwork)
@@ -89,7 +69,7 @@ export function UnstackedPopup(props: SimpleDialogProps) {
         type: "entry_function_payload",
         function: `${moduleAddress2}::scripts::unstake`,
         type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>","0x1::aptos_coin::AptosCoin"],
-        arguments: [moduleAddress2,1],
+        arguments: [moduleAddress2,myRef?.current?.value],
       }; 
 
       try {
@@ -106,11 +86,8 @@ export function UnstackedPopup(props: SimpleDialogProps) {
       }
       
     }
-  function valuetext(value: number) {
-    return `${value}`;
-  }
-    const TVL = props?.stakeResource?.data?.stake_coins?.value/(Math.pow(10, 8))
-    const moonValue = (props?.userResource?.amount / (Math.pow(10, 8))).toFixed(8)
+
+  const moonValue = (props?.userResource?.amount / (Math.pow(10, 8))).toFixed(8)
   return (
     <TableDiv>
       <Dialog
@@ -172,43 +149,6 @@ export function UnstackedPopup(props: SimpleDialogProps) {
                 <p style={{ color: "#000", fontWeight: "600" }}>MOON/APTU</p>
               </Box>
               <Box>
-                {/* <Box
-                  sx={{
-                    height: "100px",
-                    backgroundColor: "#f1e9e7",
-                    borderRadius: "20px",
-                  }}
-                >
-                  <input
-                    type="text"
-                    placeholder="0.000"
-                    style={{
-                      border: "none",
-                      color: "#000",
-                      fontSize: "13px",
-                      textAlign: "right",
-                      padding: "25px 15px 0px 0px",
-                      fontWeight: "600",
-                      width: "100%",
-                      backgroundColor: "transparent",
-                      outline: "none",
-                      appearance: "textfield",
-                      WebkitAppearance: "textfield",
-                      MozAppearance: "textfield",
-                    }}
-                  />
-                  <p
-                    style={{
-                      color: "#000",
-                      fontSize: "13px",
-                      textAlign: "right",
-                      padding: "0px 15px 0px 0px",
-                      fontWeight: "600",
-                    }}
-                  >
-                    ~{TVL} USD
-                  </p>
-                </Box> */}
                 <DialogTitle
                   style={{
                     textAlign: "right",
@@ -218,90 +158,11 @@ export function UnstackedPopup(props: SimpleDialogProps) {
                     fontSize: "13px",
                   }}
                 >
-                  {/* Balance: 2 */}
                 </DialogTitle>
               </Box>
               <Box sx={{ width: "100%" }}>
-                {/* <MySlider
-                  aria-label="Always visible"
-                  defaultValue={30}
-                  getAriaValueText={valuetext}
-                  step={10}
-                  valueLabelDisplay="on"
-                /> */}
-                <CustomSlider  moonValue = {moonValue}/>
+                <CustomSlider myRef={myRef} moonValue = {moonValue}/>
               </Box>
-
-              {/* <Box>
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: "23%",
-                    height: "30px",
-                    margin: "10px 2% 10px 0px",
-                    backgroundColor: "#eff4f5",
-                    textAlign: "center",
-                    lineHeight: "32px",
-                    borderRadius: "50px",
-                    fontSize: "13px",
-                    fontWeight: "600",
-                    color: "#000",
-                  }}
-                >
-                  25%
-                </span>
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: "23%",
-                    height: "30px",
-                    margin: "10px 2% 10px 0px",
-                    backgroundColor: "#eff4f5",
-                    textAlign: "center",
-                    lineHeight: "32px",
-                    borderRadius: "50px",
-                    fontSize: "13px",
-                    fontWeight: "600",
-                    color: "#000",
-                  }}
-                >
-                  50%
-                </span>
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: "23%",
-                    height: "30px",
-                    margin: "10px 2% 10px 0px",
-                    backgroundColor: "#eff4f5",
-                    textAlign: "center",
-                    lineHeight: "32px",
-                    borderRadius: "50px",
-                    fontSize: "13px",
-                    fontWeight: "600",
-                    color: "#000",
-                  }}
-                >
-                  75%
-                </span>
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: "23%",
-                    height: "30px",
-                    margin: "10px 2% 10px 0px",
-                    backgroundColor: "#eff4f5",
-                    textAlign: "center",
-                    lineHeight: "32px",
-                    borderRadius: "50px",
-                    fontSize: "13px",
-                    fontWeight: "600",
-                    color: "#000",
-                  }}
-                >
-                  MAX
-                </span>
-              </Box> */}
             </>
           </DialogContentText>
         </DialogContent>

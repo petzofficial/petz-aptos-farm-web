@@ -47,6 +47,7 @@ export const CustomSlider = (props: any) => {
               WebkitAppearance: "textfield",
               MozAppearance: "textfield",
             }}
+            ref={props.myRef}
             value={textValue}
             onChange={(e) => setTextValue(e.target.value)}
           />

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useRef } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -45,9 +45,7 @@ const marks = [
   },
 ];
 
-function valuetext(value: number) {
-  return `${value}°C`;
-}
+
 export function StackedPopup(props: SimpleDialogProps) {
   const { open } = props;
   const newNetwork = useAppSelector(selectNewNetwork) as any;
@@ -84,6 +82,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
       }
       
     `;
+  const myRef = useRef<any>("0")  
   const coins = useAppSelector(selectCoins);
   const { account, signAndSubmitTransaction } = useWallet();
   const moduleAddress2 = "0x82afe3de6e9acaf4f2de72ae50c3851a65bb86576198ef969937d59190873dfd";
@@ -93,7 +92,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
       type: "entry_function_payload",
       function: `${moduleAddress2}::scripts::stake`,
       type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>", "0x1::aptos_coin::AptosCoin"],
-      arguments: [moduleAddress2, 999],
+      arguments: [moduleAddress2, myRef?.current?.value],
     };
 
     try {
@@ -110,10 +109,6 @@ import { syntax } from '../../.next/static/chunks/webpack';
     }
 
   }
-  function valuetext(value: number) {
-    return `${value}`;
-  }
-  const TVL = props?.stakeResource?.data?.stake_coins?.value
   const findMoonApt: any = coins?.find((v) => (
     v.metadata.symbol == "MOON-APTU"
   ))
@@ -238,7 +233,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
                   valueLabelDisplay="on"
                   onChange={(e)=>handleChange(e)}
                 /> */}
-                <CustomSlider moonValue={moonValue} />
+                <CustomSlider myRef= {myRef} moonValue={moonValue} />
               </Box>
 
               {/* <Box>
