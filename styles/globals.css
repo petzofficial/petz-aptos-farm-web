@@ -29,7 +29,19 @@ a {
     width: 100%;
   }
 }
-
+.MuiSlider-track {
+color:#f49c63 !important
+}
+.MuiSlider-rail{
+  color:#f49c63 !important
+}
+.MuiSlider-track{
+  color:#f49c63 !important
+}
+.MuiSlider-root{
+  color:#f49c63 !important
+}
+  
 /* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
