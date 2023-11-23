@@ -1,23 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Box } from "@mui/material";
-import { debounce } from "@mui/material/utils";
-import { styled } from "@mui/material/styles";
 import Slider from "@mui/material/Slider";
+
 export const CustomSlider = (props: any) => {
   const [value, setValue] = useState(0);
   const [textValue, setTextValue] = useState<any>("");
-  const MySlider = styled(Slider)(() => ({
-    "& .MuiSlider-thumb": {
-      backgroundColor: "#f49c63",
-    },
-    "& .MuiSlider-rail": {
-      backgroundColor: "#f49c63",
-    },
-    "& .MuiSlider-track": {
-      backgroundColor: "#f49c63",
-    },
-  }));
   const handleSliderChange = (e:any)=>{
     setValue(e.target.value);
   }
