@@ -3,15 +3,25 @@ import ghostImg from "assets/ghost.png";
 import Image from "next/image";
 export default function ErrorPage() {
   return (
-    <div>
+    <div
+      style={{
+        height: "500px",
+        display: "flex",
+        flexDirection: "column",
+        textAlign: "center",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Image
+        priority
         src={ghostImg}
         style={{
           width: 160,
           height: 160,
-          textAlign: "center",
-          display: "block",
-          margin: "auto",
+          // textAlign: "center",
+          // display: "block",
+          margin: "0 auto",
         }}
         alt="connect to wallet"
       />

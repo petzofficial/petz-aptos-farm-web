@@ -13,18 +13,14 @@ import Slider from "@mui/material/Slider";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { CustomSlider } from "./CustomSlider";
 import { useAppSelector } from "app/hooks";
-import {
-  selectCoins,
-  selectNewNetwork
-} from "app/reducers/AccountSlice";
-import { getWalletNetwork } from 'utils/aptosNetWorks/AptosNetworks';
-
+import { selectCoins, selectNewNetwork } from "app/reducers/AccountSlice";
+import { getWalletNetwork } from "utils/aptosNetWorks/AptosNetworks";
 
 export interface SimpleDialogProps {
   open: boolean;
   onClose: (value: string) => void;
   userResource: any;
-  stakeResource: any
+  stakeResource: any;
 }
 const marks = [
   {
@@ -45,11 +41,10 @@ const marks = [
   },
 ];
 
-
 export function StackedPopup(props: SimpleDialogProps) {
   const { open } = props;
   const newNetwork = useAppSelector(selectNewNetwork) as any;
-  const provider = getWalletNetwork(newNetwork)
+  const provider = getWalletNetwork(newNetwork);
   const TableDiv = styled("div")`
     .point1{
         display: flex;
@@ -82,16 +77,20 @@ import { syntax } from '../../.next/static/chunks/webpack';
       }
       
     `;
-  const myRef = useRef<any>("0")  
+  const myRef = useRef<any>("0");
   const coins = useAppSelector(selectCoins);
   const { account, signAndSubmitTransaction } = useWallet();
-  const moduleAddress2 = "0x82afe3de6e9acaf4f2de72ae50c3851a65bb86576198ef969937d59190873dfd";
+  const moduleAddress2 =
+    "0x82afe3de6e9acaf4f2de72ae50c3851a65bb86576198ef969937d59190873dfd";
   const handleStake = async () => {
     if (!account) return [];
     const payload = {
       type: "entry_function_payload",
       function: `${moduleAddress2}::scripts::stake`,
-      type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>", "0x1::aptos_coin::AptosCoin"],
+      type_arguments: [
+        "0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>",
+        "0x1::aptos_coin::AptosCoin",
+      ],
       arguments: [moduleAddress2, myRef?.current?.value],
     };
 
@@ -100,19 +99,14 @@ import { syntax } from '../../.next/static/chunks/webpack';
       const response = await signAndSubmitTransaction(payload);
       // wait for transaction
       await provider.waitForTransaction(response.hash);
-
-
     } catch (error: any) {
       console.log("error", error);
     } finally {
       //setTransactionInProgress(false);
     }
-
-  }
-  const findMoonApt: any = coins?.find((v) => (
-    v.metadata.symbol == "MOON-APTU"
-  ))
-  const moonValue = (findMoonApt?.amount / (Math.pow(10, 8))).toFixed(8)
+  };
+  const findMoonApt: any = coins?.find((v) => v.metadata.symbol == "MOON-APTU");
+  const moonValue = (findMoonApt?.amount / Math.pow(10, 8)).toFixed(8);
   return (
     <TableDiv>
       <Dialog
@@ -170,8 +164,10 @@ import { syntax } from '../../.next/static/chunks/webpack';
                   height: "60px",
                 }}
               >
-                <p style={{ color: "#000", fontWeight: "600" }}>Stake:</p>
-                <p style={{ color: "#000", fontWeight: "600" }}>MOON/APTU</p>
+                <span style={{ color: "#000", fontWeight: "600" }}>Stake:</span>
+                <span style={{ color: "#000", fontWeight: "600" }}>
+                  MOON/APTU
+                </span>
               </Box>
               <Box>
                 {/* <Box
@@ -233,7 +229,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
                   valueLabelDisplay="on"
                   onChange={(e)=>handleChange(e)}
                 /> */}
-                <CustomSlider myRef= {myRef} moonValue={moonValue} />
+                <CustomSlider myRef={myRef} moonValue={moonValue} />
               </Box>
 
               {/* <Box>
@@ -330,7 +326,10 @@ import { syntax } from '../../.next/static/chunks/webpack';
               marginTop: "8px",
               "&:hover": { backgroundColor: "#f47c63" },
             }}
-            onClick={() => { handleStake(); props.onClose("") }}
+            onClick={() => {
+              handleStake();
+              props.onClose("");
+            }}
           >
             Confirm
           </Button>

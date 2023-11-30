@@ -22,18 +22,18 @@ const Transactions: FC = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { transactionId } = router.query;
-  const specificTransaction = useAppSelector(selectSpecificTransaction) as any;
+  const specificTransaction = useAppSelector(selectSpecificTransaction);
   const account = useAppSelector(selectAccount);
   const transactions = useAppSelector(selectTransactions);
 
   useEffect(() => {
     dispatch(fetchSpecificTransactionAction(transactionId as any));
-    if (account && !specificTransaction) {
+    if (account && !specificTransaction && transactionId) {
       dispatch(fetchTransactionsAction(account?.address));
     }
     dispatch(fetchTransactionsBlockAction(transactionId as any));
   }, [account, transactions]);
-
+  console.log(">> transactionId", typeof transactionId);
   return (
     <>
       {account ? (

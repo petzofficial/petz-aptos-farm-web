@@ -6,11 +6,8 @@ import styled from "styled-components";
 import { ICardData } from "types/cardsTypes";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useAppSelector } from "app/hooks";
-import {
-  selectNewNetwork
-} from "app/reducers/AccountSlice";
-import { getWalletNetwork } from 'utils/aptosNetWorks/AptosNetworks';
-
+import { selectNewNetwork } from "app/reducers/AccountSlice";
+import { getWalletNetwork } from "utils/aptosNetWorks/AptosNetworks";
 
 const MainDiv = styled.div`
     background-color:#f1e9e7;
@@ -144,16 +141,20 @@ import { ICardData } from '../../../types/cardsTypes';
 const FarmCardTemplate = (props: any) => {
   const { account, signAndSubmitTransaction } = useWallet();
   const newNetwork = useAppSelector(selectNewNetwork) as any;
-  const provider = getWalletNetwork(newNetwork)
+  const provider = getWalletNetwork(newNetwork);
 
-  const moduleAddress2 = "0x82afe3de6e9acaf4f2de72ae50c3851a65bb86576198ef969937d59190873dfd";
+  const moduleAddress2 =
+    "0x82afe3de6e9acaf4f2de72ae50c3851a65bb86576198ef969937d59190873dfd";
 
   const handleHarvest = async () => {
     if (!account) return [];
     const payload3 = {
       type: "entry_function_payload",
       function: `${moduleAddress2}::scripts::harvest`,
-      type_arguments: ["0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>", "0x1::aptos_coin::AptosCoin"],
+      type_arguments: [
+        "0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>",
+        "0x1::aptos_coin::AptosCoin",
+      ],
       arguments: [moduleAddress2],
     };
 
@@ -162,83 +163,91 @@ const FarmCardTemplate = (props: any) => {
       const response = await signAndSubmitTransaction(payload3);
       // wait for transaction
       await provider.waitForTransaction(response.hash);
-
-
     } catch (error: any) {
       console.log("error", error);
     } finally {
       //setTransactionInProgress(false);
     }
-
-  }
+  };
   const unixTimestamp = props?.userResource?.unlock_time; // Replace this with your Unix timestamp
   // Convert Unix timestamp to milliseconds
   const [timeLeft, setTimeLeft] = useState(0);
   const date = new Date(timeLeft * 1000);
   const todayDate = new Date();
-  
+
   useLayoutEffect(() => {
-    setTimeLeft(unixTimestamp)
-  }, [unixTimestamp])
+    setTimeLeft(unixTimestamp);
+  }, [unixTimestamp]);
 
   // Get the various components of the date
-  const month = (date.getMonth() + 1) - (todayDate.getMonth() + 1); // Month is 0-indexed, so we add 1
+  const month = date.getMonth() + 1 - (todayDate.getMonth() + 1); // Month is 0-indexed, so we add 1
   const day = date.getDate() - todayDate.getDate();
   const hours = date.getHours() - todayDate.getHours();
   const unixTimestamp2 = props?.cards?.data?.start_timestamp; // Replace this with your Unix timestamp
-  
+
   const [timeLeft2, setTimeLeft2] = useState(0);
   const date2 = new Date(timeLeft2 * 1000);
 
   useLayoutEffect(() => {
-    setTimeLeft2(unixTimestamp2)
-  }, [unixTimestamp2])
+    setTimeLeft2(unixTimestamp2);
+  }, [unixTimestamp2]);
 
   // Get the various components of the date
-  const month2 = (date2.getMonth() + 1) - (todayDate.getMonth() + 1); // Month is 0-indexed, so we add 1
-  const day2 =  date2.getDate() - todayDate.getDate();
+  const month2 = date2.getMonth() + 1 - (todayDate.getMonth() + 1); // Month is 0-indexed, so we add 1
+  const day2 = date2.getDate() - todayDate.getDate();
   const hours2 = date2.getHours() - todayDate.getHours();
 
-  const RPS = (props?.cards?.data?.reward_per_sec * (604800) / (Math.pow(10, 8))).toFixed(8)
-  const APR = ((props?.cards?.data?.reward_per_sec * (31536000) / Math.pow(10, 8)) / (props?.cards?.data?.stake_coins?.value / Math.pow(10, 8))) * 100
-  const TVL = (props?.cards?.data?.stake_coins?.value / (Math.pow(10, 8))).toFixed(8)
-  const staked = (props?.userResource?.amount / (Math.pow(10, 8))).toFixed(8)
-  const earned = (props?.userResource?.earned_reward / (Math.pow(10, 8))).toFixed(8)
+  const RPS = (
+    (props?.cards?.data?.reward_per_sec * 604800) /
+    Math.pow(10, 8)
+  ).toFixed(8);
+  const APR =
+    ((props?.cards?.data?.reward_per_sec * 31536000) /
+      Math.pow(10, 8) /
+      (props?.cards?.data?.stake_coins?.value / Math.pow(10, 8))) *
+    100;
+  const TVL = (
+    props?.cards?.data?.stake_coins?.value / Math.pow(10, 8)
+  ).toFixed(8);
+  const staked = (props?.userResource?.amount / Math.pow(10, 8)).toFixed(8);
+  const earned = (props?.userResource?.earned_reward / Math.pow(10, 8)).toFixed(
+    8
+  );
   const curve = props?.cards?.type?.includes("Uncorrelated");
 
   return (
     <MainDiv>
       <div className="sec1_mainDiv">
         {props?.cards?.images?.logoImg1?.src && (
-        <>
-          <Image
-            src={props?.cards?.images?.logoImg1?.src}
-            alt="logo"
-            className=""
-            width={46}
-            height={46}
-          />
-          <Image
-            src={props?.cards?.images?.logoImg2?.src}
-            alt="logo"
-            className="image_border"
-            width={46}
-            height={46}
-            style={{ marginLeft: "-10px" }}
-          />
-        </>
+          <>
+            <Image
+              src={props?.cards?.images?.logoImg1?.src}
+              alt="logo"
+              className=""
+              width={46}
+              height={46}
+            />
+            <Image
+              src={props?.cards?.images?.logoImg2?.src}
+              alt="logo"
+              className="image_border"
+              width={46}
+              height={46}
+              style={{ marginLeft: "-10px" }}
+            />
+          </>
         )}
         <div className="main_heading">
           <h3>MOON/APTU</h3>
           <span>
             {props?.cards?.images?.graphLogo?.src && (
-            <Image
-              src={props?.cards?.images?.graphLogo?.src}
-              alt="logo"
-              className="graph_logo"
-              width={15}
-              height={15}
-            />
+              <Image
+                src={props?.cards?.images?.graphLogo?.src}
+                alt="logo"
+                className="graph_logo"
+                width={15}
+                height={15}
+              />
             )}
             {curve ? "Uncorrelated" : ""}
           </span>
@@ -248,13 +257,13 @@ const FarmCardTemplate = (props: any) => {
             {/* {props?.cards?.cryptoAmount} */}
             {RPS}
             {props?.cards?.images?.cryptoLogo?.src && (
-            <Image
-              src={props?.cards?.images?.cryptoLogo?.src}
-              alt="logo"
-              className="small_img"
-              width={18}
-              height={18}
-            />
+              <Image
+                src={props?.cards?.images?.cryptoLogo?.src}
+                alt="logo"
+                className="small_img"
+                width={18}
+                height={18}
+              />
             )}
             APT
           </span>
@@ -264,48 +273,56 @@ const FarmCardTemplate = (props: any) => {
         <div className="bottSec_Main">
           <div className="point1">
             <span>NFT:</span>
-            <p>{props?.cards?.data?.nft_config ? props?.cards?.data?.nft_config : "N/A"}</p>
+            <span>
+              {props?.cards?.data?.nft_config
+                ? props?.cards?.data?.nft_config
+                : "N/A"}
+            </span>
           </div>
           <div className="point1">
             <span>APR:</span>
-            <p>{APR.toFixed(2)}%</p>
+            <span>{APR.toFixed(2)}%</span>
           </div>
           <div className="point1">
             <span>TVL:</span>
-            <p>${TVL}</p>
+            <span>${TVL}</span>
           </div>
           <div className="point1">
             <span>STAKED:</span>
-            <p>${staked}</p>
+            <span>${staked}</span>
           </div>
           <div className="point1">
             <span>EARNED:</span>
-            <p>${earned}</p>
+            <span>${earned}</span>
           </div>
 
           <div className="point1">
             <span>Reward Time:</span>
-            <p>
-             {todayDate.getTime() > date.getTime() ? "Inactive" : `${month}M ${day}D ${hours}H`}
+            <span>
+              {todayDate.getTime() > date.getTime()
+                ? "Inactive"
+                : `${month}M ${day}D ${hours}H`}
               <Image
                 src={CalendarIcon}
                 alt="logo"
                 className=""
                 style={{ width: 18, height: 18 }}
               />
-            </p>
+            </span>
           </div>
           <div className="point1">
             <span>Unlock Time:</span>
-            <p>
-              {todayDate.getTime() > date.getTime() ? "Unlocked" :  `${month2}M ${day2}D ${hours2}H`}
+            <span>
+              {todayDate.getTime() > date.getTime()
+                ? "Unlocked"
+                : `${month2}M ${day2}D ${hours2}H`}
               <Image
                 src={CalendarIcon}
                 alt="logo"
                 className=""
                 style={{ width: 18, height: 18 }}
               />
-            </p>
+            </span>
           </div>
         </div>
         <hr />
@@ -356,7 +373,7 @@ const FarmCardTemplate = (props: any) => {
                 fontSize: "18px",
               }}
               onClick={() => {
-                handleHarvest()
+                handleHarvest();
               }}
             >
               Harvest

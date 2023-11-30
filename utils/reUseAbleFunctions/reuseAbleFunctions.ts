@@ -56,3 +56,17 @@ export const calculateGasFee = (gasUnitPrice: any, gasUnits: any) => {
   const gasFee = gasUnitPrice * gasUnits
   return gasFee
 }
+
+
+// ***********Checks if there is a url or not*****************
+export const isValidUrl = (urlString: string) => {
+  var inputElement = document.createElement('input');
+  inputElement.type = 'url';
+  inputElement.value = urlString;
+
+  if (!inputElement.checkValidity()) {
+    return false;
+  } else {
+    return true;
+  }
+} 

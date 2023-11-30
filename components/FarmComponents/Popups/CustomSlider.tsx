@@ -2,24 +2,24 @@ import { useEffect, useState } from "react";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Box } from "@mui/material";
 import Slider from "@mui/material/Slider";
-import { styled } from '@mui/system';
+import { styled } from "@mui/system";
 
 export const CustomSlider = (props: any) => {
   const [value, setValue] = useState(0);
   const [textValue, setTextValue] = useState<any>("");
-  const handleSliderChange = (e:any)=>{
+  const handleSliderChange = (e: any) => {
     setValue(e.target.value);
-  }
-  const Span = styled('span')({
-    cursor:"pointer",
-    color:"red",
-    '&:hover': {
-      backgroundColor: '#f49c63 !important',
-   },
+  };
+  const Span = styled("span")({
+    cursor: "pointer",
+    color: "red",
+    "&:hover": {
+      backgroundColor: "#f49c63 !important",
+    },
   });
-  useEffect(()=>{
-    setTextValue((value*Number(props?.moonValue)) / 100)
-  },[value])
+  useEffect(() => {
+    setTextValue((value * Number(props?.moonValue)) / 100);
+  }, [value]);
   return (
     <div className="App">
       <Box>
@@ -160,4 +160,4 @@ export const CustomSlider = (props: any) => {
       </Box>
     </div>
   );
-}
+};

@@ -271,7 +271,6 @@ const Header: FC = () => {
   };
 
   const handleTabChange = (name: string) => {
-    console.log("im here", name);
     if (name === "account") {
       router.push(`/account`);
     } else if (name === "farms") {
@@ -293,19 +292,26 @@ const Header: FC = () => {
         <div className="wrapwith">
           <div className="logo">
             <Link href="/">
-              <Image src={Logo} alt="logo" style={{ width: 60, height: 60 }} />
+              <Image
+                priority
+                src={Logo}
+                alt="logo"
+                style={{ width: 60, height: 60 }}
+              />
             </Link>
           </div>
 
           <div className="abc">
-            <div className="Hamburger" onClick={handleCloseTabsDropDown}>
+            <div className="Hamburger">
               <Button
                 ref={anchorRef}
                 id="composition-button"
                 aria-controls={isMenuOpen ? "composition-menu" : undefined}
                 aria-expanded={isMenuOpen ? "true" : undefined}
                 aria-haspopup="true"
-                onClick={handleToggle}
+                onClick={() => {
+                  handleToggle(), handleCloseTabsDropDown();
+                }}
               >
                 <Image
                   src={!isMenuOpen ? Hamburger : CloseIcon}
@@ -379,7 +385,7 @@ const Header: FC = () => {
                     flexWrap: "wrap",
                     justifyContent: "center",
                     alignItems: "center",
-                    typography: "body1",
+                    typography: "body12",
                   }}
                 >
                   <>

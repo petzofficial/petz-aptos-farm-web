@@ -11,6 +11,7 @@ import {
   // CurrentFungibleAssetBalance,
   // Data,
 } from 'utils/types/coinsTypes';
+import { isValidUrl } from 'utils/reUseAbleFunctions/reuseAbleFunctions';
 const provider = new Provider(Network.TESTNET);
 
 export interface AccountState {
@@ -228,9 +229,10 @@ export const fetchBalanceDetailsAction =
   };
 
 export const fetchSpecificTransactionAction =
-  (transactionVersion: string) =>
+  (transactionVersion: number) =>
     (dispatch: any, getState: () => RootState) => {
       const transactions = getState().account.transactions;
+      if (!transactionVersion) { return; }
       try {
         const specificTransactionResponse = transactions.find(
           (transaction: any) => transaction?.version === transactionVersion
@@ -242,7 +244,10 @@ export const fetchSpecificTransactionAction =
     };
 
 export const fetchNftImgAction =
-  (tokenUri: string, tokenId: string) => async (dispatch: any) => {
+  (tokenUri: string, tokenId: number) => async (dispatch: any) => {
+    if (!isValidUrl(tokenUri) && !tokenId) {
+      return;
+    }
     try {
       const { data } = await axios.get(`/api/image?tokenUrl=${tokenUri}`);
       dispatch(setSpecificTokenNftImg({ tokenId, image: data.image, attributes: data.attributes }));

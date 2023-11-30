@@ -8,7 +8,7 @@ const call = async () => {
         const { data } = await axios.get(url);
         // console.log(">> fetchNftImgdata", data);
     } catch (error) {
-        console.error(">> Error fetching nft imgs :", error);
+        // console.error(">> Error fetching nft imgs :", error);
     }
 }
 

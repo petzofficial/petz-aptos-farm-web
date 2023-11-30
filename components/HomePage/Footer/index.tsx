@@ -98,6 +98,7 @@ const Footer: React.FC<Props> = () => {
           <div className="footer_left">
             <Link href="/">
               <Image
+                priority
                 src={FooterLogo}
                 alt=""
                 style={{ width: 60, height: 60 }}

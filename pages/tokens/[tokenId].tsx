@@ -18,8 +18,10 @@ import ErrorPage from "components/ErrorPage/ErrorPage";
 const TokenDetailPage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-
   const { tokenId } = router.query;
+  // if (!tokenId) {
+  //   router.push("/");
+  // }
 
   const tokens = useAppSelector(selectTokens);
   const account = useAppSelector(selectAccount);
@@ -32,9 +34,9 @@ const TokenDetailPage = () => {
   }, [dispatch, account]);
 
   useEffect(() => {
-    if (specificToken && !specificToken.image) {
+    if (specificToken && !specificToken.image && tokenId) {
       const tokenURI: string = specificToken.current_token_data?.token_uri;
-      dispatch(fetchNftImgAction(tokenURI, tokenId as string));
+      dispatch(fetchNftImgAction(tokenURI, tokenId as any));
     }
   }, [dispatch, specificToken]);
 

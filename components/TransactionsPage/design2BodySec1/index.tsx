@@ -7,13 +7,16 @@ import SendToImg from "../../../assets/sendto.png";
 import Image from "next/image";
 import { useAppSelector } from "app/hooks";
 import { selectSpecificTransaction } from "app/reducers/AccountSlice";
-import { convertToOctal, shortenString } from "utils/reUseAbleFunctions/reuseAbleFunctions";
+import {
+  convertToOctal,
+  shortenString,
+} from "utils/reUseAbleFunctions/reuseAbleFunctions";
 
 const BodySec1 = styled.div`
   padding: 0px 20px;
   div {
     width: 100%;
-    background-color: rgba(58,52,51,0.12);
+    background-color: rgba(58, 52, 51, 0.12);
     margin: 10px 0% 10px;
     padding: 30px 20px 20px;
     border-radius: 10px;
@@ -26,7 +29,7 @@ const BodySec1 = styled.div`
         text-align: left;
         width: 30%;
         padding-bottom: 15px;
-        color: rgba(215,113,88,1);
+        color: rgba(215, 113, 88, 1);
         @media (max-width: 768px) {
           width: 40%;
           padding-right: 10px;
@@ -42,7 +45,7 @@ const BodySec1 = styled.div`
           padding-left: 10px;
         }
         p {
-          background-color: rgba(58,52,51,0.12);
+          background-color: rgba(58, 52, 51, 0.12);
           padding: 2px 12px;
           border-radius: 10px;
           display: inline-block;
@@ -57,7 +60,7 @@ const BodySec1 = styled.div`
           vertical-align: middle;
         }
         span {
-          background-color: rgba(58,52,51,0.12);
+          background-color: rgba(58, 52, 51, 0.12);
           padding: 6px 12px;
           border-radius: 10px;
           font-size: 14px;
@@ -72,8 +75,10 @@ const BodySec1 = styled.div`
 `;
 
 const Design2BodySec1: FC = () => {
-  const specificTransaction = useAppSelector(selectSpecificTransaction) as any
-  const specificTransactionFunction = specificTransaction?.payload?.function.match(/::.+$/)[0].substring(2);
+  const specificTransaction = useAppSelector(selectSpecificTransaction) as any;
+  const specificTransactionFunction = specificTransaction?.payload?.function
+    .match(/::.+$/)[0]
+    .substring(2);
   return (
     <BodySec1>
       <div>
@@ -81,13 +86,20 @@ const Design2BodySec1: FC = () => {
           <tbody>
             <tr>
               <th>Version:</th>
-              <td>{specificTransaction?.version}</td>
+              {/* <td>{specificTransaction?.version as string}</td> */}
             </tr>
             <tr>
               <th>Status:</th>
               <td>
                 <p>
-                  <Fragment><InfoOutlinedIcon /> <span style={{ backgroundColor: "transparent" }}>{specificTransaction?.success ? specificTransaction?.success === true && ("Success") : ("Failed")}</span> </Fragment>
+                  <Fragment>
+                    <InfoOutlinedIcon />{" "}
+                    <span style={{ backgroundColor: "transparent" }}>
+                      {specificTransaction?.success
+                        ? specificTransaction?.success === true && "Success"
+                        : "Failed"}
+                    </span>{" "}
+                  </Fragment>
                 </p>
               </td>
             </tr>
@@ -97,12 +109,24 @@ const Design2BodySec1: FC = () => {
                 <Image
                   src={SenderImg}
                   alt=""
-                  style={{ width: "35px", objectFit: "contain" }}
+                  style={{
+                    objectFit: "contain",
+                    height: "auto",
+                    width: "auto",
+                  }}
+                  height={35}
+                  width={35}
                 />
                 <span>
-                  {shortenString(specificTransaction?.sender)} <ContentCopyIcon style={{ color: "#000", cursor: "pointer" }} onClick={() => {
-                    navigator.clipboard.writeText(specificTransaction?.sender);
-                  }} />
+                  {shortenString(specificTransaction?.sender)}{" "}
+                  <ContentCopyIcon
+                    style={{ color: "#000", cursor: "pointer" }}
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        specificTransaction?.sender
+                      );
+                    }}
+                  />
                 </span>
               </td>
             </tr>
@@ -112,28 +136,62 @@ const Design2BodySec1: FC = () => {
                 <Image
                   src={SendToImg}
                   alt=""
-                  style={{ width: "35px", objectFit: "contain" }}
+                  height={10}
+                  width={10}
+                  style={{
+                    objectFit: "contain",
+                    height: "auto",
+                    width: "auto",
+                  }}
                 />
-                <span>{shortenString(specificTransaction?.payload?.function.split('::')[0])}  <ContentCopyIcon style={{ cursor: "pointer" }} onClick={() => {
-                  navigator.clipboard.writeText(specificTransaction?.payload?.function.split('::')[0]);
-                }} /></span>
+                <span>
+                  {shortenString(
+                    specificTransaction?.payload?.function.split("::")[0]
+                  )}{" "}
+                  <ContentCopyIcon
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        specificTransaction?.payload?.function.split("::")[0]
+                      );
+                    }}
+                  />
+                </span>
               </td>
             </tr>
             <tr>
               <th>Function:</th>
               <td>
-                {specificTransactionFunction ? (<span style={{ color: "#000", cursor: "pointer" }}>{specificTransactionFunction}</span>) : (<span style={{ color: "#000", cursor: "pointer" }}>Script</span>)}
+                {specificTransactionFunction ? (
+                  <span style={{ color: "#000", cursor: "pointer" }}>
+                    {specificTransactionFunction}
+                  </span>
+                ) : (
+                  <span style={{ color: "#000", cursor: "pointer" }}>
+                    Script
+                  </span>
+                )}
               </td>
             </tr>
             <tr>
               <th>Amount:</th>
-              <td>{convertToOctal(specificTransaction?.gas_unit_price * specificTransaction?.gas_used).toLocaleString().split('.')[0]} APT</td>
+              <td>
+                {
+                  convertToOctal(
+                    specificTransaction?.gas_unit_price *
+                      specificTransaction?.gas_used
+                  )
+                    .toLocaleString()
+                    .split(".")[0]
+                }{" "}
+                APT
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
-    </BodySec1 >
+    </BodySec1>
   );
-}
+};
 
 export default Design2BodySec1;

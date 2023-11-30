@@ -95,7 +95,7 @@ const TokensTable: FC = () => {
           dispatch(
             fetchNftImgAction(
               tokenURI,
-              token?.last_transaction_version as string
+              token?.last_transaction_version as number
             )
           );
         }

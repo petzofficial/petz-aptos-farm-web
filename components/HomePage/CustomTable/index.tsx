@@ -44,16 +44,16 @@ const TableDiv = styled("div")`
       border-bottom: none;
       width: 18%;
       padding: 10px;
-      &:first-child {
+      &:first-of-child {
         width: 10%;
       }
-      &:nth-child(2) {
+      &:nth-of-child(2) {
         width: 9%;
       }
-      &:nth-child(3) {
+      &:nth-of-child(3) {
         width: 10%;
       }
-      &:last-child {
+      &:last-of-child {
         width: 35%;
       }
 
@@ -66,16 +66,16 @@ const TableDiv = styled("div")`
       border-bottom: none;
       padding: 10px;
       width: 20%;
-      &:first-child {
+      &:first-of-child {
         width: 10%;
       }
-      &:nth-child(2) {
+      &:nth-of-child(2) {
         width: 8%;
       }
-      &:nth-child(3) {
+      &:nth-of-child(3) {
         width: 10%;
       }
-      &:last-child {
+      &:last-of-child {
         width: 35%;
       }
       a {
@@ -174,7 +174,9 @@ const CustomTable: FC = () => {
                   <TableRow
                     key={index}
                     onClick={() => {
-                      router.push(`/transactions/${transaction?.version}`);
+                      router.push(
+                        `/transactions/${parseInt(transaction?.version, 10)}`
+                      );
                     }}
                     style={{ cursor: "pointer" }}
                   >
@@ -183,16 +185,21 @@ const CustomTable: FC = () => {
                     </TableCell>
                     <TableCell>
                       <Image
+                        priority
                         src={TypeArrow}
                         alt="asd"
-                        style={{ width: "23px", objectFit: "contain" }}
+                        style={{
+                          objectFit: "contain",
+                        }}
+                        height={23}
+                        width={23}
                       />
                     </TableCell>
                     <TableCell>
                       {formatTimestamp(transaction?.timestamp)}
                     </TableCell>
                     <TableCell>
-                      <Image src={SenderImg} alt="" />
+                      <Image height={10} width={10} src={SenderImg} alt="" />
                       <span>
                         {shortenString(transaction?.sender)}{" "}
                         <ContentCopyIcon
@@ -204,8 +211,13 @@ const CustomTable: FC = () => {
                       </span>
                     </TableCell>
                     <TableCell>
-                      <Image src={SendToImg} alt="" />
-
+                      <Image
+                        height={10}
+                        width={10}
+                        style={{ height: "auto", width: "auto" }}
+                        src={SendToImg}
+                        alt=""
+                      />
                       <span>
                         {shortenString(
                           transaction?.payload?.function.split("::")[0]

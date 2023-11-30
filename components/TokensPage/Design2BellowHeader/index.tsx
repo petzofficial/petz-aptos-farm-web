@@ -1,9 +1,9 @@
-import { FC } from 'react';
-import styled from 'styled-components/macro';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import Image from 'next/image';
-import { useAppSelector } from 'app/hooks';
-import { selectAccount } from 'app/reducers/AccountSlice';
+import { FC } from "react";
+import styled from "styled-components/macro";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import Image from "next/image";
+import { useAppSelector } from "app/hooks";
+import { selectAccount } from "app/reducers/AccountSlice";
 
 const HeaderDiv = styled.div`
   width: 100%;
@@ -40,12 +40,11 @@ const HeaderDiv = styled.div`
         width: auto;
         text-align: center;
       }
-      .tokenImage{
-     
+      .tokenImage {
         text-align: right;
         @media (max-width: 768px) {
           display: inline-block;
-          align-items: center !important; 
+          align-items: center !important;
           margin: auto;
         }
       }
@@ -64,18 +63,17 @@ const HeaderDiv = styled.div`
           font-size: 16px;
         }
       }
-      
     }
   }
 `;
 
 interface Props {
-  specificToken: any
+  specificToken: any;
 }
 
 const Design2BellowHeader: FC<Props> = (props) => {
-  const userAccount = useAppSelector(selectAccount) as any
-  const { specificToken } = props
+  const userAccount = useAppSelector(selectAccount) as any;
+  const { specificToken } = props;
   return (
     <div>
       <HeaderDiv>
@@ -84,13 +82,24 @@ const Design2BellowHeader: FC<Props> = (props) => {
             <h1>Token</h1>
             <p>
               {userAccount?.address}
-              <ContentCopyIcon style={{ cursor: "pointer" }} onClick={() => {
-                navigator.clipboard.writeText(userAccount?.address);
-              }} />
+              <ContentCopyIcon
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  navigator.clipboard.writeText(userAccount?.address);
+                }}
+              />
             </p>
           </div>
           <div className="rightSec">
-            <Image src={specificToken?.image} width="250" height="250" className='tokenImage' alt="" />
+            <Image
+              priority
+              src={specificToken?.image}
+              width="250"
+              height="250"
+              style={{ height: "auto", width: "auto" }}
+              className="tokenImage"
+              alt=""
+            />
           </div>
         </div>
       </HeaderDiv>
