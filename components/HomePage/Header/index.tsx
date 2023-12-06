@@ -6,7 +6,7 @@ import styled from "styled-components/macro";
 import Link from "next/link";
 import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
 import Image from "next/image";
-import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
+// import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
 import { selectNewNetwork, setNewNetwork } from "app/reducers/AccountSlice";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
@@ -27,6 +27,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useRouter } from "next/router";
+import { stringify } from "querystring";
+import { WalletSelector } from "components/WalletSelector";
 
 const HeaderDiv = styled.div`
   width: 100%;
@@ -244,8 +246,37 @@ const Header: FC = () => {
   // *******
   const dispatch = useAppDispatch();
   const newNetwork = useAppSelector(selectNewNetwork);
-  const { account, network } = useWallet();
+  const { account, network, connected, connect, disconnect, wallet } =
+    useWallet();
+  const walletInfo = useWallet();
   const router = useRouter();
+
+  // ************Fix wallet disconnect issue on refresh************
+  // useEffect(() => {
+  //   const currentWalletString = localStorage.getItem("currentWallet");
+  //   const currentWallet = currentWalletString
+  //     ? JSON.parse(currentWalletString)
+  //     : null;
+  //   if (currentWallet && currentWallet.wallet && currentWallet.wallet.name) {
+  //     connect(currentWallet.wallet.name);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   if (connected) {
+  //     localStorage.setItem(
+  //       "currentWallet",
+  //       JSON.stringify({
+  //         account,
+  //         network,
+  //         connected,
+  //         wallet,
+  //       })
+  //     );
+  //   } else {
+  //   }
+  // }, [connected]);
+  // ****************************
   useEffect(() => {
     network && dispatch(setNewNetwork(network.name));
   }, [network]);
