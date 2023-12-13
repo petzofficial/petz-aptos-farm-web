@@ -33,7 +33,6 @@ const Transactions: FC = () => {
     }
     dispatch(fetchTransactionsBlockAction(transactionId as any));
   }, [account, transactions]);
-  console.log(">> transactionId", typeof transactionId);
   return (
     <>
       {account ? (

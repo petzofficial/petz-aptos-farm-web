@@ -44,16 +44,16 @@ const TableDiv = styled("div")`
       border-bottom: none;
       width: 18%;
       padding: 10px;
-      &:first-of-child {
+      &:first-child {
         width: 10%;
       }
-      &:nth-of-child(2) {
+      &:nth-child(2) {
         width: 9%;
       }
-      &:nth-of-child(3) {
+      &:nth-child(3) {
         width: 10%;
       }
-      &:last-of-child {
+      &:last-child {
         width: 35%;
       }
 
@@ -66,16 +66,16 @@ const TableDiv = styled("div")`
       border-bottom: none;
       padding: 10px;
       width: 20%;
-      &:first-of-child {
+      &:first-child {
         width: 10%;
       }
-      &:nth-of-child(2) {
+      &:nth-child(2) {
         width: 8%;
       }
-      &:nth-of-child(3) {
+      &:nth-child(3) {
         width: 10%;
       }
-      &:last-of-child {
+      &:last-child {
         width: 35%;
       }
       a {
@@ -189,6 +189,7 @@ const CustomTable: FC = () => {
                         src={TypeArrow}
                         alt="asd"
                         style={{
+                          width: "23px",
                           objectFit: "contain",
                         }}
                         height={23}
@@ -199,7 +200,7 @@ const CustomTable: FC = () => {
                       {formatTimestamp(transaction?.timestamp)}
                     </TableCell>
                     <TableCell>
-                      <Image height={10} width={10} src={SenderImg} alt="" />
+                      <Image src={SenderImg} alt="" />
                       <span>
                         {shortenString(transaction?.sender)}{" "}
                         <ContentCopyIcon
@@ -211,13 +212,7 @@ const CustomTable: FC = () => {
                       </span>
                     </TableCell>
                     <TableCell>
-                      <Image
-                        height={10}
-                        width={10}
-                        style={{ height: "auto", width: "auto" }}
-                        src={SendToImg}
-                        alt=""
-                      />
+                      <Image src={SendToImg} alt="" />
                       <span>
                         {shortenString(
                           transaction?.payload?.function.split("::")[0]
