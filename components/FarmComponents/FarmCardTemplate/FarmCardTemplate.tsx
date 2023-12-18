@@ -273,32 +273,32 @@ const FarmCardTemplate = (props: any) => {
         <div className="bottSec_Main">
           <div className="point1">
             <span>NFT:</span>
-            <span>
+            <p>
               {props?.cards?.data?.nft_config
                 ? props?.cards?.data?.nft_config
                 : "N/A"}
-            </span>
+            </p>
           </div>
           <div className="point1">
             <span>APR:</span>
-            <span>{APR.toFixed(2)}%</span>
+            <p>{APR.toFixed(2)}%</p>
           </div>
           <div className="point1">
             <span>TVL:</span>
-            <span>${TVL}</span>
+            <p>${TVL}</p>
           </div>
           <div className="point1">
             <span>STAKED:</span>
-            <span>${staked}</span>
+            <p>${staked}</p>
           </div>
           <div className="point1">
             <span>EARNED:</span>
-            <span>${earned}</span>
+            <p>${earned}</p>
           </div>
 
           <div className="point1">
             <span>Reward Time:</span>
-            <span>
+            <p>
               {todayDate.getTime() > date.getTime()
                 ? "Inactive"
                 : `${month}M ${day}D ${hours}H`}
@@ -308,11 +308,11 @@ const FarmCardTemplate = (props: any) => {
                 className=""
                 style={{ width: 18, height: 18 }}
               />
-            </span>
+            </p>
           </div>
           <div className="point1">
             <span>Unlock Time:</span>
-            <span>
+            <p>
               {todayDate.getTime() > date.getTime()
                 ? "Unlocked"
                 : `${month2}M ${day2}D ${hours2}H`}
@@ -322,7 +322,7 @@ const FarmCardTemplate = (props: any) => {
                 className=""
                 style={{ width: 18, height: 18 }}
               />
-            </span>
+            </p>
           </div>
         </div>
         <hr />

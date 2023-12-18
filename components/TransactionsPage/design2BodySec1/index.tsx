@@ -86,7 +86,7 @@ const Design2BodySec1: FC = () => {
           <tbody>
             <tr>
               <th>Version:</th>
-              {/* <td>{specificTransaction?.version as string}</td> */}
+              <td>{specificTransaction?.version as string}</td>
             </tr>
             <tr>
               <th>Status:</th>
@@ -109,13 +109,7 @@ const Design2BodySec1: FC = () => {
                 <Image
                   src={SenderImg}
                   alt=""
-                  style={{
-                    objectFit: "contain",
-                    height: "auto",
-                    width: "auto",
-                  }}
-                  height={35}
-                  width={35}
+                  style={{ width: "35px", objectFit: "contain" }}
                 />
                 <span>
                   {shortenString(specificTransaction?.sender)}{" "}
@@ -136,13 +130,7 @@ const Design2BodySec1: FC = () => {
                 <Image
                   src={SendToImg}
                   alt=""
-                  height={10}
-                  width={10}
-                  style={{
-                    objectFit: "contain",
-                    height: "auto",
-                    width: "auto",
-                  }}
+                  style={{ width: "35px", objectFit: "contain" }}
                 />
                 <span>
                   {shortenString(

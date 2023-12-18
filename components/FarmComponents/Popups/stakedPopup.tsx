@@ -164,10 +164,8 @@ import { syntax } from '../../.next/static/chunks/webpack';
                   height: "60px",
                 }}
               >
-                <span style={{ color: "#000", fontWeight: "600" }}>Stake:</span>
-                <span style={{ color: "#000", fontWeight: "600" }}>
-                  MOON/APTU
-                </span>
+                <p style={{ color: "#000", fontWeight: "600" }}>Stake:</p>
+                <p style={{ color: "#000", fontWeight: "600" }}>MOON/APTU</p>
               </Box>
               <Box>
                 {/* <Box

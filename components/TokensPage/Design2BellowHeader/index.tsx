@@ -96,7 +96,6 @@ const Design2BellowHeader: FC<Props> = (props) => {
               src={specificToken?.image}
               width="250"
               height="250"
-              style={{ height: "auto", width: "auto" }}
               className="tokenImage"
               alt=""
             />
