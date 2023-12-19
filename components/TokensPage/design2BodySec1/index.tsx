@@ -92,9 +92,12 @@ const Design2BodySec1: FC<Props> = (props) => {
                   src={SendToImg}
                   alt=""
                   style={{
-                    width: "35px",
                     objectFit: "contain",
+                    width: "34px",
+                    height: "48px",
                   }}
+                  width={34}
+                  height={48}
                 />
                 <p>
                   <span
@@ -151,8 +154,14 @@ const Design2BodySec1: FC<Props> = (props) => {
               <td>
                 <Image
                   src={SendToImg}
+                  width={34}
+                  height={48}
                   alt=""
-                  style={{ width: "35px", objectFit: "contain" }}
+                  style={{
+                    objectFit: "contain",
+                    width: "34px",
+                    height: "48px",
+                  }}
                 />
                 <span>
                   {shortenString(

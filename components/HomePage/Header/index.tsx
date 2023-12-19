@@ -416,7 +416,7 @@ const Header: FC = () => {
                     flexWrap: "wrap",
                     justifyContent: "center",
                     alignItems: "center",
-                    typography: "body1",
+                    // typography: "body1",
                   }}
                 >
                   <>

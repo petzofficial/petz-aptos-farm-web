@@ -109,7 +109,13 @@ const Design2BodySec1: FC = () => {
                 <Image
                   src={SenderImg}
                   alt=""
-                  style={{ width: "35px", objectFit: "contain" }}
+                  style={{
+                    width: "35px",
+                    height: "48px",
+                    objectFit: "contain",
+                  }}
+                  width={35}
+                  height={48}
                 />
                 <span>
                   {shortenString(specificTransaction?.sender)}{" "}
@@ -130,7 +136,13 @@ const Design2BodySec1: FC = () => {
                 <Image
                   src={SendToImg}
                   alt=""
-                  style={{ width: "35px", objectFit: "contain" }}
+                  style={{
+                    width: "35px",
+                    height: "48px",
+                    objectFit: "contain",
+                  }}
+                  width={35}
+                  height={48}
                 />
                 <span>
                   {shortenString(

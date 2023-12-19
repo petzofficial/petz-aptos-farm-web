@@ -138,7 +138,7 @@ import { syntax } from '../../.next/static/chunks/webpack';
             id="alert-dialog-title"
             sx={{ color: "#000", fontWeight: "900" }}
           >
-            <h3>Stake in Pool</h3>
+            Stake in Pool
           </DialogTitle>
           <Image
             onClick={() => props.onClose("")}
@@ -155,71 +155,34 @@ import { syntax } from '../../.next/static/chunks/webpack';
           />
         </Box>
         <DialogContent sx={{ padding: "0px 30px" }}>
-          <DialogContentText id="alert-dialog-description">
-            <>
-              <Box
-                sx={{
+          {/* <DialogContentText id="alert-dialog-description"> */}
+          <>
+            <Box
+            // sx={{
+            //   display: "flex",
+            //   justifyContent: "space-between",
+            //   height: "60px",
+            // }}
+            >
+              {/* <p style={{ color: "#000", fontWeight: "600" }}>Stake:</p>
+                <p style={{ color: "#000", fontWeight: "600" }}>MOON/APTU</p> */}
+              <p
+                style={{
                   display: "flex",
                   justifyContent: "space-between",
-                  height: "60px",
+                  alignItems: "flex-start",
+                  height: "40px",
                 }}
               >
-                <p style={{ color: "#000", fontWeight: "600" }}>Stake:</p>
-                <p style={{ color: "#000", fontWeight: "600" }}>MOON/APTU</p>
-              </Box>
-              <Box>
-                {/* <Box
-                  sx={{
-                    height: "100px",
-                    backgroundColor: "#f1e9e7",
-                    borderRadius: "20px",
-                  }}
-                >
-                  <input
-                    type="text"
-                    placeholder="0.000"
-                    style={{
-                      border: "none",
-                      color: "#000",
-                      fontSize: "13px",
-                      textAlign: "right",
-                      padding: "25px 15px 0px 0px",
-                      fontWeight: "600",
-                      width: "100%",
-                      backgroundColor: "transparent",
-                      outline: "none",
-                      appearance: "textfield",
-                      WebkitAppearance: "textfield",
-                      MozAppearance: "textfield",
-                    }}
-                  />
+                <span style={{ color: "#000", fontWeight: "600" }}>Stake:</span>
+                <span style={{ color: "#000", fontWeight: "600" }}>
+                  MOON/APTU
+                </span>
+              </p>
+            </Box>
 
-                  <p
-                    style={{
-                      color: "#000",
-                      fontSize: "13px",
-                      textAlign: "right",
-                      padding: "0px 15px 0px 0px",
-                      fontWeight: "600",
-                    }}
-                  >
-                    ~{TVL} USD
-                  </p>
-                </Box> */}
-                <DialogTitle
-                  style={{
-                    textAlign: "right",
-                    color: "#000",
-                    padding: "5px 3px",
-                    fontWeight: "bolder",
-                    fontSize: "13px",
-                  }}
-                >
-                  {/* Balance: {valuee} */}
-                </DialogTitle>
-              </Box>
-              <Box sx={{ width: "100%" }}>
-                {/* <MySlider
+            <Box sx={{ width: "100%", margin: "10px 0px 0px" }}>
+              {/* <MySlider
                   aria-label="Always visible"
                   defaultValue={30}
                   getAriaValueText={valuetext}
@@ -227,10 +190,10 @@ import { syntax } from '../../.next/static/chunks/webpack';
                   valueLabelDisplay="on"
                   onChange={(e)=>handleChange(e)}
                 /> */}
-                <CustomSlider myRef={myRef} moonValue={moonValue} />
-              </Box>
+              <CustomSlider myRef={myRef} moonValue={moonValue} />
+            </Box>
 
-              {/* <Box>
+            {/* <Box>
                 <span
                   style={{
                     display: "inline-block",
@@ -300,8 +263,8 @@ import { syntax } from '../../.next/static/chunks/webpack';
                   MAX
                 </span>
               </Box> */}
-            </>
-          </DialogContentText>
+          </>
+          {/* </DialogContentText> */}
         </DialogContent>
         <DialogActions
           style={{

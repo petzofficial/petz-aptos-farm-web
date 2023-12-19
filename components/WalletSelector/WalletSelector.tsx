@@ -1,4 +1,10 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { Button, Menu, Modal, Typography } from "antd";
 import {
   isRedirectable,
@@ -9,6 +15,7 @@ import {
 } from "@aptos-labs/wallet-adapter-react";
 // import "./styles.css";
 import { truncateAddress } from "./utils";
+import { removeLocalStorage } from "@aptos-labs/wallet-adapter-core";
 const { Text } = Typography;
 
 type WalletSelectorProps = {
@@ -57,50 +64,50 @@ export function WalletSelector({
     : truncateAddress(account?.address);
 
   // // *****************************
-  // useEffect(() => {
-  //   const currentWalletString = localStorage.getItem("currentWallet");
-  //   const currentWallet = currentWalletString
-  //     ? JSON.parse(currentWalletString)
-  //     : null;
-  //   if (currentWallet && currentWallet.wallet && currentWallet.wallet.name) {
-  //     connect(currentWallet.wallet.name);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   if (connected) {
-  //     localStorage.setItem(
-  //       "currentWallet",
-  //       JSON.stringify({
-  //         account,
-  //         network,
-  //         connected,
-  //         wallet,
-  //       })
-  //     );
-  //   } else {
-  //   }
-  // }, [connected]);
-
-  // // *****************************
-
-  // *****************************
   useEffect(() => {
     const currentWalletString = localStorage.getItem("currentWallet");
     const currentWallet = currentWalletString
       ? JSON.parse(currentWalletString)
       : null;
-
-    // Only connect if there is a stored wallet and it's not already connected
-    if (
-      currentWallet &&
-      currentWallet.wallet &&
-      currentWallet.wallet.name &&
-      !connected
-    ) {
+    if (currentWallet && currentWallet.wallet && currentWallet.wallet.name) {
       connect(currentWallet.wallet.name);
     }
+  }, []);
+
+  useEffect(() => {
+    if (connected) {
+      localStorage.setItem(
+        "currentWallet",
+        JSON.stringify({
+          account,
+          network,
+          connected,
+          wallet,
+        })
+      );
+    } else {
+    }
   }, [connected]);
+
+  // // *****************************
+
+  // *****************************
+  // useEffect(() => {
+  //   const currentWalletString = localStorage.getItem("currentWallet");
+  //   const currentWallet = currentWalletString
+  //     ? JSON.parse(currentWalletString)
+  //     : null;
+
+  //   // Only connect if there is a stored wallet and it's not already connected
+  //   if (
+  //     currentWallet &&
+  //     currentWallet.wallet &&
+  //     currentWallet.wallet.name &&
+  //     !connected
+  //   ) {
+  //     connect(currentWallet.wallet.name);
+  //   }
+  // }, [connected]);
 
   useEffect(() => {
     if (connected) {
@@ -116,6 +123,7 @@ export function WalletSelector({
     } else {
       // Clear the stored wallet information if disconnected
       localStorage.removeItem("currentWallet");
+      removeLocalStorage();
     }
   }, [connected]);
 

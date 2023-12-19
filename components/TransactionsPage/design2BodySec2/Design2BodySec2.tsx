@@ -1,9 +1,15 @@
-import { useAppSelector } from 'app/hooks';
-import { selectSpecificTransaction, selectTransactionBlock } from 'app/reducers/AccountSlice';
-import React, { ReactElement } from 'react';
-import styled from 'styled-components/macro';
-import { convertToDecimal, convertToOctal, formatTimestamp } from 'utils/reUseAbleFunctions/reuseAbleFunctions';
-
+import { useAppSelector } from "app/hooks";
+import {
+  selectSpecificTransaction,
+  selectTransactionBlock,
+} from "app/reducers/AccountSlice";
+import React, { ReactElement } from "react";
+import styled from "styled-components/macro";
+import {
+  convertToDecimal,
+  convertToOctal,
+  formatTimestamp,
+} from "utils/reUseAbleFunctions/reuseAbleFunctions";
 
 const BodySec2 = styled.div`
 padding: 0px 20px;
@@ -67,8 +73,8 @@ padding: 0px 20px;
 `;
 
 function Design2BodySec2(): ReactElement {
-  const blockDetails: any = useAppSelector(selectTransactionBlock)
-  const specificTransaction = useAppSelector(selectSpecificTransaction) as any
+  const blockDetails: any = useAppSelector(selectTransactionBlock);
+  const specificTransaction = useAppSelector(selectSpecificTransaction) as any;
   return (
     <BodySec2>
       <div>
@@ -84,24 +90,40 @@ function Design2BodySec2(): ReactElement {
             </tr>
             <tr>
               <th>Expiration Timestamp:</th>
-              <td> {specificTransaction?.expiration_timestamp_secs
-                ? new Date(specificTransaction?.expiration_timestamp_secs * 1000).toLocaleString()
-                : ""}</td>
+              <td>
+                {" "}
+                {specificTransaction?.expiration_timestamp_secs
+                  ? new Date(
+                      specificTransaction?.expiration_timestamp_secs * 1000
+                    ).toLocaleString()
+                  : ""}
+              </td>
             </tr>
             <tr>
               <th>Timestamp:</th>
               <td>
                 {specificTransaction?.timestamp
-                  ? new Date(parseInt(specificTransaction?.timestamp) / 1000).toLocaleString()
+                  ? new Date(
+                      parseInt(specificTransaction?.timestamp) / 1000
+                    ).toLocaleString()
                   : ""}
               </td>
             </tr>
+
             <tr>
               <th>Gas Fee:</th>
               <td>
-                <span>{convertToOctal(specificTransaction?.gas_unit_price * specificTransaction?.gas_used)}</span> APT <span>{specificTransaction?.gas_used} Gas Unit</span>
+                <span>
+                  {convertToOctal(
+                    specificTransaction?.gas_unit_price *
+                      specificTransaction?.gas_used
+                  ).toString()}
+                </span>{" "}
+                APT{" "}
+                <span>{specificTransaction?.gas_used as string} Gas Unit</span>
               </td>
             </tr>
+
             <tr>
               <th>Gas Unit Price:</th>
               <td>{convertToOctal(specificTransaction?.gas_unit_price)} APT</td>
@@ -112,9 +134,7 @@ function Design2BodySec2(): ReactElement {
             </tr>
             <tr>
               <th>VM Status:</th>
-              <td>
-                {specificTransaction?.vm_status}
-              </td>
+              <td>{specificTransaction?.vm_status}</td>
             </tr>
           </tbody>
         </table>

@@ -108,6 +108,7 @@ export function UnstackedPopup(props: SimpleDialogProps) {
           sx={{
             display: "flex",
             justifyContent: "space-between",
+            alignItems: "center",
             backgroundColor: "#f1e9e7",
             position: "relative",
             height: "80px",
@@ -118,7 +119,7 @@ export function UnstackedPopup(props: SimpleDialogProps) {
             id="alert-dialog-title"
             sx={{ color: "#000", fontWeight: "900" }}
           >
-            <h3>Unstake in Pool</h3>
+            Unstake in Pool
           </DialogTitle>
           <Image
             onClick={() => props.onClose("")}
@@ -135,19 +136,31 @@ export function UnstackedPopup(props: SimpleDialogProps) {
           />
         </Box>
         <DialogContent sx={{ padding: "0px 30px" }}>
-          <DialogContentText id="alert-dialog-description">
-            <>
-              <Box
-                sx={{
+          {/* <DialogContentText id="alert-dialog-description"> */}
+          <>
+            <Box
+            // sx={{
+            //   display: "flex",
+            //   justifyContent: "space-between",
+            //   height: "60px",
+            // }}
+            >
+              <p
+                style={{
+                  color: "#000",
+                  fontWeight: "600",
                   display: "flex",
                   justifyContent: "space-between",
-                  height: "60px",
+                  alignItems: "flex-start",
+                  height: "40px",
                 }}
               >
-                <p style={{ color: "#000", fontWeight: "600" }}>Unstake:</p>
-                <p style={{ color: "#000", fontWeight: "600" }}>MOON/APTU</p>
-              </Box>
-              <Box>
+                <span>Unstake:</span>
+                <span>MOON/APTU</span>
+              </p>
+              <p style={{ color: "#000", fontWeight: "600" }}></p>
+            </Box>
+            {/* <Box>
                 <DialogTitle
                   style={{
                     textAlign: "right",
@@ -157,12 +170,12 @@ export function UnstackedPopup(props: SimpleDialogProps) {
                     fontSize: "13px",
                   }}
                 ></DialogTitle>
-              </Box>
-              <Box sx={{ width: "100%" }}>
-                <CustomSlider myRef={myRef} moonValue={moonValue} />
-              </Box>
-            </>
-          </DialogContentText>
+              </Box> */}
+            <Box sx={{ width: "100%" }}>
+              <CustomSlider myRef={myRef} moonValue={moonValue} />
+            </Box>
+          </>
+          {/* </DialogContentText> */}
         </DialogContent>
         <DialogActions
           style={{

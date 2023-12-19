@@ -21,6 +21,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import ReactPaginate from "react-paginate";
 import ErrorPage from "components/ErrorPage/ErrorPage";
+import { isValidUrl } from "utils/reUseAbleFunctions/reuseAbleFunctions";
 
 const TableDiv = styled("div")`
   width: 100%;

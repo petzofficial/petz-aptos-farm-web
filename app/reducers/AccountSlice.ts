@@ -6,12 +6,12 @@ import axios from 'axios';
 import { getWalletNetwork } from 'utils/aptosNetWorks/AptosNetworks';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { isValidUrl } from 'utils/reUseAbleFunctions/reuseAbleFunctions';
 import {
   CoinsTypes,
   // CurrentFungibleAssetBalance,
   // Data,
 } from 'utils/types/coinsTypes';
-import { isValidUrl } from 'utils/reUseAbleFunctions/reuseAbleFunctions';
 const provider = new Provider(Network.TESTNET);
 
 export interface AccountState {
@@ -245,7 +245,7 @@ export const fetchSpecificTransactionAction =
 
 export const fetchNftImgAction =
   (tokenUri: string, tokenId: number) => async (dispatch: any) => {
-    if (!isValidUrl(tokenUri) && !tokenId) {
+    if (isValidUrl(tokenUri) === false) {
       return;
     }
     try {

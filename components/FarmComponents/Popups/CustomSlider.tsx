@@ -28,6 +28,7 @@ export const CustomSlider = (props: any) => {
             height: "100px",
             backgroundColor: "#f1e9e7",
             borderRadius: "20px",
+            marginBottom: "10px",
           }}
         >
           <input
@@ -48,7 +49,7 @@ export const CustomSlider = (props: any) => {
               MozAppearance: "textfield",
             }}
             ref={props.myRef}
-            value={textValue}
+            value={textValue.toString()}
             onChange={(e) => setTextValue(e.target.value)}
           />
           <p
@@ -63,19 +64,12 @@ export const CustomSlider = (props: any) => {
             ~{textValue} USD
           </p>
         </Box>
-        <DialogTitle
-          style={{
-            textAlign: "right",
-            color: "#000",
-            padding: "5px 3px",
-            fontWeight: "bolder",
-            fontSize: "13px",
-          }}
-        >
-          {/* Balance: 2 */}
-        </DialogTitle>
       </Box>
-      <p>{`Balance: ${props?.moonValue}`}</p>
+      <span
+        style={{
+          margin: "10px 0px 0px",
+        }}
+      >{`Balance: ${props?.moonValue}`}</span>
       <Slider
         defaultValue={value}
         onChange={(e) => handleSliderChange(e)}

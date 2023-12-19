@@ -44,16 +44,16 @@ const TableDiv = styled("div")`
       border-bottom: none;
       width: 18%;
       padding: 10px;
-      &:first-child {
+      &:first-of-type {
         width: 10%;
       }
-      &:nth-child(2) {
+      &:nth-of-type(2) {
         width: 9%;
       }
-      &:nth-child(3) {
+      &:nth-of-type(3) {
         width: 10%;
       }
-      &:last-child {
+      &:last-of-type {
         width: 35%;
       }
 
@@ -66,16 +66,20 @@ const TableDiv = styled("div")`
       border-bottom: none;
       padding: 10px;
       width: 20%;
-      &:first-child {
+      &:nth-of-type(1) {
         width: 10%;
       }
-      &:nth-child(2) {
+      &:nth-of-type(2) {
         width: 8%;
+        img {
+          width: 23px;
+          object-fit: contain;
+        }
       }
-      &:nth-child(3) {
+      &:nth-of-type(3) {
         width: 10%;
       }
-      &:last-child {
+      &:last-of-type {
         width: 35%;
       }
       a {
@@ -185,22 +189,19 @@ const CustomTable: FC = () => {
                     </TableCell>
                     <TableCell>
                       <Image
-                        priority
+                        // priority
+                        style={{ height: "23px", width: "23px" }}
                         src={TypeArrow}
                         alt="asd"
-                        style={{
-                          width: "23px",
-                          objectFit: "contain",
-                        }}
-                        height={23}
                         width={23}
+                        height={23}
                       />
                     </TableCell>
                     <TableCell>
                       {formatTimestamp(transaction?.timestamp)}
                     </TableCell>
                     <TableCell>
-                      <Image src={SenderImg} alt="" />
+                      <Image src={SenderImg} alt="" width={40} height={40} />
                       <span>
                         {shortenString(transaction?.sender)}{" "}
                         <ContentCopyIcon
@@ -212,7 +213,7 @@ const CustomTable: FC = () => {
                       </span>
                     </TableCell>
                     <TableCell>
-                      <Image src={SendToImg} alt="" />
+                      <Image src={SendToImg} alt="" width={40} height={40} />
                       <span>
                         {shortenString(
                           transaction?.payload?.function.split("::")[0]
