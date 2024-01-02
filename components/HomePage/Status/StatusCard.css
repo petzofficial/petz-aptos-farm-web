@@ -1,0 +1,50 @@
+.statusCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 20px;
+  padding: 20px 30px;
+  width: 330px;
+  border-radius: 30px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.statusCard .grpcontainner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.statusCard .grp {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.statusCardCard p {
+  color: #575250;
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 0px;
+}
+
+.statusCard h2 {
+  margin: 0;
+  color: #FF7A3D;
+}
+
+/* Responesive for mobile screen  */
+@media only screen and (min-width: 50px) and (max-width: 832px) {
+  .statusCard p {
+    font-size: 1rem;
+  }
+}
+
+/* Responesive for laptop  */
+@media only screen and (min-width: 832px) and (max-width: 992px) {
+  .left img {
+    width: 80%;
+  }
+}

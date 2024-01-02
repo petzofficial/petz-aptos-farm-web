@@ -1,0 +1,98 @@
+.joinWrap {
+  background: radial-gradient(circle, rgba(87,82,80,0.6082808123249299) 50%, rgba(255,122,61,1) 50%);
+  width: 100%;
+  height: 60vh;
+  max-height: 600px;
+  min-height: 400px;
+  font-size: 2rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.joinContainner {
+  position: relative;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.joinContainner .upLeft {
+  position: absolute;
+  top: -50%;
+  left: -10%;
+  animation: float 5s infinite;
+  pointer-events: none;
+}
+
+.joinContainner .upRight {
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  animation: float 5s infinite;
+  pointer-events: none;
+}
+
+.joinContainner .bottomLeft {
+  position: absolute;
+  bottom: -50%;
+  left: -10%;
+  animation: float 5s infinite;
+  pointer-events: none;
+}
+
+.joinContainner .bottomRight {
+  position: absolute;
+  bottom: -50%;
+  right: -10%;
+  animation: float 5s infinite;
+  pointer-events: none;
+}
+
+.joinContainner h3 {
+  color: white;
+}
+
+/* Responesive for mobile screen  */
+@media only screen and (min-width: 50px) and (max-width: 750px) {
+  .joinContainner {
+    font-size: 1rem;
+  }
+  .joinContainner .upLeft {
+    top: -100%;
+    left: -0%;
+  }
+
+  .joinContainner .upRight {
+    top: -100%;
+    right: -0%;
+  }
+
+  .joinContainner .bottomLeft {
+    bottom: -100%;
+    left: -0%;
+  }
+
+  .joinContainner .bottomRight {
+    bottom: -100%;
+    right: -0%;
+  }
+}
+
+/* animation for floating
+@keyframes float {
+  0% {
+    transform: translateX(0) translateY(5px);
+  }
+
+  50% {
+    transform: translateX(5px) translateY(0);
+  }
+  100% {
+    transform: translateX(0) translateY(5px);
+  }
+} */

@@ -1,0 +1,82 @@
+.tokenomicsWrap {
+  background-color: #f8f5f4;
+  max-height: 1500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tokenomicsContainner {
+  max-width: 1280px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tokenomicsContainner > h1 {
+  margin-bottom: 30px;
+  font-size: 3rem;
+}
+
+.tokenomicsContainner .coinCard {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 50px;
+}
+
+.tokenomicsContainner .coinCard img {
+  width: 30%;
+}
+
+.tokenomicsContainner .coinCard p {
+  color: #575250;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.tokenomicsContainner .left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin: 10px;
+}
+
+.tokenomicsContainner .right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin: 10px;
+}
+
+/* Responesive for mobile screen  */
+@media only screen and (min-width: 50px) and (max-width: 832px) {
+  .tokenomicsContainner .coinCard {
+    flex-direction: column;
+    align-items: center;
+  }
+  .tokenomicsContainner .left,
+  .tokenomicsContainner .right {
+    width: 100%;
+  }
+  .tokenomicsContainner > h1 {
+    font-size: 1.75rem;
+  }
+  .tokenomicsContainner h2 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Responesive for laptop  */
+@media only screen and (min-width: 832px) and (max-width: 992px) {
+  .tokenomicsContainner .coinCard p {
+    width: 300px;
+  }
+}

@@ -1,0 +1,118 @@
+.heroContainerWrap {
+  background: linear-gradient(139.73deg, #fff8f5, #ffe3d7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+}
+
+.heroContainer {
+  max-width: 1080px;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.heroContainer .left {
+  font-size: 2rem;
+  width: 50%;
+  padding: 5%;
+}
+
+.heroContainer .left h1 {
+  color: #ff7a3d;
+  font: bold;
+  font-weight: 900;
+}
+
+.heroContainer .left h1 span {
+  font: bold;
+  font-weight: 900;
+  color: #575250;
+}
+
+.heroContainer .left p {
+  line-height: 35px;
+  color: #575250;
+}
+
+.heroContainer .submitConnect {
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  border: 2px solid #ff7a3d;
+  color: white;
+}
+
+.submitConnect:hover {
+  cursor: pointer;
+}
+
+.heroContainer .left .submitTrade {
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  border: 2px solid #ff7a3d;
+  color: #ff7a3d;
+  font: bold;
+  font-weight: 700;
+  margin: 10px;
+  background-color: white;
+}
+
+.heroContainer .left .submitTrade:hover {
+  cursor: pointer;
+}
+
+.heroContainer .right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  position: relative;
+}
+
+.heroContainer .right .img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 512px;
+  height: 512px;
+}
+
+/* Responesive for mobile screen  */
+@media only screen and (min-width: 50px) and (max-width: 832px) {
+  .heroContainer .right .img {
+    width: 312px;
+    height: 312px;
+  }
+  .heroContainer {
+    width: 90%;
+    flex-direction: column-reverse;
+  }
+  .heroContainer .left {
+    font-size: 1rem;
+    width: 100%;
+    text-align: center;
+  }
+  .heroContainer .left .submitTrade {
+    font-size: 12px;
+  }
+  .heroContainer .left .submitConnect {
+    font-size: 12px;
+  }
+  .heroContainer .right {
+    position: relative;
+    width: 100%;
+  }
+}
+
+/* Responesive for laptop  */
+@media only screen and (min-width: 832px) and (max-width: 992px) {
+  .heroContainer .left {
+    font-size: 1.5rem;
+  }
+  .heroContainer .left p {
+    line-height: 26px;
+  }
+}

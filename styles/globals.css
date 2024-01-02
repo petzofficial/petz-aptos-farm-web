@@ -20,6 +20,10 @@ a {
   box-sizing: border-box;
 }
 
+.btn {
+  background-color: #FF7A3D;
+}
+
 .wallet-button {
   background-color: black !important;
 }

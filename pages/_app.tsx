@@ -51,10 +51,12 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <Provider store={store}>
         <AptosWalletAdapterProvider plugins={wallets} autoConnect={true}>
           <Header />
+          
           <Component {...pageProps} />
+          
           <Footer />
         </AptosWalletAdapterProvider>
-      </Provider>
+       </Provider>
     </>
   );
 }

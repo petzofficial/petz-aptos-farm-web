@@ -1,0 +1,60 @@
+.StatusWrap {
+  background-color: #f8f5f4;
+  display: flex;
+  min-height: 550px;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 30px;
+  position: relative;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.StatusWrap img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: -1;
+  opacity: 0.15;
+}
+
+.StatusContainner {
+  max-width: 1280px;
+  width: 90%;
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.StatusContainner h1 {
+  font-size: 2.5rem;
+  color: #575250;
+}
+
+.StatusContainner .CardContainner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Responesive for mobile screen  */
+@media only screen and (min-width: 50px) and (max-width: 832px) {
+  .StatusContainner .row {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+}
+
+/* Responesive for laptop  */
+@media only screen and (min-width: 832px) and (max-width: 992px) {
+  .StatusContainner .left img {
+    width: 80%;
+  }
+}

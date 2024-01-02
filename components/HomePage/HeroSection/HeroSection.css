@@ -1,0 +1,100 @@
+.heroContainerWrap {
+  background: linear-gradient(139.73deg,#fff8f5,#ffe3d7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Knit;
+  font-weight: 600;
+}
+
+.heroContainer {
+  max-width: 1080px;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.heroContainer .left {
+  font-size: 2rem;
+  width: 50%;
+  padding: 5%;
+}
+
+.heroContainer .left h1 {
+  color: #FF7A3D;
+  font: bold;
+  font-weight: 900;
+}
+
+.heroContainer .left h1 span {
+  font: bolder;
+  font-weight: 900;
+  color: #575250;
+}
+
+.heroContainer .left p {
+  line-height: 26px;
+  color: #575250;
+}
+
+ .submitConnect {
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  border: 2px solid #FF7A3D;
+  color: white;
+}
+
+.submitConnect:hover {
+  cursor: pointer;
+}
+
+.heroContainer .left .submitTrade {
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  border: 2px solid #FF7A3D;
+  color: #FF7A3D;
+  font: bold;
+  font-weight: 700;
+  margin-inline: 10px;
+}
+
+.heroContainer .left .submitTrade:hover {
+  cursor: pointer;
+}
+
+.heroContainer .right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.heroContainer .right img{
+  width: 80%;
+}
+
+/* Responesive for mobile screen  */
+@media only screen and (min-width: 50px) and (max-width: 832px){
+  .heroContainer {
+    width: 90%;
+    flex-direction: column-reverse;
+  }
+  .heroContainer .left {
+    font-size: 1rem;
+    width: 100%;
+    text-align: center;
+  }
+  .heroContainer .right {
+    position: relative;
+    width: 100%;
+  }
+}
+
+/* Responesive for laptop  */
+@media only screen and (min-width: 832px) and (max-width: 992px){
+  .heroContainer .left {
+      font-size: 1.5rem;
+    }
+  }

@@ -1,0 +1,97 @@
+.NftWrap {
+  background-color: #f8f5f4;
+  max-height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.NftContainner {
+  max-width: 1280px;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.NftContainner .left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.NftContainner .left img {
+  width: 65%;
+}
+
+.NftContainner .right {
+  width: 50%;
+  margin: 30px;
+  font-size: 1.25rem;
+}
+
+.NftContainner .right h1 {
+  margin: 30px;
+  font-size: 3.5rem;
+  font-weight: 700;
+}
+
+.NftContainner .right p {
+  color: #575250;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 30px;
+}
+
+.NftContainner .right .buyPGT {
+  margin: 30px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  border: 2px solid #FF7A3D;
+  color: white;
+  font-weight: 600;
+}
+
+.NftContainner .right .buyPGT:hover {
+  cursor: pointer;
+}
+
+/* Responesive for mobile screen  */
+@media only screen and (min-width: 50px) and (max-width: 832px) {
+  .NftWrap {
+    max-height: 1080px;
+  }
+  .NftWrap {
+    height: auto;
+  }
+  .NftContainner {
+    flex-direction: column;
+  }
+  .NftContainner .left {
+    width: 100%;
+  }
+  .NftContainner .right {
+    text-align: center;
+    width: 80%;
+    margin: 0;
+  }
+  .NftContainner .right p {
+    text-align: justify;
+    word-wrap: break-word;
+    width: 100%;
+    margin: 0px;
+  }
+
+  .NftContainner .right h1 {
+    margin: 10px;
+  }
+}
+
+/* Responesive for laptop  */
+@media only screen and (min-width: 832px) and (max-width: 992px) {
+  .NftContainner .left img {
+    width: 80%;
+  }
+}
