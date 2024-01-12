@@ -22,7 +22,7 @@ import { ICardData2 } from "types/cardsTypes";
 import SearchBar from "components/FarmComponents/SearchBar";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { getWalletNetwork } from 'utils/aptosNetWorks/AptosNetworks';
- 
+
 
 const TableDiv = styled("div")`
   width: 100%;
@@ -195,6 +195,7 @@ const TableDiv = styled("div")`
   display:flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   @media screen and (max-width: 850px){
     display: block;
     text-align: center;
@@ -320,6 +321,8 @@ const CardsData: ICardData2[] = [
     staked: "$18",
     earned: "$968",
     timeLeft: "3M 16W 17H",
+    active: "Active",
+    myForm:"All Farms"
   },
   {
     images: {
@@ -341,6 +344,8 @@ const CardsData: ICardData2[] = [
     staked: "$12",
     earned: "$1068",
     timeLeft: "4M 17W 18H",
+    active: "Active",
+    myForm:"All Farms"
   },
   {
     images: {
@@ -362,6 +367,308 @@ const CardsData: ICardData2[] = [
     staked: "$1324",
     earned: "$1168",
     timeLeft: "5M 18W 19H",
+    active: "Expired",
+    myForm:"My Farms"
+  },
+  {
+    images: {
+      logoImg1: Aptos,
+      logoImg2: UsdCoinLogo,
+      cryptoLogo: Aptos,
+      graphLogo: Grapglogo,
+    },
+    type: "USDT/APT",
+    connectionType: "Uncorellated",
+    cryptoAmount: "0.00276784",
+    cryptoName: "APT",
+    durationDetails: "Per week per 1 LP",
+    gtapheDetails: "Uncorellated",
+    itemName: "NFT:",
+    itemDetails: "Pontem Space Jacksparrow",
+    APR: "0.58%",
+    TVL: "$817,204",
+    staked: "$1324",
+    earned: "$1168",
+    timeLeft: "5M 18W 19H",
+    active: "Expired",
+    myForm:"My Farms"
+  },
+  {
+    images: {
+      logoImg1: Aptos,
+      logoImg2: UsdCoinLogo,
+      cryptoLogo: Aptos,
+      graphLogo: Grapglogo,
+    },
+    type: "USDT/APT",
+    connectionType: "Uncorellated",
+    cryptoAmount: "0.00276784",
+    cryptoName: "APT",
+    durationDetails: "Per week per 1 LP",
+    gtapheDetails: "Uncorellated",
+    itemName: "NFT:",
+    itemDetails: "Pontem Space Jacksparrow",
+    APR: "0.58%",
+    TVL: "$817,204",
+    staked: "$1324",
+    earned: "$1168",
+    timeLeft: "5M 18W 19H",
+    active: "Expired",
+    myForm:"My Farms"
+  },
+
+  {
+    images: {
+      logoImg1: Aptos,
+      logoImg2: UsdCoinLogo,
+      cryptoLogo: Aptos,
+      graphLogo: Grapglogo,
+    },
+    type: "USDT/APT",
+    connectionType: "Uncorellated",
+    cryptoAmount: "0.00276784",
+    cryptoName: "APT",
+    durationDetails: "Per week per 1 LP",
+    gtapheDetails: "Uncorellated",
+    itemName: "NFT:",
+    itemDetails: "Pontem Space Jacksparrow",
+    APR: "0.58%",
+    TVL: "$817,204",
+    staked: "$1324",
+    earned: "$1168",
+    timeLeft: "5M 18W 19H",
+    active: "Expired",
+    myForm:"My Farms"
+  },
+  {
+    images: {
+      logoImg1: Aptos,
+      logoImg2: UsdCoinLogo,
+      cryptoLogo: Aptos,
+      graphLogo: Grapglogo,
+    },
+    type: "USDT/APT",
+    connectionType: "Uncorellated",
+    cryptoAmount: "0.00276784",
+    cryptoName: "APT",
+    durationDetails: "Per week per 1 LP",
+    gtapheDetails: "Uncorellated",
+    itemName: "NFT:",
+    itemDetails: "Pontem Space Jacksparrow",
+    APR: "0.58%",
+    TVL: "$817,204",
+    staked: "$1324",
+    earned: "$1168",
+    timeLeft: "5M 18W 19H",
+    active: "Expired",
+    myForm:"My Farms"
+  },
+  {
+    images: {
+      logoImg1: Aptos,
+      logoImg2: UsdCoinLogo,
+      cryptoLogo: Aptos,
+      graphLogo: Grapglogo,
+    },
+    type: "USDT/APT",
+    connectionType: "Uncorellated",
+    cryptoAmount: "0.00276784",
+    cryptoName: "APT",
+    durationDetails: "Per week per 1 LP",
+    gtapheDetails: "Uncorellated",
+    itemName: "NFT:",
+    itemDetails: "Pontem Space Jacksparrow",
+    APR: "0.58%",
+    TVL: "$817,204",
+    staked: "$1324",
+    earned: "$1168",
+    timeLeft: "5M 18W 19H",
+    active: "Expired",
+    myForm:"My Farms"
+  },
+  {
+    images: {
+      logoImg1: Aptos,
+      logoImg2: UsdCoinLogo,
+      cryptoLogo: Aptos,
+      graphLogo: Grapglogo,
+    },
+    type: "USDT/APT",
+    connectionType: "Uncorellated",
+    cryptoAmount: "0.00276784",
+    cryptoName: "APT",
+    durationDetails: "Per week per 1 LP",
+    gtapheDetails: "Uncorellated",
+    itemName: "NFT:",
+    itemDetails: "Pontem Space Jacksparrow",
+    APR: "0.58%",
+    TVL: "$817,204",
+    staked: "$1324",
+    earned: "$1168",
+    timeLeft: "5M 18W 19H",
+    active: "Expired",
+    myForm:"My Farms"
+  },
+  {
+    images: {
+      logoImg1: Aptos,
+      logoImg2: UsdCoinLogo,
+      cryptoLogo: Aptos,
+      graphLogo: Grapglogo,
+    },
+    type: "USDT/APT",
+    connectionType: "Uncorellated",
+    cryptoAmount: "0.00276784",
+    cryptoName: "APT",
+    durationDetails: "Per week per 1 LP",
+    gtapheDetails: "Uncorellated",
+    itemName: "NFT:",
+    itemDetails: "Pontem Space Jacksparrow",
+    APR: "0.58%",
+    TVL: "$817,204",
+    staked: "$1324",
+    earned: "$1168",
+    timeLeft: "5M 18W 19H",
+    active: "Expired",
+    myForm:"My Farms"
+  },
+  {
+    images: {
+      logoImg1: Aptos,
+      logoImg2: UsdCoinLogo,
+      cryptoLogo: Aptos,
+      graphLogo: Grapglogo,
+    },
+    type: "USDT/APT",
+    connectionType: "Uncorellated",
+    cryptoAmount: "0.00276784",
+    cryptoName: "APT",
+    durationDetails: "Per week per 1 LP",
+    gtapheDetails: "Uncorellated",
+    itemName: "NFT:",
+    itemDetails: "Pontem Space Jacksparrow",
+    APR: "0.58%",
+    TVL: "$817,204",
+    staked: "$1324",
+    earned: "$1168",
+    timeLeft: "5M 18W 19H",
+    active: "Expired",
+    myForm:"My Farms"
+  },
+  {
+    images: {
+      logoImg1: Aptos,
+      logoImg2: UsdCoinLogo,
+      cryptoLogo: Aptos,
+      graphLogo: Grapglogo,
+    },
+    type: "USDT/APT",
+    connectionType: "Uncorellated",
+    cryptoAmount: "0.00276784",
+    cryptoName: "APT",
+    durationDetails: "Per week per 1 LP",
+    gtapheDetails: "Uncorellated",
+    itemName: "NFT:",
+    itemDetails: "Pontem Space Jacksparrow",
+    APR: "0.58%",
+    TVL: "$817,204",
+    staked: "$1324",
+    earned: "$1168",
+    timeLeft: "5M 18W 19H",
+    active: "Expired",
+    myForm:"My Farms"
+  },
+  {
+    images: {
+      logoImg1: Aptos,
+      logoImg2: UsdCoinLogo,
+      cryptoLogo: Aptos,
+      graphLogo: Grapglogo,
+    },
+    type: "USDT/APT",
+    connectionType: "Uncorellated",
+    cryptoAmount: "0.00276784",
+    cryptoName: "APT",
+    durationDetails: "Per week per 1 LP",
+    gtapheDetails: "Uncorellated",
+    itemName: "NFT:",
+    itemDetails: "Pontem Space Jacksparrow",
+    APR: "0.58%",
+    TVL: "$817,204",
+    staked: "$1324",
+    earned: "$1168",
+    timeLeft: "5M 18W 19H",
+    active: "Expired",
+    myForm:"My Farms"
+  },
+  {
+    images: {
+      logoImg1: Aptos,
+      logoImg2: UsdCoinLogo,
+      cryptoLogo: Aptos,
+      graphLogo: Grapglogo,
+    },
+    type: "USDT/APT",
+    connectionType: "Uncorellated",
+    cryptoAmount: "0.00276784",
+    cryptoName: "APT",
+    durationDetails: "Per week per 1 LP",
+    gtapheDetails: "Uncorellated",
+    itemName: "NFT:",
+    itemDetails: "Pontem Space Jacksparrow",
+    APR: "0.58%",
+    TVL: "$817,204",
+    staked: "$1324",
+    earned: "$1168",
+    timeLeft: "5M 18W 19H",
+    active: "Expired",
+    myForm:"My Farms"
+  },
+  {
+    images: {
+      logoImg1: Aptos,
+      logoImg2: UsdCoinLogo,
+      cryptoLogo: Aptos,
+      graphLogo: Grapglogo,
+    },
+    type: "USDT/APT",
+    connectionType: "Uncorellated",
+    cryptoAmount: "0.00276784",
+    cryptoName: "APT",
+    durationDetails: "Per week per 1 LP",
+    gtapheDetails: "Uncorellated",
+    itemName: "NFT:",
+    itemDetails: "Pontem Space Jacksparrow",
+    APR: "0.58%",
+    TVL: "$817,204",
+    staked: "$1324",
+    earned: "$1168",
+    timeLeft: "5M 18W 19H",
+    active: "Expired",
+    myForm:"My Farms"
+  },
+  {
+    images: {
+      logoImg1: Aptos,
+      logoImg2: UsdCoinLogo,
+      cryptoLogo: Aptos,
+      graphLogo: Grapglogo,
+    },
+    type: "USDT/APT",
+    connectionType: "Uncorellated",
+    cryptoAmount: "0.00276784",
+    cryptoName: "APT",
+    durationDetails: "Per week per 1 LP",
+    gtapheDetails: "Uncorellated",
+    itemName: "NFT:",
+    itemDetails: "Pontem Space Jacksparrow",
+    APR: "0.58%",
+    TVL: "$817,204",
+    staked: "$1324",
+    earned: "$1168",
+    timeLeft: "5M 18W 19H",
+    active: "Expired",
+    myForm:"My Farms"
   },
 ];
 // MAINNET = "mainnet",
@@ -369,6 +676,12 @@ const CardsData: ICardData2[] = [
 //     DEVNET
 const FarmsTable: FC = () => {
   const newNetwork = useAppSelector(selectNewNetwork) as any;
+  const [selectedFarm, setSelectedFarm] = React.useState<string | null>(
+    "All Farms"
+  );
+  const [selectedType, setSelectedType] = React.useState<string | null>(
+    "Active"
+  );
   const provider = getWalletNetwork(newNetwork)
   const transactions = useAppSelector(selectTransactions);
   const [showStackedPopup, setStackedShowPopup] =
@@ -377,14 +690,16 @@ const FarmsTable: FC = () => {
     React.useState<boolean>(false);
   const dispatch = useAppDispatch();
   const account = useAppSelector(selectAccount);
+  const [stakeResource, setStakeResource] = useState([]) as any;
   const itemsPerPage = 10;
-  const pageCount = Math.ceil(40 / itemsPerPage);
+  const pageCount = Math.ceil(CardsData.length / itemsPerPage);
   const [itemOffset, setItemOffset] = useState(0);
-  const [stakeResource,setStakeResource] = useState({});
-  const [userResource,setUserResource] = useState({});
+  const [userResource, setUserResource] = useState({});
   const endOffset = itemOffset + itemsPerPage;
-  const currentItems = transactions.slice(itemOffset, endOffset) as any;
+  const currentItems = CardsData.slice(itemOffset, endOffset) as any;
 
+  
+console.log(currentItems,'currentItems')
   useEffect(() => {
     dispatch(fetchCoinsAction(account?.address));
   }, [dispatch, account, newNetwork]);
@@ -400,33 +715,45 @@ const FarmsTable: FC = () => {
   const handleCloseUnstackedPopup = () => {
     setUnStackedShowPopup(false);
   };
+  useEffect(() => {
+    // Fetch items from another resources.
+    setStakeResource(CardsData.slice(itemOffset, endOffset)) as any;
+      //setStakeResource(currentItems)as any;
+  }, [itemOffset, itemsPerPage]);
 
   const handlePageClick = (event: any) => {
-    const newOffset = (event.selected * itemsPerPage) % transactions.length;
+    const newOffset = (event.selected * itemsPerPage) % CardsData.length;
+    console.log(newOffset,'newOffset')
     setItemOffset(newOffset);
+   
+    //setStakeResource(currentItems)as any;
   };
-  const { account:acc } = useWallet();
+  const { account: acc } = useWallet();
 
   const moduleAddress2 = "0x82afe3de6e9acaf4f2de72ae50c3851a65bb86576198ef969937d59190873dfd";
- 
- const fetchList = async () => {
+
+  const fetchList = async () => {
     if (!acc) return [];
     try {
-      const stakePoolResource = await provider.getAccountResource(
-        moduleAddress2,
-        `${moduleAddress2}::stake::StakePool<0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>, 0x1::aptos_coin::AptosCoin>`,
-      );  
-      setStakeResource({...stakePoolResource,images: {
+
+      let stakePoolResource = [] as any
+      const images = {
         logoImg1: Aptos,
         logoImg2: TetherLogo,
         cryptoLogo: Aptos,
         graphLogo: Grapglogo,
-      }})
+      }
+      stakePoolResource = await provider.getAccountResource(
+        moduleAddress2,
+        `${moduleAddress2}::stake::StakePool<0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>, 0x1::aptos_coin::AptosCoin>`,
+      );
+      const newObj = { ...stakePoolResource, images }
+      // setStakeResource([...stakeResource, newObj])
       const eventResource = await provider.getEventsByCreationNumber(
         account?.address,
-       "6", 
-      );  
-      
+        "6",
+      );
+
 
       const tableHandle = (stakePoolResource as any).data.stakes.handle;
       const tableItem = {
@@ -436,31 +763,65 @@ const FarmsTable: FC = () => {
       };
       const currentUserStakeResource = await provider.getTableItem(tableHandle, tableItem);
 
-     setUserResource(currentUserStakeResource)
-      
+      setUserResource(currentUserStakeResource)
+
     } catch (e: any) {
-     
+
     }
   };
   useEffect(() => {
     fetchList();
   }, [account?.address]);
+  useEffect(() => {
+    setStakeResource(CardsData)
+    setStakeResource(CardsData.filter((v) =>
+      v.active === selectedType && v.myForm === selectedFarm))
+  }, [selectedType])
+  const onChange = (e:any)=>{
+    if (CardsData && e.target.value !== '') {
+      setStakeResource(CardsData?.filter((v, k) => {
+          if (v?.active?.toLowerCase().startsWith(e.target.value.toLowerCase())) {
+          return v
+        } else if (v?.myForm?.toLowerCase().startsWith(e.target.value.toLowerCase())) {
+          return v
+        } else {
+          return ''
+        }
+      }
+      ))
+    } else {
+      return setStakeResource(CardsData)
+    }
+
+
+    // setStakeResource(CardsData.filter((v) =>
+    //   v.active === e.target.value && v.myForm === selectedFarm))
+  }
+  console.log(stakeResource, 'CardsData')
   return (
     <div>
-      <SearchBar />
+      <SearchBar 
+        selectedFarm={selectedFarm}
+        setSelectedFarm={setSelectedFarm}
+        selectedType={selectedType}
+        setSelectedType={setSelectedType}
+        onChange={onChange}
+        />
       <TableDiv>
         {account ? (
           <>
             <div className="CardsMaindiv">
-              {/* {stakeResource?.map((cardData, index) => ( */}
+              {stakeResource?.map((cards: any, index: any) => (
                 <FarmCardTemplate
-                  // key={index}
+                  key={index}
                   userResource={userResource}
-                  cards={stakeResource}
+                  cards={cards}
                   onShowStackedPopup={handleShowStackedPopup}
                   onShowUnstackedPopup={handleShowUnstackedPopup}
+                  selectedFarm={selectedFarm}
+                  selectedType={selectedType}
                 />
-              {/* ))} */}
+              ))}
             </div>
             <div className="pagination">
               <ReactPaginate
@@ -517,7 +878,7 @@ const FarmsTable: FC = () => {
       />
       <StackedPopup
         open={showStackedPopup}
-        onClose={handleCloseStackedPopup} 
+        onClose={handleCloseStackedPopup}
         userResource={userResource}
         stakeResource={stakeResource}
       />

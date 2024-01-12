@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { ICardData } from "types/cardsTypes";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useAppSelector } from "app/hooks";
-import { selectNewNetwork } from "app/reducers/AccountSlice";
+import { selectNewNetwork, selectCoins } from "app/reducers/AccountSlice";
 import { getWalletNetwork } from "utils/aptosNetWorks/AptosNetworks";
 
 const MainDiv = styled.div`
@@ -141,6 +141,8 @@ import { ICardData } from '../../../types/cardsTypes';
 const FarmCardTemplate = (props: any) => {
   const { account, signAndSubmitTransaction } = useWallet();
   const newNetwork = useAppSelector(selectNewNetwork) as any;
+  const selectCoinsArr = useAppSelector(selectCoins) as any;
+  
   const provider = getWalletNetwork(newNetwork);
 
   const moduleAddress2 =
@@ -214,7 +216,8 @@ const FarmCardTemplate = (props: any) => {
     8
   );
   const curve = props?.cards?.type?.includes("Uncorrelated");
-
+  const aptosCoin = selectCoinsArr.find((v:any)=>v.asset_type == "0x1::aptos_coin::AptosCoin")
+console.log(props.cards,'cards')
   return (
     <MainDiv>
       <div className="sec1_mainDiv">
@@ -324,6 +327,21 @@ const FarmCardTemplate = (props: any) => {
               />
             </p>
           </div>
+          <div className="point1">
+            <span>Coin:</span>
+            <p>
+              {/* {aptosCoin?.amount}  */}
+              {aptosCoin?.metadata?.symbol} {aptosCoin?.metadata?.decimals} 
+            </p>
+          </div>
+          <div className="point1">
+            <span>Status:</span>
+            <p>
+              {/* {aptosCoin?.amount}  */}
+             {props?.cards?.active} {props?.cards?.myForm} 
+            </p>
+          </div>
+          
         </div>
         <hr />
         <div className="cardbuttons_main">
