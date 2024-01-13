@@ -217,7 +217,7 @@ const FarmCardTemplate = (props: any) => {
   );
   const curve = props?.cards?.type?.includes("Uncorrelated");
   const aptosCoin = selectCoinsArr.find((v:any)=>v.asset_type == "0x1::aptos_coin::AptosCoin")
-console.log(props.cards,'cards')
+console.log(props.index,'cards')
   return (
     <MainDiv>
       <div className="sec1_mainDiv">
@@ -241,7 +241,10 @@ console.log(props.cards,'cards')
           </>
         )}
         <div className="main_heading">
-          <h3>MOON/APTU</h3>
+          <h3>
+            {/* MOON/APTU */}
+          {selectCoinsArr[props.index]?.metadata?.symbol} 
+          </h3>
           <span>
             {props?.cards?.images?.graphLogo?.src && (
               <Image
@@ -325,13 +328,6 @@ console.log(props.cards,'cards')
                 className=""
                 style={{ width: 18, height: 18 }}
               />
-            </p>
-          </div>
-          <div className="point1">
-            <span>Coin:</span>
-            <p>
-              {/* {aptosCoin?.amount}  */}
-              {aptosCoin?.metadata?.symbol} {aptosCoin?.metadata?.decimals} 
             </p>
           </div>
           <div className="point1">

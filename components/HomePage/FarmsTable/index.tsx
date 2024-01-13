@@ -691,7 +691,7 @@ const FarmsTable: FC = () => {
   const dispatch = useAppDispatch();
   const account = useAppSelector(selectAccount);
   const [stakeResource, setStakeResource] = useState([]) as any;
-  const itemsPerPage = 10;
+  const itemsPerPage = 9;
   const pageCount = Math.ceil(CardsData.length / itemsPerPage);
   const [itemOffset, setItemOffset] = useState(0);
   const [userResource, setUserResource] = useState({});
@@ -813,7 +813,7 @@ console.log(currentItems,'currentItems')
             <div className="CardsMaindiv">
               {stakeResource?.map((cards: any, index: any) => (
                 <FarmCardTemplate
-                  key={index}
+                  index={index}
                   userResource={userResource}
                   cards={cards}
                   onShowStackedPopup={handleShowStackedPopup}
