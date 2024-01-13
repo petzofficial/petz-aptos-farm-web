@@ -330,13 +330,12 @@ console.log(props.index,'cards')
               />
             </p>
           </div>
-          <div className="point1">
+          {/* <div className="point1">
             <span>Status:</span>
             <p>
-              {/* {aptosCoin?.amount}  */}
              {props?.cards?.active} {props?.cards?.myForm} 
             </p>
-          </div>
+          </div> */}
           
         </div>
         <hr />
