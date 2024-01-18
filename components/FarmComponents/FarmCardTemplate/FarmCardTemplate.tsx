@@ -142,7 +142,6 @@ const FarmCardTemplate = (props: any) => {
   const { account, signAndSubmitTransaction } = useWallet();
   const newNetwork = useAppSelector(selectNewNetwork) as any;
   const selectCoinsArr = useAppSelector(selectCoins) as any;
-  
   const provider = getWalletNetwork(newNetwork);
 
   const moduleAddress2 =
@@ -193,30 +192,30 @@ const FarmCardTemplate = (props: any) => {
   useLayoutEffect(() => {
     setTimeLeft2(unixTimestamp2);
   }, [unixTimestamp2]);
-
+  
   // Get the various components of the date
   const month2 = date2.getMonth() + 1 - (todayDate.getMonth() + 1); // Month is 0-indexed, so we add 1
   const day2 = date2.getDate() - todayDate.getDate();
   const hours2 = date2.getHours() - todayDate.getHours();
-
+  
+  const aptosCoin = selectCoinsArr.find((v:any)=>v.asset_type == "0x1::aptos_coin::AptosCoin")
   const RPS = (
     (props?.cards?.data?.reward_per_sec * 604800) /
-    Math.pow(10, 8)
-  ).toFixed(8);
+    Math.pow(10, aptosCoin?.metadata?.decimals)
+  ).toFixed(aptosCoin?.metadata?.decimals);
   const APR =
     ((props?.cards?.data?.reward_per_sec * 31536000) /
-      Math.pow(10, 8) /
-      (props?.cards?.data?.stake_coins?.value / Math.pow(10, 8))) *
+      Math.pow(10, aptosCoin?.metadata?.decimals) /
+      (props?.cards?.data?.stake_coins?.value / Math.pow(10, aptosCoin?.metadata?.decimals))) *
     100;
   const TVL = (
-    props?.cards?.data?.stake_coins?.value / Math.pow(10, 8)
-  ).toFixed(8);
-  const staked = (props?.userResource?.amount / Math.pow(10, 8)).toFixed(8);
-  const earned = (props?.userResource?.earned_reward / Math.pow(10, 8)).toFixed(
-    8
+    props?.cards?.data?.stake_coins?.value / Math.pow(10, aptosCoin?.metadata?.decimals)
+  ).toFixed(aptosCoin?.metadata?.decimals);
+  const staked = (props?.userResource?.amount / Math.pow(10, aptosCoin?.metadata?.decimals)).toFixed(aptosCoin?.metadata?.decimals);
+  const earned = (props?.userResource?.earned_reward / Math.pow(10, aptosCoin?.metadata?.decimals)).toFixed(
+    aptosCoin?.metadata?.decimals
   );
   const curve = props?.cards?.type?.includes("Uncorrelated");
-  const aptosCoin = selectCoinsArr.find((v:any)=>v.asset_type == "0x1::aptos_coin::AptosCoin")
 console.log(props.index,'cards')
   return (
     <MainDiv>

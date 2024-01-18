@@ -125,12 +125,12 @@ const Design1BellowHeader: React.FC<Props> = () => {
             {balance?.data ? (
               //  balance?.data?.coin?.value
               <h3>
-                {(aptosCoin.metadata?.decimals/ 10 ** 8).toFixed(8)} APT</h3>
+                {(balance?.data?.coin?.value/ 10 ** aptosCoin?.metadata?.decimals).toFixed(aptosCoin?.metadata?.decimals)} APT</h3>
             ) : (
               ""
             )}
             <p>
-              Balance <InfoOutlinedIcon /> {aptosCoin.metadata?.decimals}
+              Balance <InfoOutlinedIcon />
             </p>
           </div>
         </div>
