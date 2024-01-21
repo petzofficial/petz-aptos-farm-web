@@ -747,10 +747,13 @@ console.log(currentItems,'currentItems')
         moduleAddress2,
         `${moduleAddress2}::stake::StakePool<0x9cc3c27b8d398ab6fc82cbc9dc6b43bb9164f72da465631628163822662a8580::lp_coin::LP<0xc0acbd3f0dc1d5361f8315e60fcbc577a41be51f049ca092ae6db7fa8609fab5::moon_coin::MoonCoin, 0x1::aptos_coin::AptosCoin, 0x45ef7a3a1221e7c10d190a550aa30fa5bc3208ed06ee3661ec0afa3d8b418580::curves::Uncorrelated>, 0x1::aptos_coin::AptosCoin>`,
       );
-      const newObj = { ...stakePoolResource, images }
-      const finalObj=CardsData.unshift(newObj)
-      console.log(finalObj,'finalObj')
-      // setStakeResource([...stakeResource, finalObj])
+      const newObj = { ...stakePoolResource, images,active
+        : 
+        "Active",myForm
+        : 
+        "All Farms" }
+      CardsData.unshift(newObj)
+      setStakeResource([...stakeResource, CardsData])
       const eventResource = await provider.getEventsByCreationNumber(
         account?.address,
         "6",
@@ -775,10 +778,10 @@ console.log(currentItems,'currentItems')
     fetchList();
   }, [account?.address]);
   useEffect(() => {
-    setStakeResource([...stakeResource,CardsData])
-    setStakeResource(CardsData.filter((v) =>
-      v.active === selectedType && v.myForm === selectedFarm))
-  }, [selectedType])
+    //setStakeResource([...stakeResource, CardsData])
+    setStakeResource(CardsData.filter((v,index) =>
+    v.active === selectedType && v.myForm === selectedFarm))
+  }, [selectedType, CardsData.length])
   const onChange = (e:any)=>{
     if (CardsData && e.target.value !== '') {
       setStakeResource(CardsData?.filter((v, k) => {
