@@ -699,7 +699,7 @@ const FarmsTable: FC = () => {
   const currentItems = CardsData.slice(itemOffset, endOffset) as any;
 
   
-console.log(currentItems,'currentItems')
+console.log(itemOffset,'itemOffset')
   useEffect(() => {
     dispatch(fetchCoinsAction(account?.address));
   }, [dispatch, account, newNetwork]);
@@ -717,7 +717,9 @@ console.log(currentItems,'currentItems')
   };
   useEffect(() => {
     // Fetch items from another resources.
-    setStakeResource(CardsData.slice(itemOffset, endOffset)) as any;
+    const dataCheck = CardsData.slice(itemOffset, endOffset)
+    setStakeResource(dataCheck.filter((v,index) =>
+    v.active === selectedType && v.myForm === selectedFarm))
       //setStakeResource(currentItems)as any;
   }, [itemOffset, itemsPerPage]);
 
@@ -779,12 +781,13 @@ console.log(currentItems,'currentItems')
   }, [account?.address]);
   useEffect(() => {
     //setStakeResource([...stakeResource, CardsData])
-    setStakeResource(CardsData.filter((v,index) =>
+    const dataCheck = CardsData.slice(itemOffset, endOffset)
+    setStakeResource(dataCheck.filter((v,index) =>
     v.active === selectedType && v.myForm === selectedFarm))
-  }, [selectedType, CardsData.length])
+  }, [selectedType, CardsData.length, itemOffset])
   const onChange = (e:any)=>{
-    if (CardsData && e.target.value !== '') {
-      setStakeResource(CardsData?.filter((v, k) => {
+    if (stakeResource && e.target.value !== '') {
+      setStakeResource(stakeResource?.filter((v, k) => {
           if (v?.active?.toLowerCase().startsWith(e.target.value.toLowerCase())) {
           return v
         } else if (v?.myForm?.toLowerCase().startsWith(e.target.value.toLowerCase())) {
@@ -795,7 +798,7 @@ console.log(currentItems,'currentItems')
       }
       ))
     } else {
-      return setStakeResource(CardsData)
+      return setStakeResource(stakeResource)
     }
 
 
@@ -815,6 +818,7 @@ console.log(currentItems,'currentItems')
       <TableDiv>
         {account ? (
           <>
+          {stakeResource?.length > 0 ? (
             <div className="CardsMaindiv">
               {stakeResource?.map((cards: any, index: any) => (
                 <FarmCardTemplate
@@ -828,6 +832,21 @@ console.log(currentItems,'currentItems')
                 />
               ))}
             </div>
+            ):(
+              <p
+              style={{
+                minHeight: 400,
+                fontWeight: "bolder",
+                fontSize: "x-large",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              No farms data available
+            </p>
+            )}
             <div className="pagination">
               <ReactPaginate
                 breakLabel="..."
