@@ -699,7 +699,6 @@ const FarmsTable: FC = () => {
   const currentItems = CardsData.slice(itemOffset, endOffset) as any;
 
   
-console.log(itemOffset,'itemOffset')
   useEffect(() => {
     dispatch(fetchCoinsAction(account?.address));
   }, [dispatch, account, newNetwork]);
@@ -725,7 +724,6 @@ console.log(itemOffset,'itemOffset')
 
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % CardsData.length;
-    console.log(newOffset,'newOffset')
     setItemOffset(newOffset);
    
     //setStakeResource(currentItems)as any;
@@ -805,7 +803,6 @@ console.log(itemOffset,'itemOffset')
     // setStakeResource(CardsData.filter((v) =>
     //   v.active === e.target.value && v.myForm === selectedFarm))
   }
-  console.log(stakeResource, 'CardsData')
   return (
     <div>
       <SearchBar 
