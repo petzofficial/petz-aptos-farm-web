@@ -677,10 +677,10 @@ const CardsData: ICardData2[] = [
 const FarmsTable: FC = () => {
   const newNetwork = useAppSelector(selectNewNetwork) as any;
   const [selectedFarm, setSelectedFarm] = React.useState<string | null>(
-    "All Farms"
+    "Select"
   );
   const [selectedType, setSelectedType] = React.useState<string | null>(
-    "Active"
+    "Select"
   );
   const provider = getWalletNetwork(newNetwork)
   const transactions = useAppSelector(selectTransactions);
@@ -728,6 +728,10 @@ const FarmsTable: FC = () => {
    
     //setStakeResource(currentItems)as any;
   };
+  const reset = () => {
+    setSelectedFarm("Select")
+    setSelectedType("Select")
+  }
   const { account: acc } = useWallet();
 
   const moduleAddress2 = "0x82afe3de6e9acaf4f2de72ae50c3851a65bb86576198ef969937d59190873dfd";
@@ -781,7 +785,7 @@ const FarmsTable: FC = () => {
     //setStakeResource([...stakeResource, CardsData])
     const dataCheck = CardsData.slice(itemOffset, endOffset)
     setStakeResource(dataCheck.filter((v,index) =>
-    v.active === selectedType && v.myForm === selectedFarm))
+    v.active === selectedType && v.myForm === selectedFarm ? v : selectedType == "Select" && selectedFarm == "Select"))
   }, [selectedType, CardsData.length, itemOffset])
   const onChange = (e:any)=>{
     if (stakeResource && e.target.value !== '') {
@@ -811,6 +815,7 @@ const FarmsTable: FC = () => {
         selectedType={selectedType}
         setSelectedType={setSelectedType}
         onChange={onChange}
+        reset={reset}
         />
       <TableDiv>
         {account ? (
