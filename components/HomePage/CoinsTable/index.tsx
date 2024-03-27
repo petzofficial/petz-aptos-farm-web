@@ -152,7 +152,7 @@ const CoinsTable: FC = () => {
                       {coins?.metadata?.name}
                     </TableCell>
                     <TableCell>
-                      {coins?.amount / 10 ** coins?.metadata?.decimals}
+                      {coins?.amount / 10 ** 8}
                       <span>{coins?.metadata?.symbol}</span>
                     </TableCell>
                     <TableCell>{coins?.asset_type}</TableCell>

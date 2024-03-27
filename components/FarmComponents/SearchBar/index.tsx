@@ -15,10 +15,15 @@ import Button from "@mui/material/Button";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import SearchIcon from "../../../assets/search.svg";
 
-const SearchBar = (props: any) => {
+const SearchBar = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [anchorEl1, setAnchorEl1] = React.useState<null | HTMLElement>(null);
-  
+  const [selectedFarm, setSelectedFarm] = React.useState<string | null>(
+    "All Farms"
+  );
+  const [selectedType, setSelectedType] = React.useState<string | null>(
+    "Active"
+  );
   const open = Boolean(anchorEl);
   const open1 = Boolean(anchorEl1);
   const dispatch = useAppDispatch();
@@ -43,11 +48,11 @@ const SearchBar = (props: any) => {
   };
 
   const handleMenuItemClick = (itemName: string) => {
-    props.setSelectedFarm(itemName);
+    setSelectedFarm(itemName);
     handleClose();
   };
   const handleFarmValidityClick = (itemName: string) => {
-    props.setSelectedType(itemName);
+    setSelectedType(itemName);
     handleClose2();
   };
 
@@ -71,7 +76,7 @@ const SearchBar = (props: any) => {
           }}
           endIcon={<KeyboardArrowDownIcon />}
         >
-          {props.selectedFarm}
+          {selectedFarm}
         </Button>
         <Menu
           id="fade-menu"
@@ -126,7 +131,7 @@ const SearchBar = (props: any) => {
           }}
           endIcon={<KeyboardArrowDownIcon />}
         >
-          {props.selectedType}
+          {selectedType}
         </Button>
         <Menu
           id="fade-menu2"
@@ -173,7 +178,7 @@ const SearchBar = (props: any) => {
           className="search_icon"
           style={{ width: 16, height: 16 }}
         />
-        <input className="searchBar" type="search" placeholder="Search Pools" onChange={props.onChange} />
+        <input className="searchBar" type="search" placeholder="Search Pools" />
       </div>
     </div>
   );

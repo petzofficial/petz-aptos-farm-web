@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { ICardData } from "types/cardsTypes";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useAppSelector } from "app/hooks";
-import { selectNewNetwork, selectCoins } from "app/reducers/AccountSlice";
+import { selectNewNetwork } from "app/reducers/AccountSlice";
 import { getWalletNetwork } from "utils/aptosNetWorks/AptosNetworks";
 
 const MainDiv = styled.div`
@@ -141,7 +141,6 @@ import { ICardData } from '../../../types/cardsTypes';
 const FarmCardTemplate = (props: any) => {
   const { account, signAndSubmitTransaction } = useWallet();
   const newNetwork = useAppSelector(selectNewNetwork) as any;
-  const selectCoinsArr = useAppSelector(selectCoins) as any;
   const provider = getWalletNetwork(newNetwork);
 
   const moduleAddress2 =
@@ -192,31 +191,30 @@ const FarmCardTemplate = (props: any) => {
   useLayoutEffect(() => {
     setTimeLeft2(unixTimestamp2);
   }, [unixTimestamp2]);
-  
+
   // Get the various components of the date
   const month2 = date2.getMonth() + 1 - (todayDate.getMonth() + 1); // Month is 0-indexed, so we add 1
   const day2 = date2.getDate() - todayDate.getDate();
   const hours2 = date2.getHours() - todayDate.getHours();
-  
-  const aptosCoin = selectCoinsArr.find((v:any)=>v.asset_type == "0x1::aptos_coin::AptosCoin")
+
   const RPS = (
     (props?.cards?.data?.reward_per_sec * 604800) /
-    Math.pow(10, aptosCoin?.metadata?.decimals)
-  ).toFixed(aptosCoin?.metadata?.decimals);
+    Math.pow(10, 8)
+  ).toFixed(8);
   const APR =
     ((props?.cards?.data?.reward_per_sec * 31536000) /
-      Math.pow(10, aptosCoin?.metadata?.decimals) /
-      (props?.cards?.data?.stake_coins?.value / Math.pow(10, aptosCoin?.metadata?.decimals))) *
+      Math.pow(10, 8) /
+      (props?.cards?.data?.stake_coins?.value / Math.pow(10, 8))) *
     100;
   const TVL = (
-    props?.cards?.data?.stake_coins?.value / Math.pow(10, aptosCoin?.metadata?.decimals)
-  ).toFixed(aptosCoin?.metadata?.decimals);
-  const staked = (props?.userResource?.amount / Math.pow(10, aptosCoin?.metadata?.decimals)).toFixed(aptosCoin?.metadata?.decimals);
-  const earned = (props?.userResource?.earned_reward / Math.pow(10, aptosCoin?.metadata?.decimals)).toFixed(
-    aptosCoin?.metadata?.decimals
+    props?.cards?.data?.stake_coins?.value / Math.pow(10, 8)
+  ).toFixed(8);
+  const staked = (props?.userResource?.amount / Math.pow(10, 8)).toFixed(8);
+  const earned = (props?.userResource?.earned_reward / Math.pow(10, 8)).toFixed(
+    8
   );
   const curve = props?.cards?.type?.includes("Uncorrelated");
-console.log(props.index,'cards')
+
   return (
     <MainDiv>
       <div className="sec1_mainDiv">
@@ -240,10 +238,7 @@ console.log(props.index,'cards')
           </>
         )}
         <div className="main_heading">
-          <h3>
-            {/* MOON/APTU */}
-          {selectCoinsArr[props.index]?.metadata?.symbol} 
-          </h3>
+          <h3>MOON/APTU</h3>
           <span>
             {props?.cards?.images?.graphLogo?.src && (
               <Image
@@ -329,13 +324,6 @@ console.log(props.index,'cards')
               />
             </p>
           </div>
-          {/* <div className="point1">
-            <span>Status:</span>
-            <p>
-             {props?.cards?.active} {props?.cards?.myForm} 
-            </p>
-          </div> */}
-          
         </div>
         <hr />
         <div className="cardbuttons_main">
