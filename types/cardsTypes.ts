@@ -45,4 +45,6 @@ export interface ICardData2 {
     staked: string;
     earned: string;
     timeLeft: string;
+    active:string,
+    myForm:string
 }

@@ -8,6 +8,7 @@ import {
   fetchBalanceDetailsAction,
   selectAccount,
   selectBalanceDetails,
+  selectCoins
 } from "app/reducers/AccountSlice";
 import {
   convertToDecimal,
@@ -72,6 +73,7 @@ const Design1BellowHeader: React.FC<Props> = () => {
   const [isMobile, setIsMobile] = useState(false);
   const balance = useAppSelector(selectBalanceDetails) as any;
   const userAccount = useAppSelector(selectAccount);
+  const selectCoinsArr = useAppSelector(selectCoins) as any;
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchBalanceDetailsAction(userAccount?.address));
@@ -88,6 +90,7 @@ const Design1BellowHeader: React.FC<Props> = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  const aptosCoin = selectCoinsArr.find((v:any)=>v.asset_type == "0x1::aptos_coin::AptosCoin")
   return (
     <div>
       <BellowHeader1>
@@ -120,7 +123,9 @@ const Design1BellowHeader: React.FC<Props> = () => {
           </div>
           <div className="rightSec">
             {balance?.data ? (
-              <h3>{balance?.data?.coin?.value / 10 ** 8} APT</h3>
+              //  balance?.data?.coin?.value
+              <h3>
+                {(balance?.data?.coin?.value/ 10 ** aptosCoin?.metadata?.decimals).toFixed(aptosCoin?.metadata?.decimals)} APT</h3>
             ) : (
               ""
             )}
