@@ -4,7 +4,7 @@ const Tokenomics: React.FC = () => {
   return (
     <div className={Tokenomicscss.tokenomicsWrap}>
       <div className={Tokenomicscss.tokenomicsContainner}>
-        <h1> Tokenomics </h1>
+        <h1>Tokenomics</h1>
         <div className={Tokenomicscss.coinCard}>
           <div className={Tokenomicscss.left}>
             <img src="/Home/Tokenomics/pgt-1.png" alt="coin" />

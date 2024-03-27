@@ -10,9 +10,14 @@ const Status: React.FC = () => {
       <div className={Statuscss.StatusContainner}>
         <h1>PetZ Money Stats</h1>
         <div className={Statuscss.CardContainner}>
-        {nums.map((index) => (
-          <StatusCard key={index}/>
-        ))}
+      
+          <StatusCard />
+          <StatusCard />
+          <StatusCard />
+          <StatusCard />
+          <StatusCard />
+          <StatusCard />
+      
         </div>
       </div>
     </div>

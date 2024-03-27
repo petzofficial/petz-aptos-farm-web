@@ -12,7 +12,7 @@ const HeroSectoin: React.FC = () => {
           <p>Boost Productivity with Focus, Achievement and Effort</p>
           <button className={`btn + ${HeroSectioncss.submitConnect}`}>
 
-            Buy PGT
+            BUY PGT
           </button>
          {/*  <button className={HeroSectioncss.submitTrade}> Trade Now</button> */}
         </div>
